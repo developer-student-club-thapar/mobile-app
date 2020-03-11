@@ -6,11 +6,6 @@ class Events extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: BoxDecoration(
-      //   border: Border.all(
-      //     width : 1
-      //   )
-      // ),
       height: kheight(context) * 0.3,
       width: kwidth(context) * 0.75,
       child: Stack(

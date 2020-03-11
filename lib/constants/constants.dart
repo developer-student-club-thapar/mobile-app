@@ -7,5 +7,8 @@ double kheight(BuildContext context){
 double kwidth(BuildContext context){
   return MediaQuery.of(context).size.width;
 }
-
-TextStyle kMenuTextStyle = GoogleFonts.poppins( color: Colors.blue, fontSize: 10.0, fontWeight: FontWeight.w300);
+TextStyle kMenuTextStyle = GoogleFonts.poppins(
+    color: Colors.grey, fontSize: 30.0, fontWeight: FontWeight.w300);
+TextStyle kMemberCardTitle = GoogleFonts.poppins(
+  color:Colors.grey , fontSize: 18 , fontWeight: FontWeight.bold
+);
