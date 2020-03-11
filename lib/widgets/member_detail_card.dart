@@ -30,8 +30,8 @@ class MemberCard extends StatelessWidget {
                   ),
                   Padding(
                       padding: EdgeInsets.all(5),
-                      child: Text('Ramyak Mehra', style: kMemberCardTitle)),
-                  Text('App Developer'),
+                      child: Text('Name', style: kMemberCardTitle)),
+                  Text('Designation'),
                   Row()
                 ]),
           ),
