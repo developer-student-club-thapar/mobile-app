@@ -1,18 +1,34 @@
-class Team {
+class TeamDetails {
+  List<TeamCategory> category;
+
+  TeamDetails({this.category});
+
+  factory TeamDetails.fromJson(List<dynamic> parsedJson) {
+
+    List<TeamCategory> category =  List<TeamCategory>();
+    category = parsedJson.map((i)=>TeamCategory.fromJson(i)).toList();
+
+    return  TeamDetails(
+       category: category,
+    );
+  }
+}
+
+class TeamCategory {
   int id;
   String name;
   List<Heads> heads;
   List<Members> members;
 
-  Team({this.id, this.name, this.heads, this.members});
+  TeamCategory({this.id, this.name, this.heads, this.members});
 
-  Team.fromJson(Map<String, dynamic> json) {
+  TeamCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     if (json['heads'] != null) {
-      heads = new List<Heads>();
+      heads =  List<Heads>();
       json['heads'].forEach((v) {
-        heads.add(new Heads.fromJson(v));
+        heads.add(Heads.fromJson(v));
       });
     }
     if (json['members'] != null) {
@@ -89,6 +105,7 @@ class Heads {
     return data;
   }
 }
+
 class Members {
   int id;
   String name;

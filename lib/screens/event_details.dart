@@ -8,8 +8,8 @@ class EventDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Card(
-              child: Container(
-          
+        elevation: 5,
+        child: Container(
           height: 60.0,
           width: kwidth(context),
           child: RaisedButton(
@@ -17,11 +17,17 @@ class EventDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Icon(Icons.event_available , color: Colors.white, size: 45.0,),
-              
+                Icon(
+                  Icons.event_available,
+                  color: Colors.white,
+                  size: 40.0,
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(left:8.0),
-                  child: Text('Going' , style: kMenuTextStyle,),
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'Going',
+                    style: kMenuTextStyle,
+                  ),
                 )
               ],
             ),
@@ -34,7 +40,7 @@ class EventDetails extends StatelessWidget {
       ),
       body: CustomScrollView(
         scrollDirection: Axis.vertical,
-        // shrinkWrap: true,
+        shrinkWrap: true,
         slivers: <Widget>[
           SliverAppBar(
             backgroundColor: bgcolor,

@@ -12,7 +12,12 @@ double kwidth(BuildContext context) {
 TextStyle kMenuTextStyle = GoogleFonts.poppins(
     color: Colors.grey, fontSize: 30.0, fontWeight: FontWeight.w300);
 TextStyle kMemberCardTitle = GoogleFonts.poppins(
-    color: Colors.grey, fontSize: 18, fontWeight: FontWeight.bold);
+    color: Colors.grey, fontSize: 13, fontWeight: FontWeight.bold);
+
+TextStyle KMemberCategryStyle = GoogleFonts.poppins(
+    color: Colors.black, fontSize: 30.0, fontWeight: FontWeight.w300);
+TextStyle KMemberCategryStyleHeading = GoogleFonts.poppins(
+    color: Colors.grey, fontSize: 28.0, fontWeight: FontWeight.w300);
 
 Color redColor = Color.fromRGBO(219, 68, 55, 1);
 Color blueColor = Color.fromRGBO(66, 133, 244, 1);

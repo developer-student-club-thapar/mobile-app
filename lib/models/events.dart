@@ -1,4 +1,17 @@
 class Event {
+  List<EventDetail> detailedEvent;
+  Event({this.detailedEvent});
+  factory Event.fromJson(List<dynamic> parsedJson) {
+    List<EventDetail> detailedEvent = List<EventDetail>();
+    detailedEvent = parsedJson.map((i) => EventDetail.fromJson(i)).toList();
+
+    return Event(
+      detailedEvent: detailedEvent,
+    );
+  }
+}
+
+class EventDetail {
   int id;
   String date;
   String time;
@@ -10,7 +23,7 @@ class Event {
   String docs;
   bool headlineEvent;
 
-  Event(
+  EventDetail(
       {this.id,
       this.date,
       this.time,
@@ -22,7 +35,7 @@ class Event {
       this.docs,
       this.headlineEvent});
 
-  Event.fromJson(Map<String, dynamic> json) {
+  EventDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     date = json['date'];
     time = json['time'];
