@@ -1,5 +1,8 @@
 import 'package:dsc_app/screens/home.dart';
+import 'package:dsc_app/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'package:dsc_app/screens/teams.dart';
 
 void main() => runApp(DscApp());
 
@@ -9,7 +12,8 @@ class DscApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => Team(),
+        '/menu': (context) => MenuScreen(),
       },
     );
   }

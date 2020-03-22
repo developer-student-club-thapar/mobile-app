@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Events extends StatelessWidget {
+  final String title;
+  final String topic;
+  final String content;
+  final Function onClick;
+  Events({this.title, this.topic, this.content , this.onClick});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -31,7 +37,7 @@ class Events extends StatelessWidget {
                             shape: BoxShape.rectangle),
                         child: Center(
                           child: Text(
-                            'MOBILE DEV',
+                            topic,
                             style: GoogleFonts.poppins(
                               fontSize: 12,
                               color: Colors.white,
@@ -43,17 +49,17 @@ class Events extends StatelessWidget {
                       Container(
                         child: Center(
                           child: Text(
-                            'AppDev201 Using FLutter',
+                            title,
                             style: GoogleFonts.poppins(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
                       Container(
-                        width: kwidth(context) * 0.75,
+                        width: kwidth(context) * 0.7,
                         child: Text(
-                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry industry industry industry industry',
-                          maxLines: 3,
+                          content,
+                          maxLines: 2,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.poppins(
@@ -63,9 +69,7 @@ class Events extends StatelessWidget {
                         ),
                       ),
                       RaisedButton(
-                        onPressed: () {
-                          print(kwidth(context));
-                        },
+                        onPressed: onClick,
                         color: blueColor,
                         textColor: Colors.white,
                         child: Text(
@@ -79,23 +83,22 @@ class Events extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('lib/assets/dsc_logo.png'),
-                    ),
+            Positioned(
+              left: (kwidth(context) * 0.5) - 90,
+              child: Container(
+                height: 70,
+                width: 70,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.grey),
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('lib/assets/dsc_logo.png'),
                   ),
                 ),
-              ],
-            ),
+              ),
+            )
           ],
         ),
       ),
