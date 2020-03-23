@@ -136,7 +136,7 @@ class TeamCategoryBuilder extends StatelessWidget {
 }
 
 //Gettting the data from api
-Future<TeamDetails> getData() async {
+Future getData() async {
   var response = await http
       .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
 
