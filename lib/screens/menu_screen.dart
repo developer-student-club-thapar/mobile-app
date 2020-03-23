@@ -28,17 +28,10 @@ class MenuScreen extends StatelessWidget {
                 alignment: Alignment.center,
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Text('HOME', style: kMenuTextStyle),
-              ),
+            
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text('HOME', style: kMenuTextStyle),
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),

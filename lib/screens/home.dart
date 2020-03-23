@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
       body: SafeArea(
           child: ListView(
         children: <Widget>[
-          CustomAppBar(),
+          
           SizedBox(
             height: 30,
           ),
