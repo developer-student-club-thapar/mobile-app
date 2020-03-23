@@ -35,10 +35,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(title: 'DSC TIET'),
       body: SafeArea(
           child: ListView(
         children: <Widget>[
-          CustomAppBar(title: 'DSC TIET'),
+          
           SizedBox(
             height: 30,
           ),
