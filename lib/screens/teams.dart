@@ -1,7 +1,9 @@
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/member_detail_card.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dsc_app/models/team.dart';
@@ -25,25 +27,8 @@ class _TeamState extends State<Team> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          CustomAppBar(),
-          SizedBox(
-            height: 30,
-          ),
-          Center(
-            child: Container(
-              child: Text("Meet the team",
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold)),
-            ),
-          ),
-          SizedBox(height: 20),
-          TeamCategoryBuilder(),
-        ],
-      ),
+      appBar: CustomAppBar(title: 'DSC TIET'),
+      body: TeamCategoryBuilder(),
     );
   }
 }
@@ -61,70 +46,87 @@ class TeamCategoryBuilder extends StatelessWidget {
             return Container();
           }
           if (snapshot.hasData) {
-            return ListView.builder( // need to fix this
+            return ListView.builder( 
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
+                dragStartBehavior: DragStartBehavior.start,
                 itemCount: _team.category.length,
                 itemBuilder: (BuildContext context, int index) {
                   TeamCategory _teamCategory = _teamData.category[index];
-                  return Column(
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration( //Decoration for category title
-                          color: getColor(index),
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(10.0),
-                            topLeft: Radius.circular(10.0),
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Center(
+                          child: Container(
+                          child: Text("Meet the team",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontSize: 35.0,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          decoration: BoxDecoration( //Decoration for category title
+                            color: getColor(index),
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(10.0),
+                              topLeft: Radius.circular(10.0),
+                            ),
+                          ),
+                          child: Text(
+                            _teamCategory.name, //Category name
+                            style: KMemberCategryStyle,
                           ),
                         ),
-                        child: Text(
-                          _teamCategory.name, //Category name
-                          style: KMemberCategryStyle,
+                        SizedBox(
+                          height: 30.0,
                         ),
-                      ),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Text(
-                        "Head",
-                        style: KMemberCategryStyleHeading,
-                      ),
-                      CarouselSlider.builder(
-                          // Carousel for building the heads card
-                          height: 270,
-                          itemCount: _teamCategory.heads.length,
-                          enableInfiniteScroll: false,
-                          itemBuilder: (BuildContext context, int i) {
-                            return MemberCard(
-                              name: _teamCategory.heads[i].name,
-                              image: _teamCategory.heads[i].image,
-                              role: _teamCategory.heads[i].role,
-                              id: i,
-                            );
-                          }),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Text(
-                        "Members",
-                        style: KMemberCategryStyleHeading,
-                      ),
-                      CarouselSlider.builder(
-                          // Carousel for building the members card
-                          height: 270,
-                          itemCount: _teamData.category[index].members.length,
-                          enableInfiniteScroll: false,
-                          itemBuilder: (BuildContext context, int j) {
-                            return MemberCard(
-                              name: _teamCategory.members[j].name,
-                              image: _teamCategory.members[j].image,
-                              role: _teamCategory.members[j].role,
-                              id: j,
-                            );
-                          }),
-                    ],
+                        Text(
+                          "Head",
+                          style: KMemberCategryStyleHeading,
+                        ),
+                        CarouselSlider.builder(
+                            // Carousel for building the heads card
+                            height: 270,
+                            itemCount: _teamCategory.heads.length,
+                            enableInfiniteScroll: false,
+                            itemBuilder: (BuildContext context, int i) {
+                              return MemberCard(
+                                name: _teamCategory.heads[i].name,
+                                image: _teamCategory.heads[i].image,
+                                role: _teamCategory.heads[i].role,
+                                id: i,
+                              );
+                            }),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          "Members",
+                          style: KMemberCategryStyleHeading,
+                        ),
+                        CarouselSlider.builder(
+                            // Carousel for building the members card
+                            height: 270,
+                            itemCount: _teamData.category[index].members.length,
+                            enableInfiniteScroll: false,
+                            itemBuilder: (BuildContext context, int j) {
+                              return MemberCard(
+                                name: _teamCategory.members[j].name,
+                                image: _teamCategory.members[j].image,
+                                role: _teamCategory.members[j].role,
+                                id: j,
+                              );
+                            }),
+                      ],
+                    ),
                   );
-                });
+                },  
+              );
           } else
             return Center(
                 child: Container(

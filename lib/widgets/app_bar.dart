@@ -15,18 +15,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       child: Container(
         child: Row(
+          
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/home');
+              },
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-              child: Image(
-                image: AssetImage('lib/assets/dsc_logo.png'),
-                height: MediaQuery.of(context).size.height * 0.0345394736830744,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+                child: Image(
+                  image: AssetImage('lib/assets/dsc_logo.png'),
+                  height: MediaQuery.of(context).size.height * 0.0345394736830744,
+                ),
               ),
             ),
-
             Align(
               alignment: Alignment.centerRight,
               child: Text(
@@ -34,15 +39,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 style: GoogleFonts.poppins(fontSize: 25),
               ),
             ),
+            
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/menu');
+              },
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-              child: Image(
-                image: AssetImage('lib/assets/menu_icon.png'),
-                height: MediaQuery.of(context).size.height * 0.0345394736830744,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+                child: Image(
+                  image: AssetImage('lib/assets/menu_icon.png'),
+                  height: MediaQuery.of(context).size.height * 0.0345394736830744,
+                ),
               ),
             ),
-
           ],
         ),
       ),
