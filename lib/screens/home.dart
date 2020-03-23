@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
       body: SafeArea(
           child: ListView(
         children: <Widget>[
-          CustomAppBar(),
+          CustomAppBar(title: 'DSC TIET'),
           SizedBox(
             height: 30,
           ),

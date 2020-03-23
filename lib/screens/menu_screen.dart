@@ -25,6 +25,7 @@ class MenuScreen extends StatelessWidget {
                 alignment: Alignment.center,
               ),
             ),
+            
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Text('HOME', style: kMenuTextStyle),

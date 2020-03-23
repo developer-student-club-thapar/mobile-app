@@ -27,7 +27,7 @@ class _TeamState extends State<Team> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          CustomAppBar(),
+          CustomAppBar(title: 'DSC TIET'),
           SizedBox(
             height: 30,
           ),
