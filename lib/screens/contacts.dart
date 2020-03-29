@@ -130,7 +130,7 @@ class _MyContactFormState extends State<MyContactForm> {
                             });
                           }
                         },
-                        child: Text('Submit'),
+                        child: Text('Submit', style: TextStyle(color: Colors.white),),
                       ),
                     ),
 
