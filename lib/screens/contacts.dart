@@ -118,7 +118,8 @@ class _MyContactFormState extends State<MyContactForm> {
 
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: RaisedButton(
+                      child: FlatButton(
+                        color: Color(0xff34A853),
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
