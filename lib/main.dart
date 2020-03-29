@@ -18,7 +18,7 @@ class DscApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => Team(),
+        '/': (context) => Home(),
         '/menu': (context) => MenuScreen(),
         '/home': (context) => Home(),
       },
