@@ -15,17 +15,19 @@ class _ContactsState extends State<Contacts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'DSC TIET'),
-      body: Column(
-        children: <Widget>[
-          MyContactForm(),
-          Container(
-            child: new Image.asset(
-              'lib/assets/undraw_contact_us_15o2.b5af09c2.png',
-              //height: 60.0,
-              fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            MyContactForm(),
+            Container(
+              child: Image.asset(
+                'lib/assets/undraw_contact_us_15o2.b5af09c2.png',
+                //height: 60.0,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
