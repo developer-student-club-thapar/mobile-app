@@ -16,7 +16,7 @@ class DscApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/contacts',
+      initialRoute: '/',
       routes: {
         '/': (context) => Team(),
         '/menu': (context) => MenuScreen(),
