@@ -1,4 +1,5 @@
-import 'package:dsc_app/constants/constants.dart';
+import 'package:dsc_app/widgets/error.dart';
+import 'package:dsc_app/widgets/success.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -138,51 +139,9 @@ class _MyContactFormState extends State<MyContactForm> {
             future: _futureContactDetails,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Center(
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(12.0),
-                      side: BorderSide(color: Colors.lightBlueAccent),
-                    ),
-                    color: Colors.lightBlueAccent,
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/contacts');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Text(
-                        'Successfully Sent! \nSend Another one ?',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+                return SuccessPage();
               } else if (snapshot.hasError) {
-                return Center(
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(12.0),
-                      side: BorderSide(color: Colors.redAccent),
-                    ),
-                    color: Colors.redAccent,
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/contacts');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Error! \n Retry',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+                return ErrorPage();
               }
 
               return CircularProgressIndicator();
