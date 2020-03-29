@@ -22,7 +22,9 @@ class DscApp extends StatelessWidget {
         '/menu': (context) => MenuScreen(),
         '/home': (context) => Home(),
         '/contacts': (context) => Contacts(),
+
       },
+      
     );
   }
 }

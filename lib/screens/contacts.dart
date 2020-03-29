@@ -15,20 +15,7 @@ class _ContactsState extends State<Contacts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'DSC TIET'),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            MyContactForm(),
-            Container(
-              child: Image.asset(
-                'lib/assets/undraw_contact_us_15o2.b5af09c2.png',
-                //height: 60.0,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: MyContactForm(),
     );
   }
 }
@@ -53,98 +40,108 @@ class _MyContactFormState extends State<MyContactForm> {
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Form(
               key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  //Contact form
-                  //contact text
-                  Center(
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                      child: Text(
-                        "Connect With Us!",
-                        style: GoogleFonts.poppins(
-                          color: Color(0xFF676C72),
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w500,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    //Contact form
+                    //contact text
+                    Center(
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                        child: Text(
+                          "Connect With Us!",
+                          style: GoogleFonts.poppins(
+                            color: Color(0xFF676C72),
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  //Name
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter Name',
-                      hintText: 'Name',
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      setState(() {
-                        _name = value;
-                      });
-                    },
-                  ),
-
-                  //Email
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter Email',
-                      hintText: 'Email',
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: validateEmail,
-                    onSaved: (value) {
-                      setState(() {
-                        _email = value;
-                      });
-                    },
-                  ),
-
-                  //Message
-                  Container(
-                    child: TextFormField(
-                      maxLines: 5,
+                    //Name
+                    TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'Enter Message',
-                        hintText: 'Message',
+                        labelText: 'Enter Name',
+                        hintText: 'Name',
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please Enter Your Message';
+                          return 'Please enter your name';
                         }
                         return null;
                       },
                       onSaved: (value) {
                         setState(() {
-                          _message = value;
+                          _name = value;
                         });
                       },
                     ),
-                  ),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15.0),
-                    child: RaisedButton(
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          _formKey.currentState.reset();
-                          setState(() {
-                            _futureContactDetails =
-                                createContactDetails(_name, _email, _message);
-                          });
-                        }
+                    //Email
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Enter Email',
+                        hintText: 'Email',
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: validateEmail,
+                      onSaved: (value) {
+                        setState(() {
+                          _email = value;
+                        });
                       },
-                      child: Text('Submit'),
                     ),
-                  ),
-                ],
+
+                    //Message
+                    Container(
+                      child: TextFormField(
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Message',
+                          hintText: 'Message',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please Enter Your Message';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          setState(() {
+                            _message = value;
+                          });
+                        },
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: RaisedButton(
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            _formKey.currentState.reset();
+                            setState(() {
+                              _futureContactDetails =
+                                  createContactDetails(_name, _email, _message);
+                            });
+                          }
+                        },
+                        child: Text('Submit'),
+                      ),
+                    ),
+
+                    Container(
+                      child: Image.asset(
+                        'lib/assets/undraw_contact_us_15o2.b5af09c2.png',
+                        //height: 60.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           )
