@@ -1,3 +1,6 @@
+import 'package:dsc_app/screens/home.dart';
+import 'package:dsc_app/screens/projects.dart';
+import 'package:dsc_app/screens/teams.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/constants/constants.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -34,13 +37,27 @@ class MenuScreen extends StatelessWidget {
               padding: const EdgeInsets.all(18.0),
               child: Text('EVENTS', style: kMenuTextStyle),
             ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Text('PROJECTS', style: kMenuTextStyle),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Projects()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text('PROJECTS', style: kMenuTextStyle),
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Text('TEAM', style: kMenuTextStyle),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Team()),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text('TEAM', style: kMenuTextStyle),
+              ),
             ),
           ],
         ),

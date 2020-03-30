@@ -1,3 +1,4 @@
+import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/screens/menu_screen.dart';
 import 'package:dsc_app/widgets/screen_transition.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Size preferredSize;
 
-  CustomAppBar({@required this.title})
-      : preferredSize = Size.fromHeight(60.0);
+  CustomAppBar({@required this.title}) : preferredSize = Size.fromHeight(60.0);
 
   @override
   Widget build(BuildContext context) {
@@ -57,5 +57,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
     );
-    }
   }
+}

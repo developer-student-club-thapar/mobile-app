@@ -1,4 +1,5 @@
 import 'package:dsc_app/constants/constants.dart';
+import 'package:dsc_app/networking/networking.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/member_detail_card.dart';
 import 'package:flutter/gestures.dart';
@@ -69,66 +70,67 @@ class TeamCategoryBuilder extends StatelessWidget {
                                   fontSize: 35.0,
                                   fontWeight: FontWeight.bold)),
                         ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          decoration: BoxDecoration( //Decoration for category title
-                            color: getColor(index),
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(10.0),
-                              topLeft: Radius.circular(10.0),
-                            ),
-                          ),
-                          child: Text(
-                            _teamCategory.name, //Category name
-                            style: KMemberCategryStyle,
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          //Decoration for category title
+                          color: getColor(index),
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(10.0),
+                            topLeft: Radius.circular(10.0),
                           ),
                         ),
-                        SizedBox(
-                          height: 30.0,
+                        child: Text(
+                          _teamCategory.name, //Category name
+                          style: KMemberCategryStyle,
                         ),
-                        Text(
-                          "Head",
-                          style: KMemberCategryStyleHeading,
-                        ),
-                        CarouselSlider.builder(
-                            // Carousel for building the heads card
-                            height: 270,
-                            itemCount: _teamCategory.heads.length,
-                            enableInfiniteScroll: false,
-                            itemBuilder: (BuildContext context, int i) {
-                              return MemberCard(
-                                name: _teamCategory.heads[i].name,
-                                image: _teamCategory.heads[i].image,
-                                role: _teamCategory.heads[i].role,
-                                id: i,
-                              );
-                            }),
-                        SizedBox(
-                          height: 30.0,
-                        ),
-                        Text(
-                          "Members",
-                          style: KMemberCategryStyleHeading,
-                        ),
-                        CarouselSlider.builder(
-                            // Carousel for building the members card
-                            height: 270,
-                            itemCount: _teamData.category[index].members.length,
-                            enableInfiniteScroll: false,
-                            itemBuilder: (BuildContext context, int j) {
-                              return MemberCard(
-                                name: _teamCategory.members[j].name,
-                                image: _teamCategory.members[j].image,
-                                role: _teamCategory.members[j].role,
-                                id: j,
-                              );
-                            }),
-                      ],
-                    ),
-                  );
-                },  
-              );
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Text(
+                        "Head",
+                        style: KMemberCategryStyleHeading,
+                      ),
+                      CarouselSlider.builder(
+                          // Carousel for building the heads card
+                          height: 270,
+                          itemCount: _teamCategory.heads.length,
+                          enableInfiniteScroll: false,
+                          itemBuilder: (BuildContext context, int i) {
+                            return MemberCard(
+                              name: _teamCategory.heads[i].name,
+                              image: _teamCategory.heads[i].image,
+                              role: _teamCategory.heads[i].role,
+                              id: i,
+                            );
+                          }),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Text(
+                        "Members",
+                        style: KMemberCategryStyleHeading,
+                      ),
+                      CarouselSlider.builder(
+                          // Carousel for building the members card
+                          height: 270,
+                          itemCount: _teamData.category[index].members.length,
+                          enableInfiniteScroll: false,
+                          itemBuilder: (BuildContext context, int j) {
+                            return MemberCard(
+                              name: _teamCategory.members[j].name,
+                              image: _teamCategory.members[j].image,
+                              role: _teamCategory.members[j].role,
+                              id: j,
+                            );
+                          }),
+                    ],
+                  ),
+                );
+              },
+            );
           } else
             return Center(
                 child: Container(
@@ -139,15 +141,17 @@ class TeamCategoryBuilder extends StatelessWidget {
   }
 }
 
-//Gettting the data from api
-Future<TeamDetails> getData() async {
-  var response = await http
-      .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
+Future getData() async {
 
-  var decodedJson = jsonDecode(response.body);
-  _team = TeamDetails.fromJson(decodedJson);
-  print('got data');
-  return _team;
+    var response = await http
+        .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
+    if (response.statusCode == 200) {
+      var decodedJson = jsonDecode(response.body);
+      _team = TeamDetails.fromJson(decodedJson);
+      return _team;
+    } else
+      return 'error';
+
 }
 
 //Selecting the colour
