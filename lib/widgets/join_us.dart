@@ -45,7 +45,7 @@ class JoinUsState extends State<JoinUs> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FlatButton(
-              onPressed: _launchCoD_URL,
+              onPressed: _launchCoDURL,
               color: redColor,
               shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0),
@@ -67,7 +67,7 @@ class JoinUsState extends State<JoinUs> {
               width: 10,
             ),
             OutlineButton(
-              onPressed: _launchSlack_URL,
+              onPressed: _launchSlackURL,
               borderSide: BorderSide(color: redColor, width: 2),
               shape: StadiumBorder(),
               splashColor: Colors.redAccent[400],
@@ -89,7 +89,7 @@ class JoinUsState extends State<JoinUs> {
   }
 }
 
-_launchCoD_URL() async {
+_launchCoDURL() async {
   const url =
       'https://drive.google.com/file/d/1WtxlBDqnZUh7Os1pSwjvv0WDiaYljB-e/view';
   if (await canLaunch(url)) {
@@ -99,7 +99,7 @@ _launchCoD_URL() async {
   }
 }
 
-_launchSlack_URL() async {
+_launchSlackURL() async {
   const url =
       'https://dscthapar-gspatiala.slack.com/join/shared_invite/enQtNzU2MzA2MjcxNzkyLTkwNDRiNWMzYjUzYjNjYjM0M2JhMDgwOTI3MGQwYWU1NzNlNGMxZGVhNzk0MGZiYTI5YzgwZDhiMTk1MjE4M2M';
   if (await canLaunch(url)) {

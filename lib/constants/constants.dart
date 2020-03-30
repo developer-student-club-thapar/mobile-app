@@ -29,8 +29,6 @@ Color blueColor = Color.fromRGBO(66, 133, 244, 1);
 Color yellowColor = Color.fromRGBO(244, 180, 0, 1);
 Color greenColor = Color.fromRGBO(15, 157, 88, 1);
 
-
-
 Color getColor(int selector) {
   switch (selector) {
     case 1:
@@ -91,4 +89,12 @@ Color getColorButton(int selector) {
       }
       break;
   }
+}
+
+enum SelectedMenu {
+  Home,
+  ContactUs,
+  Team,
+  Projets,
+  Events,
 }

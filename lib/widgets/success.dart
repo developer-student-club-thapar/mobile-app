@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dsc_app/constants/constants.dart';
 
 class SuccessPage extends StatelessWidget {
   @override
@@ -13,16 +14,13 @@ class SuccessPage extends StatelessWidget {
               'lib/assets/undraw_Mail_sent_qwwx.png',
             ),
           ),
-          SizedBox(height:20),
-          FlatButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(5.0),
-              side: BorderSide(color: Colors.lightBlueAccent),
-            ),
-            color: Colors.lightBlueAccent,
+          SizedBox(height: 20),
+          RaisedButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/contacts');
+              Navigator.pushReplacementNamed(context, '/contactus');
             },
+            color: blueColor,
+            textColor: Colors.white,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
@@ -35,21 +33,18 @@ class SuccessPage extends StatelessWidget {
               ),
             ),
           ),
-          
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            child: Text('or'),
-          ),
-
-          FlatButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(5.0),
-              side: BorderSide(color: Colors.lightBlueAccent),
+          Card(
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: Text('or'),
             ),
-            color: Colors.lightBlueAccent,
+          ),
+          RaisedButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/home');
             },
+            color: blueColor,
+            textColor: Colors.white,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
@@ -61,7 +56,7 @@ class SuccessPage extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );

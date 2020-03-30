@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'DSC TIET'),
+      appBar: CustomAppBar(title: 'DSC TIET' , menu: SelectedMenu.Home,),
       body: SafeArea(
           child: ListView(
         children: <Widget>[

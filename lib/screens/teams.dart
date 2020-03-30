@@ -28,7 +28,10 @@ class _TeamState extends State<Team> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'DSC TIET'),
+      appBar: CustomAppBar(
+        title: 'DSC TIET',
+        menu: SelectedMenu.Team,
+      ),
       body: TeamCategoryBuilder(),
     );
   }
@@ -47,23 +50,23 @@ class TeamCategoryBuilder extends StatelessWidget {
             return Container();
           }
           if (snapshot.hasData) {
-            return ListView.builder( 
-                cacheExtent: 1000,
-                addAutomaticKeepAlives: true,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                dragStartBehavior: DragStartBehavior.start,
-                itemCount: _team.category.length,
-                itemBuilder: (BuildContext context, int index) {
-                  TeamCategory _teamCategory = _teamData.category[index];
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Center(
-                          child: Container(
+            return ListView.builder(
+              cacheExtent: 1000,
+              addAutomaticKeepAlives: true,
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              dragStartBehavior: DragStartBehavior.start,
+              itemCount: _team.category.length,
+              itemBuilder: (BuildContext context, int index) {
+                TeamCategory _teamCategory = _teamData.category[index];
+                return SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Center(
+                        child: Container(
                           child: Text("Meet the team",
                               style: GoogleFonts.poppins(
                                   color: Colors.black,
@@ -142,16 +145,14 @@ class TeamCategoryBuilder extends StatelessWidget {
 }
 
 Future getData() async {
-
-    var response = await http
-        .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
-    if (response.statusCode == 200) {
-      var decodedJson = jsonDecode(response.body);
-      _team = TeamDetails.fromJson(decodedJson);
-      return _team;
-    } else
-      return 'error';
-
+  var response = await http
+      .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
+  if (response.statusCode == 200) {
+    var decodedJson = jsonDecode(response.body);
+    _team = TeamDetails.fromJson(decodedJson);
+    return _team;
+  } else
+    return 'error';
 }
 
 //Selecting the colour

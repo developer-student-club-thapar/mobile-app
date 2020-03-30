@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dsc_app/constants/constants.dart';
 
 class ErrorPage extends StatelessWidget {
   @override
@@ -13,27 +14,23 @@ class ErrorPage extends StatelessWidget {
             'lib/assets/undraw_page_not_found_su7k.png',
           ),
         ),
-        FlatButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(5.0),
-            side: BorderSide(color: Colors.redAccent),
-          ),
-          color: Colors.redAccent,
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/contacts');
-          },
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-            child: Text(
-              'Error! \n Retry',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
+        RaisedButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/contactus');
+            },
+            color: redColor,
+            textColor: Colors.white,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+              child: Text(
+                'Error! \n Retry',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
               ),
-            ),
-          ),
-        ),
+            ))
       ],
     );
   }
