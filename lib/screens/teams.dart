@@ -47,6 +47,8 @@ class TeamCategoryBuilder extends StatelessWidget {
           }
           if (snapshot.hasData) {
             return ListView.builder( 
+                cacheExtent: 1000,
+                addAutomaticKeepAlives: true,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 dragStartBehavior: DragStartBehavior.start,
