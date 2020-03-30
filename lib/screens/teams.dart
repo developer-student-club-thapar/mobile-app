@@ -47,21 +47,23 @@ class TeamCategoryBuilder extends StatelessWidget {
             return Container();
           }
           if (snapshot.hasData) {
-            return ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              dragStartBehavior: DragStartBehavior.start,
-              itemCount: _team.category.length,
-              itemBuilder: (BuildContext context, int index) {
-                _teamCategory = _teamData.category[index];
-                return SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: Container(
+            return ListView.builder( 
+                cacheExtent: 1000,
+                addAutomaticKeepAlives: true,
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                dragStartBehavior: DragStartBehavior.start,
+                itemCount: _team.category.length,
+                itemBuilder: (BuildContext context, int index) {
+                  TeamCategory _teamCategory = _teamData.category[index];
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Center(
+                          child: Container(
                           child: Text("Meet the team",
                               style: GoogleFonts.poppins(
                                   color: Colors.black,

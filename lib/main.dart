@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:dsc_app/screens/home.dart';
 import 'package:dsc_app/screens/menu_screen.dart';
 import 'package:dsc_app/screens/teams.dart';
-
+import 'package:dsc_app/screens/contacts.dart';
 void main() => runApp(DscApp());
 
 class DscApp extends StatelessWidget {
@@ -21,7 +21,10 @@ class DscApp extends StatelessWidget {
         '/': (context) => Home(),
         '/menu': (context) => MenuScreen(),
         '/home': (context) => Home(),
+        '/contacts': (context) => Contacts(),
+
       },
+      
     );
   }
 }
