@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dsc_app/screens/teams.dart';
 import 'package:dsc_app/screens/contacts.dart';
+import 'package:dsc_app/screens/welcome_screen.dart';
+import 'package:dsc_app/screens/login.dart';
+import 'package:dsc_app/screens/registration.dart';
 void main() => runApp(DscApp());
 
 class DscApp extends StatelessWidget {
@@ -16,13 +19,15 @@ class DscApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/welcome',
       routes: {
         '/': (context) => Team(),
         '/menu': (context) => MenuScreen(),
         '/home': (context) => Home(),
         '/contacts': (context) => Contacts(),
-
+        '/welcome' : (context) => WelcomeScreen(),
+        '/login' : (context) => Login(),
+        '/registration' : (context) => Registration(),
       },
       
     );
