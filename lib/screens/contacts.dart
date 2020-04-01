@@ -1,3 +1,4 @@
+import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/widgets/error.dart';
 import 'package:dsc_app/widgets/success.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _ContactsState extends State<Contacts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'DSC TIET'),
+      appBar: CustomAppBar(title: 'DSC TIET' , menu: SelectedMenu.ContactUs,),
       body: MyContactForm(),
     );
   }
@@ -45,13 +46,14 @@ class _MyContactFormState extends State<MyContactForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     //Contact form
+
                     //contact text
                     Center(
                       child: Container(
                         margin:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                         child: Text(
-                          "Connect With Us!",
+                          "Contact Us!",
                           style: GoogleFonts.poppins(
                             color: Color(0xFF676C72),
                             fontSize: 30.0,
@@ -61,65 +63,71 @@ class _MyContactFormState extends State<MyContactForm> {
                       ),
                     ),
                     //Name
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Enter Name',
-                        hintText: 'Name',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        setState(() {
-                          _name = value;
-                        });
-                      },
-                    ),
-
-                    //Email
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Enter Email',
-                        hintText: 'Email',
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: validateEmail,
-                      onSaved: (value) {
-                        setState(() {
-                          _email = value;
-                        });
-                      },
-                    ),
-
-                    //Message
-                    Container(
+                    Card(
                       child: TextFormField(
-                        maxLines: 5,
                         decoration: InputDecoration(
-                          labelText: 'Enter Message',
-                          hintText: 'Message',
+                          labelText: 'Enter Name',
+                          hintText: 'Name',
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Please Enter Your Message';
+                            return 'Please enter your name';
                           }
                           return null;
                         },
                         onSaved: (value) {
                           setState(() {
-                            _message = value;
+                            _name = value;
                           });
                         },
                       ),
                     ),
 
+                    //Email
+                    Card(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Enter Email',
+                          hintText: 'Email',
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: validateEmail,
+                        onSaved: (value) {
+                          setState(() {
+                            _email = value;
+                          });
+                        },
+                      ),
+                    ),
+
+                    //Message
+                    Card(
+                      child: Container(
+                        child: TextFormField(
+                          maxLines: 5,
+                          decoration: InputDecoration(
+                            labelText: 'Enter Message',
+                            hintText: 'Message',
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please Enter Your Message';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            setState(() {
+                              _message = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: FlatButton(
-                        color: Color(0xff34A853),
+                      child: RaisedButton(
+                        color: greenColor,
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
@@ -130,7 +138,10 @@ class _MyContactFormState extends State<MyContactForm> {
                             });
                           }
                         },
-                        child: Text('Submit', style: TextStyle(color: Colors.white),),
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
 
@@ -155,7 +166,7 @@ class _MyContactFormState extends State<MyContactForm> {
                 return ErrorPage();
               }
 
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             },
           );
   }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dsc_app/models/events.dart';
+import 'package:dsc_app/screens/event_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class Home extends StatefulWidget {
@@ -35,11 +36,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'DSC TIET'),
+      appBar: CustomAppBar(title: 'DSC TIET' , menu: SelectedMenu.Home,),
       body: SafeArea(
           child: ListView(
         children: <Widget>[
-          
           SizedBox(
             height: 30,
           ),
@@ -58,7 +58,15 @@ class _HomeState extends State<Home> {
                           title: _eventDetail.title,
                           topic: _eventDetail.topics[0].name,
                           content: _eventDetail.info,
-                          onClick: () {},
+                          onClick: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EventDetailsPage(_eventDetail),
+                              ),
+                            );
+                          },
                         );
                       }),
                 ),

@@ -1,13 +1,16 @@
+import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/screens/menu_screen.dart';
-import 'package:dsc_app/widgets/screen_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Size preferredSize;
+  final SelectedMenu menu;
 
-  CustomAppBar({@required this.title}) : preferredSize = Size.fromHeight(60.0);
+
+  CustomAppBar({@required this.title, this.menu})
+      : preferredSize = Size.fromHeight(60.0);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     image: AssetImage('lib/assets/dsc_logo.png'),
                     height:
                         MediaQuery.of(context).size.height * 0.0345394736830744,
-                  ),
                 ),
               ),
             ),
@@ -43,7 +45,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/menu');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MenuScreen(
+                              selectedMenu: menu,
+                            )));
               },
               child: Padding(
                 padding:
