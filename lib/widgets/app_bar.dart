@@ -26,10 +26,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-                child: Image(
-                  image: AssetImage('lib/assets/dsc_logo.png'),
-                  height:
-                      MediaQuery.of(context).size.height * 0.0345394736830744,
+                child: Hero(
+                  tag: 'logo',
+                  child: Image(
+                    image: AssetImage('lib/assets/dsc_logo.png'),
+                    height:
+                        MediaQuery.of(context).size.height * 0.0345394736830744,
+                  ),
                 ),
               ),
             ),
