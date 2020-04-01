@@ -8,7 +8,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize;
   final SelectedMenu menu;
 
-
   CustomAppBar({@required this.title, this.menu})
       : preferredSize = Size.fromHeight(60.0);
 
@@ -33,6 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     image: AssetImage('lib/assets/dsc_logo.png'),
                     height:
                         MediaQuery.of(context).size.height * 0.0345394736830744,
+                  ),
                 ),
               ),
             ),
