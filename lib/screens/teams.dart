@@ -1,5 +1,4 @@
 import 'package:dsc_app/constants/constants.dart';
-import 'package:dsc_app/networking/networking.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/member_detail_card.dart';
 import 'package:flutter/gestures.dart';

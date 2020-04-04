@@ -1,10 +1,98 @@
+import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:dsc_app/models/events.dart';
+import 'package:http/http.dart' as http;
+import 'package:google_fonts/google_fonts.dart';
+import 'package:dsc_app/constants/constants.dart';
+import 'dart:math';
+import 'event_details.dart';
 
-class AllEvetScreen extends StatelessWidget {
+class AllEvetScreen extends StatefulWidget {
+  @override
+  _AllEvetScreenState createState() => _AllEvetScreenState();
+}
+
+class _AllEvetScreenState extends State<AllEvetScreen> {
+  Event _event;
+  EventDetail _eventDetail;
+  getData() async {
+    var response = await http
+        .get('https://dsctiet.pythonanywhere.com/api/events/?format=json');
+    if (response.statusCode == 200) {
+      var decodedJson = jsonDecode(response.body);
+      _event = Event.fromJson(decodedJson);
+      print(_event.detailedEvent.length);
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-    );
+        appBar: CustomAppBar(title: 'DSC TITLE'),
+        body: SafeArea(
+          child: _event == null
+              ? Center(child: CircularProgressIndicator())
+              : Center(
+                  child: ListView.builder(
+                      itemCount: _event.detailedEvent.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        _eventDetail = _event.detailedEvent[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                                                      child: ListTile(
+                              enabled: true,
+                             // dense: true,
+                              title: Text(
+                                _eventDetail.title,
+                                style: GoogleFonts.poppins(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                _eventDetail.info,
+                                maxLines: 1,
+                                textAlign: TextAlign.left,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 10.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              trailing: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EventDetailsPage(_eventDetail),
+                                    ),
+                                  );
+                                },
+                                color: getColorButton(r),
+                                textColor: Colors.white,
+                                child: Text(
+                                  'Learn More',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.poppins(fontSize: 13),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+        ));
   }
 }
+
+Random rnd = new Random();
+int min = -1, max = 5;
+int r = min + rnd.nextInt(max - min);
