@@ -51,10 +51,33 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                             child: ListTile(
                               enabled: true,
                               // dense: true,
-                              title: Text(
-                                _eventDetail.title,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              title: Column(
+                                children: <Widget>[
+                                  Text(
+                                    _eventDetail.title,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  RichText(
+                                      text: TextSpan(
+                                          text: 'Date',
+                                          children: <TextSpan>[
+                                        TextSpan(
+                                            text: _eventDetail.date,
+                                            style:
+                                                TextStyle(color: Colors.grey))
+                                      ])),
+                                  RichText(
+                                      text: TextSpan(
+                                          text: 'Venue',
+                                          children: <TextSpan>[
+                                        TextSpan(
+                                            text: _eventDetail.venue,
+                                            style:
+                                                TextStyle(color: Colors.grey))
+                                      ]))
+                                ],
                               ),
                               subtitle: Text(
                                 _eventDetail.info,
