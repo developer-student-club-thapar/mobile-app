@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  font_awesome_flutter: ^8.8.1
 
   http: ^0.12.0+4
   carousel_slider: ^1.4.1

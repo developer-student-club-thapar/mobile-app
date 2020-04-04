@@ -1,5 +1,4 @@
 import 'package:dsc_app/constants/constants.dart';
-import 'package:dsc_app/networking/networking.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/member_detail_card.dart';
 import 'package:flutter/gestures.dart';
@@ -58,7 +57,7 @@ class TeamCategoryBuilder extends StatelessWidget {
               dragStartBehavior: DragStartBehavior.start,
               itemCount: _team.category.length,
               itemBuilder: (BuildContext context, int index) {
-                TeamCategory _teamCategory = _teamData.category[index];
+                 _teamCategory = _teamData.category[index];
                 return SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
@@ -97,6 +96,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                         style: KMemberCategryStyleHeading,
                       ),
                       CarouselSlider.builder(
+
                           // Carousel for building the heads card
                           height: 270,
                           itemCount: _teamCategory.heads.length,
