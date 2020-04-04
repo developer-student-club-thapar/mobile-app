@@ -48,9 +48,9 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
-                                                      child: ListTile(
+                            child: ListTile(
                               enabled: true,
-                             // dense: true,
+                              // dense: true,
                               title: Text(
                                 _eventDetail.title,
                                 style: GoogleFonts.poppins(
