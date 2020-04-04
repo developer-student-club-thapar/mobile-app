@@ -4,7 +4,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:dsc_app/widgets/menu_item.dart';
 
 class MenuScreen extends StatefulWidget {
-   SelectedMenu selectedMenu;
+  SelectedMenu selectedMenu;
   MenuScreen({this.selectedMenu});
   @override
   _MenuScreenState createState() => _MenuScreenState();
@@ -38,18 +38,19 @@ class _MenuScreenState extends State<MenuScreen> {
                 setState(() {
                   widget.selectedMenu = SelectedMenu.Home;
                 });
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushReplacementNamed(context, '/home');
               },
               title: 'HOME',
-              color:
-                  widget.selectedMenu == SelectedMenu.Home ? Colors.white : Colors.grey,
+              color: widget.selectedMenu == SelectedMenu.Home
+                  ? Colors.white
+                  : Colors.grey,
             ),
             MenuScreenItem(
               function: () {
                 setState(() {
                   widget.selectedMenu = SelectedMenu.Events;
                 });
-                Navigator.pushNamed(context, '/events');
+                Navigator.pushReplacementNamed(context, '/events');
               },
               title: 'EVENTS',
               color: widget.selectedMenu == SelectedMenu.Events
@@ -61,7 +62,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 setState(() {
                   widget.selectedMenu = SelectedMenu.Projets;
                 });
-                Navigator.pushNamed(context, '/projects');
+                Navigator.pushReplacementNamed(context, '/projects');
               },
               title: 'PROJECTS',
               color: widget.selectedMenu == SelectedMenu.Projets
@@ -73,18 +74,19 @@ class _MenuScreenState extends State<MenuScreen> {
                 setState(() {
                   widget.selectedMenu = SelectedMenu.Team;
                 });
-                Navigator.pushNamed(context, '/team');
+                Navigator.pushReplacementNamed(context, '/team');
               },
               title: 'TEAM',
-              color:
-                  widget.selectedMenu == SelectedMenu.Team ? Colors.white : Colors.grey,
+              color: widget.selectedMenu == SelectedMenu.Team
+                  ? Colors.white
+                  : Colors.grey,
             ),
             MenuScreenItem(
               function: () {
                 setState(() {
                   widget.selectedMenu = SelectedMenu.ContactUs;
                 });
-                Navigator.pushNamed(context, '/contactus');
+                Navigator.pushReplacementNamed(context, '/contactus');
               },
               title: 'CONTACT US',
               color: widget.selectedMenu == SelectedMenu.ContactUs

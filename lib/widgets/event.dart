@@ -26,7 +26,16 @@ class Events extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      SizedBox(height: kheight(context) * 0.0287),
+
+                      Container(
+                        child: Center(
+                          child: Text(
+                            title,
+                            style: GoogleFonts.poppins(
+                                fontSize: 23, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
                       Container(
                         height: kheight(context) * 0.0230,
                         width: kwidth(context) * 0.243,
@@ -46,15 +55,7 @@ class Events extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            title,
-                            style: GoogleFonts.poppins(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
+
                       Container(
                         width: kwidth(context) * 0.7,
                         child: Text(
@@ -83,22 +84,7 @@ class Events extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              left: (kwidth(context) * 0.5) - 90,
-              child: Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.grey),
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('lib/assets/dsc_logo.png'),
-                  ),
-                ),
-              ),
-            )
+
           ],
         ),
       ),
