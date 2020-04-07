@@ -12,8 +12,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dsc_app/models/user.dart';
 import 'package:provider/provider.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
