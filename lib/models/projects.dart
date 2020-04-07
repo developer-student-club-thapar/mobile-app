@@ -1,12 +1,12 @@
-class Projects {
-  List<ProjectDetail> detailedEvent;
-  Projects({this.detailedEvent});
-  factory Projects.fromJson(List<dynamic> parsedJson) {
-    List<ProjectDetail> detailedEvent = List<ProjectDetail>();
-    detailedEvent = parsedJson.map((i) => ProjectDetail.fromJson(i)).toList();
+class Project {
+  List<ProjectDetail> detailedProject;
+  Project({this.detailedProject});
+  factory Project.fromJson(List<dynamic> parsedJson) {
+    List<ProjectDetail> detailedProject = List<ProjectDetail>();
+    detailedProject = parsedJson.map((i) => ProjectDetail.fromJson(i)).toList();
 
-    return Projects(
-      detailedEvent: detailedEvent,
+    return Project(
+      detailedProject: detailedProject,
     );
   }
 }

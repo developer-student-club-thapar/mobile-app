@@ -16,10 +16,15 @@ TextStyle kMenuTextStyle = GoogleFonts.poppins(
     color: Colors.grey, fontSize: 30.0, fontWeight: FontWeight.w300);
 TextStyle kMemberCardTitle = GoogleFonts.poppins(
     color: Colors.grey, fontSize: 13, fontWeight: FontWeight.bold);
+TextStyle kDialogueCardTitle = GoogleFonts.poppins(
+    color: Colors.grey, fontSize: 28, fontWeight: FontWeight.bold);
+    TextStyle kTeamDialogueRole = GoogleFonts.poppins(
+    fontSize: 18 , fontWeight: FontWeight.w100);
+    
 
-TextStyle KMemberCategryStyle = GoogleFonts.poppins(
+TextStyle kMemberCategryStyle = GoogleFonts.poppins(
     color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.w300);
-TextStyle KMemberCategryStyleHeading = GoogleFonts.poppins(
+TextStyle kMemberCategryStyleHeading = GoogleFonts.poppins(
     color: Colors.grey, fontSize: 28.0, fontWeight: FontWeight.w300);
 TextStyle kEventHeading =
     GoogleFonts.poppins(color: Colors.black, fontSize: 28.0);

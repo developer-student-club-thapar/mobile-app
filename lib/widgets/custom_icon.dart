@@ -9,21 +9,24 @@ class CustomClickableIcon extends StatelessWidget {
   CustomClickableIcon({this.icon, this.url, this.visibility});
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      maintainSize: false,
-      visible: visibility,
-      child: GestureDetector(
-        onTap: () async {
-          if (await canLaunch(url)) {
-            await launch(url);
-          } else {
-            throw 'Could not launch $url';
-          }
-        },
-        child: FaIcon(
-          icon,
-          color: Colors.black,
-          size: 20,
+    return Padding(
+      padding: const EdgeInsets.only(right:8.0),
+      child: Visibility(
+        maintainSize: false,
+        visible: visibility,
+        child: GestureDetector(
+          onTap: () async {
+            if (await canLaunch(url)) {
+              await launch(url);
+            } else {
+              throw 'Could not launch $url';
+            }
+          },
+          child: FaIcon(
+            icon,
+            color: Colors.black,
+            size: 40,
+          ),
         ),
       ),
     );

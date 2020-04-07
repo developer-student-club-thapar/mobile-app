@@ -22,7 +22,7 @@ class DscApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/welcome',
+     
       routes: {
         '/': (context) => Home(),
         '/menu': (context) => MenuScreen(),
@@ -34,6 +34,7 @@ class DscApp extends StatelessWidget {
         '/projects':(context) => Projects(),
         '/events':(context)=>AllEvetScreen(),
         '/team':(context)=>Team(),
+        
 
       },
       

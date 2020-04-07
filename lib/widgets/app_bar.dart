@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/home');
+                Navigator.popAndPushNamed(context, '/home');
               },
               child: Padding(
                 padding:

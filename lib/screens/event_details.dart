@@ -64,7 +64,7 @@ class EventDetailsPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Center(
                 child: Container(
@@ -81,6 +81,9 @@ class EventDetailsPage extends StatelessWidget {
                     style: kEventHeading,
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 20.0,
               ),
               Center(
                 child: Card(
@@ -149,21 +152,24 @@ class EventDetailsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Center(
-                child: RaisedButton(
-                  onPressed: () {
-                    try {
-                      launch(_eventDetail.link);
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
-                  color: getColorButton(r),
-                  textColor: Colors.white,
-                  child: Text(
-                    'Register!',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(fontSize: 25),
+              Padding(
+                padding: const EdgeInsets.only(top:10.0),
+                child: Center(
+                  child: RaisedButton(
+                    onPressed: () {
+                      try {
+                        launch(_eventDetail.link);
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
+                    color: getColorButton(r),
+                    textColor: Colors.white,
+                    child: Text(
+                      'Register!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(fontSize: 25),
+                    ),
                   ),
                 ),
               ),

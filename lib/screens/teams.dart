@@ -1,6 +1,7 @@
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/member_detail_card.dart';
+import 'package:dsc_app/widgets/team_dialogue.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -57,7 +58,7 @@ class TeamCategoryBuilder extends StatelessWidget {
               dragStartBehavior: DragStartBehavior.start,
               itemCount: _team.category.length,
               itemBuilder: (BuildContext context, int index) {
-                 _teamCategory = _teamData.category[index];
+                _teamCategory = _teamData.category[index];
                 return SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
@@ -85,7 +86,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                         ),
                         child: Text(
                           _teamCategory.name, //Category name
-                          style: KMemberCategryStyle,
+                          style: kMemberCategryStyle,
                         ),
                       ),
                       SizedBox(
@@ -93,7 +94,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       Text(
                         "Head",
-                        style: KMemberCategryStyleHeading,
+                        style: kMemberCategryStyleHeading,
                       ),
                       CarouselSlider.builder(
 
@@ -102,11 +103,34 @@ class TeamCategoryBuilder extends StatelessWidget {
                           itemCount: _teamCategory.heads.length,
                           enableInfiniteScroll: false,
                           itemBuilder: (BuildContext context, int i) {
-                            return MemberCard(
-                              name: _teamCategory.heads[i].name,
-                              image: _teamCategory.heads[i].image,
-                              role: _teamCategory.heads[i].role,
-                              id: i,
+                            return GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return TeamDialogue(
+                                        name: _teamCategory.heads[i].name,
+                                        devUrl: _teamCategory.heads[i].devUrl,
+                                        email: _teamCategory.heads[i].email,
+                                        githubUrl:
+                                            _teamCategory.heads[i].githubUrl,
+                                        image: _teamCategory.heads[i].image,
+                                        role: _teamCategory.heads[i].role,
+                                        linkedinUrl:
+                                            _teamCategory.heads[i].linkedinUrl,
+                                        mediumUrl:
+                                            _teamCategory.heads[i].mediumUrl,
+                                        twitterUrl:
+                                            _teamCategory.heads[i].twitterUrl,
+                                      );
+                                    });
+                              },
+                              child: MemberCard(
+                                name: _teamCategory.heads[i].name,
+                                image: _teamCategory.heads[i].image,
+                                role: _teamCategory.heads[i].role,
+                                id: i,
+                              ),
                             );
                           }),
                       SizedBox(
@@ -114,7 +138,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       Text(
                         "Members",
-                        style: KMemberCategryStyleHeading,
+                        style: kMemberCategryStyleHeading,
                       ),
                       CarouselSlider.builder(
                           // Carousel for building the members card

@@ -52,16 +52,20 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                               enabled: true,
                               // dense: true,
                               title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
                                     _eventDetail.title,
                                     style: GoogleFonts.poppins(
-                                        fontSize: 18,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
                                   ),
                                   RichText(
                                       text: TextSpan(
-                                          text: 'Date',
+                                          text: 'Date: ',
+                                          style: TextStyle(color: Colors.black),
                                           children: <TextSpan>[
                                         TextSpan(
                                             text: _eventDetail.date,
@@ -70,7 +74,8 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                                       ])),
                                   RichText(
                                       text: TextSpan(
-                                          text: 'Venue',
+                                          text: 'Venue: ',
+                                          style: TextStyle(color: Colors.black),
                                           children: <TextSpan>[
                                         TextSpan(
                                             text: _eventDetail.venue,
