@@ -36,7 +36,7 @@ dependencies:
   google_fonts: ^0.3.9
   flare_flutter: ^2.0.1
   animated_text_kit: ^2.0.0
-  shared_preferences: ^0.5.6+3
+  
   
   
 

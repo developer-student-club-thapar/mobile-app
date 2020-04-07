@@ -1,4 +1,7 @@
 import 'package:dsc_app/constants/constants.dart';
+import 'package:dsc_app/database/firestore-user_database.dart';
+import 'package:dsc_app/networking/auth.dart';
+import 'package:dsc_app/screens/login.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/event.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +10,8 @@ import 'dart:convert';
 import 'package:dsc_app/models/events.dart';
 import 'package:dsc_app/screens/event_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dsc_app/models/user.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
