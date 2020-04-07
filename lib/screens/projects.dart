@@ -8,8 +8,6 @@ class Projects extends StatefulWidget {
 class _ProjectsState extends State<Projects> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return Container();
   }
 }

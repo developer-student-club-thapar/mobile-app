@@ -1,5 +1,4 @@
 import 'package:dsc_app/models/user.dart';
-import 'package:dsc_app/models/user_model.dart';
 import 'package:dsc_app/networking/authentication/wrapper.dart';
 import 'package:dsc_app/screens/all_events_screen.dart';
 import 'package:dsc_app/screens/projects.dart';
@@ -14,6 +13,7 @@ import 'package:dsc_app/screens/registration.dart';
 import 'package:provider/provider.dart';
 import 'screens/teams.dart';
 import 'networking/auth.dart';
+import 'screens/registration.dart';
 
 void main() => runApp(DscApp());
 
@@ -27,23 +27,21 @@ class DscApp extends StatelessWidget {
 
     return StreamProvider<User>.value(
       value: AuthService().user,
-      child: ChangeNotifierProvider(
-        create: (context) => UserModel(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          routes: {
-            '/': (context) => Wrapper(),
-            '/menu': (context) => MenuScreen(),
-            '/home': (context) => Home(),
-            '/welcome': (context) => WelcomeScreen(),
-            '/login': (context) => Login(),
-            '/registration': (context) => Registration(),
-            '/contactus': (context) => Contacts(),
-            '/projects': (context) => Projects(),
-            '/events': (context) => AllEvetScreen(),
-            '/team': (context) => Team(),
-          },
-        ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/': (context) => Wrapper(),
+          '/menu': (context) => MenuScreen(),
+          '/home': (context) => Home(),
+          '/login': (context) => Login(),
+          '/register': (context) => Registration(),
+          '/welcome': (context) => WelcomeScreen(),
+          '/registration': (context) => Registration(),
+          '/contactus': (context) => Contacts(),
+          '/projects': (context) => Projects(),
+          '/events': (context) => AllEvetScreen(),
+          '/team': (context) => Team(),
+        },
       ),
     );
   }

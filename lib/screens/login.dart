@@ -1,6 +1,6 @@
 import 'package:dsc_app/screens/home.dart';
+import 'package:dsc_app/screens/registration.dart';
 import 'package:dsc_app/widgets/welcome_screen_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/networking/auth.dart';
@@ -22,7 +22,6 @@ class _LoginState extends State<Login> {
 }
 
 class LoginForm extends StatefulWidget {
-
   LoginForm({Key key}) : super(key: key);
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -128,16 +127,16 @@ class _LoginFormState extends State<LoginForm> {
                     title: 'Submit',
                     colour: blueColor,
                     onPressed: () async {
-                      FirebaseUser result = await _auth.signInWithGoogle();
+                      dynamic result = await _auth.signInWithGoogle();
                       if (result == null) {
                         setState(() {
                           error = 'lol';
                         });
                       } else {
-
-
-                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return Home();}), ModalRoute.withName('/login'));
-
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) {
+                          return Registration();
+                        }), ModalRoute.withName('/login'));
                       }
                     },
                   ),
