@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'package:dsc_app/models/events.dart';
 import 'package:dsc_app/screens/event_details.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dsc_app/models/news.dart';
+import 'package:dsc_app/widgets/news_tile.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,6 +18,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Event _event;
   EventDetail _eventDetail;
+
+  List<dynamic> _newsData;
+  News newsObj = News();
+
   getData() async {
     var response = await http
         .get('https://dsctiet.pythonanywhere.com/api/events/?format=json');
@@ -27,18 +33,28 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<void> updateUI() async {
+    _newsData = await newsObj.getData();
+    setState(() {});
+  }
+
   @override
   void initState() {
     getData();
+    updateUI();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'DSC TIET' , menu: SelectedMenu.Home,),
+      appBar: CustomAppBar(
+        title: 'DSC TIET',
+        menu: SelectedMenu.Home,
+      ),
       body: SafeArea(
           child: ListView(
+        // shrinkWrap: true,
         children: <Widget>[
           SizedBox(
             height: 30,
@@ -69,6 +85,32 @@ class _HomeState extends State<Home> {
                           },
                         );
                       }),
+                ),
+          Text(
+            'Latest Stories',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+          ),
+          _newsData == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: _newsData.length,
+                  itemBuilder: (context, index) {
+                    return FutureBuilder(
+                      future: newsObj.getItemData(_newsData[index]),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return ExpansionTile(title: Text('Loading...',textAlign: TextAlign.center,));
+                        } else {
+                          return NewsTile(snapshot.data, newsObj.launchURL);
+                        }
+                      },
+                    );
+                  },
                 ),
         ],
       )),
