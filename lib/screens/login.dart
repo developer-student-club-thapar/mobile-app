@@ -1,4 +1,3 @@
-import 'package:dsc_app/screens/home.dart';
 import 'package:dsc_app/screens/registration.dart';
 import 'package:dsc_app/widgets/welcome_screen_button.dart';
 import 'package:flutter/material.dart';

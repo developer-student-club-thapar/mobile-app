@@ -18,9 +18,8 @@ TextStyle kMemberCardTitle = GoogleFonts.poppins(
     color: Colors.grey, fontSize: 13, fontWeight: FontWeight.bold);
 TextStyle kDialogueCardTitle = GoogleFonts.poppins(
     color: Colors.grey, fontSize: 28, fontWeight: FontWeight.bold);
-    TextStyle kTeamDialogueRole = GoogleFonts.poppins(
-    fontSize: 18 , fontWeight: FontWeight.w100);
-    
+TextStyle kTeamDialogueRole =
+    GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w100);
 
 TextStyle kMemberCategryStyle = GoogleFonts.poppins(
     color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.w300);
@@ -102,4 +101,10 @@ enum SelectedMenu {
   Team,
   Projets,
   Events,
+  Logout,
 }
+
+TextStyle KMemberCategryStyle = GoogleFonts.poppins(
+    color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.w300);
+TextStyle KMemberCategryStyleHeading = GoogleFonts.poppins(
+    color: Colors.grey, fontSize: 28.0, fontWeight: FontWeight.w300);

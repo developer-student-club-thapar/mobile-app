@@ -18,7 +18,7 @@ class _ProjectsState extends State<Projects> {
   ProjectDetail _projectDetail;
   getData() async {
     var response = await http
-        .get('https://dsctiet.pythonanywhere.com/api/events/?format=json');
+        .get('https://dsctiet.pythonanywhere.com/api/projects/?format=json');
     if (response.statusCode == 200) {
       var decodedJson = jsonDecode(response.body);
       _project = Project.fromJson(decodedJson);
@@ -55,7 +55,7 @@ class _ProjectsState extends State<Projects> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    _projectDetail.name,
+                                    _projectDetail.name ?? '',
                                     style: GoogleFonts.poppins(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
@@ -72,7 +72,8 @@ class _ProjectsState extends State<Projects> {
                                                 TextStyle(color: Colors.black),
                                             children: <TextSpan>[
                                           TextSpan(
-                                              text: _projectDetail.faculty,
+                                              text:
+                                                  _projectDetail.faculty ?? '',
                                               style:
                                                   TextStyle(color: Colors.grey))
                                         ])),
@@ -87,7 +88,8 @@ class _ProjectsState extends State<Projects> {
                                                 TextStyle(color: Colors.black),
                                             children: <TextSpan>[
                                           TextSpan(
-                                              text: _projectDetail.funding,
+                                              text:
+                                                  _projectDetail.funding ?? '',
                                               style:
                                                   TextStyle(color: Colors.grey))
                                         ])),

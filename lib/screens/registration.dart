@@ -21,7 +21,7 @@ class _RegistrationState extends State<Registration> {
     String email = '';
     String gender = '';
     int year = 0;
-    bool isThaparStudent = true;
+    bool isThaparStudent = false;
     return Scaffold(
       body: Container(
         child: Form(
@@ -32,7 +32,7 @@ class _RegistrationState extends State<Registration> {
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(hintText: 'Enter name'),
-                onChanged: (value) {
+                onSaved: (value) {
                   setState(() {
                     name = value;
                   });
@@ -40,7 +40,7 @@ class _RegistrationState extends State<Registration> {
               ),
               TextFormField(
                 decoration: InputDecoration(hintText: 'Enter email'),
-                onChanged: (value) {
+                onSaved: (value) {
                   setState(() {
                     email = value;
                   });
@@ -48,7 +48,7 @@ class _RegistrationState extends State<Registration> {
               ),
               TextFormField(
                 decoration: InputDecoration(hintText: 'Enter gender'),
-                onChanged: (value) {
+                onSaved: (value) {
                   setState(() {
                     gender = value;
                   });
@@ -56,19 +56,23 @@ class _RegistrationState extends State<Registration> {
               ),
               TextFormField(
                 decoration: InputDecoration(hintText: 'Enter year'),
-                onChanged: (value) {
+                onSaved: (value) {
                   setState(() {
                     year = int.parse(value);
                   });
                 },
               ),
-              Checkbox(
-                  value: false,
-                  onChanged: (value) {
-                    setState(() {
-                      isThaparStudent = value;
-                    });
-                  }),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'thapar student?'),
+                onSaved: (value) {
+                  setState(() {
+                    if (value == 'yes') {
+                      isThaparStudent = true;
+                    } else
+                      isThaparStudent = false;
+                  });
+                },
+              ),
               RaisedButton(
                   child: Text('complete registeration'),
                   onPressed: () async {

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dsc_app/screens/home.dart';
 import 'package:dsc_app/screens/menu_screen.dart';
-import 'package:dsc_app/screens/contacts.dart';
+import 'package:dsc_app/screens/fundus.dart';
 import 'package:dsc_app/screens/welcome_screen.dart';
 import 'package:dsc_app/screens/login.dart';
 import 'package:dsc_app/screens/registration.dart';
@@ -30,7 +30,7 @@ class DscApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => Wrapper(),
+          '/': (context) => Registration(),
           '/menu': (context) => MenuScreen(),
           '/home': (context) => Home(),
           '/login': (context) => Login(),

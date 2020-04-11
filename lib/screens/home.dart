@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
                                   topic: _eventDetail.topics[0].name,
                                   content: _eventDetail.info,
                                   onClick: () async {
-                                    _auth.signOut();
+                                    await _auth.signOut();
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) {
                                       return Login();

@@ -1,5 +1,7 @@
 import 'package:dsc_app/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:dsc_app/widgets/custom_icon.dart';
 
 class MemberCard extends StatelessWidget {
   final String name;
@@ -27,46 +29,82 @@ class MemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 270,
-      width: 190,
+      height: 250,
+      width: 300,
       child: Stack(children: <Widget>[
         ConstrainedBox(
           constraints: BoxConstraints.expand(),
           child: Card(
             elevation: 5,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 10),
-                  Container(
-                    height: 140,
-                    width: 110,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.1),
-                        shape: BoxShape.rectangle),
-                    child: Image.network(
-                      image,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        name == null ? 'Loading..' : name,
-                        style: kMemberCardTitle,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      Container(
+                        height: 140,
+                        width: 110,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.1),
+                            shape: BoxShape.rectangle),
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            name == null ? 'Loading..' : name,
+                            style: kMemberCardTitle,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                          )),
+                      Text(
+                        role == null ? 'Loading' : role,
                         maxLines: 2,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                      )),
-                  Text(
-                    role == null ? 'Loading' : role,
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row()
-                ]),
+                      ),
+                      Row()
+                    ]),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  
+                  children: <Widget>[
+                    CustomClickableIcon(
+                      url: linkedinUrl,
+                      icon: FontAwesomeIcons.linkedin,
+                      visibility: true ?? false,
+                    ),
+                    CustomClickableIcon(
+                      url: githubUrl,
+                      icon: FontAwesomeIcons.githubSquare,
+                      visibility: true ?? false,
+                    ),
+                    CustomClickableIcon(
+                      url: mediumUrl,
+                      icon: FontAwesomeIcons.medium,
+                      visibility: true ?? false,
+                    ),
+                    CustomClickableIcon(
+                      url: twitterUrl,
+                      icon: FontAwesomeIcons.twitter,
+                      visibility: true ?? false,
+                    ),
+                    CustomClickableIcon(
+                      url: 'mailto:$email',
+                      icon: FontAwesomeIcons.envelope,
+                      visibility: true ?? false,
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
         Positioned(

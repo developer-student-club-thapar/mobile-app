@@ -53,7 +53,7 @@ class _MyContactFormState extends State<MyContactForm> {
                         margin:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                         child: Text(
-                          "Contact Us!",
+                          "Fund Our Project !",
                           style: GoogleFonts.poppins(
                             color: Color(0xFF676C72),
                             fontSize: 30.0,

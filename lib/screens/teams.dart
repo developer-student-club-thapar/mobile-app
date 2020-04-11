@@ -1,7 +1,6 @@
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/member_detail_card.dart';
-import 'package:dsc_app/widgets/team_dialogue.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -86,7 +85,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                         ),
                         child: Text(
                           _teamCategory.name, //Category name
-                          style: kMemberCategryStyle,
+                          style: KMemberCategryStyle,
                         ),
                       ),
                       SizedBox(
@@ -94,43 +93,25 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       Text(
                         "Head",
-                        style: kMemberCategryStyleHeading,
+                        style: KMemberCategryStyleHeading,
                       ),
                       CarouselSlider.builder(
-
                           // Carousel for building the heads card
                           height: 270,
                           itemCount: _teamCategory.heads.length,
                           enableInfiniteScroll: false,
                           itemBuilder: (BuildContext context, int i) {
-                            return GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return TeamDialogue(
-                                        name: _teamCategory.heads[i].name,
-                                        devUrl: _teamCategory.heads[i].devUrl,
-                                        email: _teamCategory.heads[i].email,
-                                        githubUrl:
-                                            _teamCategory.heads[i].githubUrl,
-                                        image: _teamCategory.heads[i].image,
-                                        role: _teamCategory.heads[i].role,
-                                        linkedinUrl:
-                                            _teamCategory.heads[i].linkedinUrl,
-                                        mediumUrl:
-                                            _teamCategory.heads[i].mediumUrl,
-                                        twitterUrl:
-                                            _teamCategory.heads[i].twitterUrl,
-                                      );
-                                    });
-                              },
-                              child: MemberCard(
-                                name: _teamCategory.heads[i].name,
-                                image: _teamCategory.heads[i].image,
-                                role: _teamCategory.heads[i].role,
-                                id: i,
-                              ),
+                            return MemberCard(
+                              name: _teamCategory.heads[i].name,
+                              image: _teamCategory.heads[i].image,
+                              role: _teamCategory.heads[i].role,
+                              id: i,
+                              devUrl: _teamCategory.heads[i].devUrl,
+                              email: _teamCategory.heads[i].email,
+                              githubUrl: _teamCategory.heads[i].githubUrl,
+                              linkedinUrl: _teamCategory.heads[i].linkedinUrl,
+                              mediumUrl: _teamCategory.heads[i].mediumUrl,
+                              twitterUrl: _teamCategory.heads[i].twitterUrl,
                             );
                           }),
                       SizedBox(
@@ -138,7 +119,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       Text(
                         "Members",
-                        style: kMemberCategryStyleHeading,
+                        style: KMemberCategryStyleHeading,
                       ),
                       CarouselSlider.builder(
                           // Carousel for building the members card
@@ -151,6 +132,12 @@ class TeamCategoryBuilder extends StatelessWidget {
                               image: _teamCategory.members[j].image,
                               role: _teamCategory.members[j].role,
                               id: j,
+                              devUrl: _teamCategory.members[j].devUrl,
+                              email: _teamCategory.members[j].email,
+                              githubUrl: _teamCategory.members[j].githubUrl,
+                              linkedinUrl: _teamCategory.members[j].linkedinUrl,
+                              mediumUrl: _teamCategory.members[j].mediumUrl,
+                              twitterUrl: _teamCategory.members[j].twitterUrl,
                             );
                           }),
                     ],
