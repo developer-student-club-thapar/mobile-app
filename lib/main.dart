@@ -1,6 +1,8 @@
+import 'package:dsc_app/screens/news_view.dart';
 import 'package:dsc_app/models/user.dart';
 import 'package:dsc_app/networking/authentication/wrapper.dart';
 import 'package:dsc_app/screens/all_events_screen.dart';
+import 'package:dsc_app/screens/profile.dart';
 import 'package:dsc_app/screens/projects.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +32,7 @@ class DscApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => Registration(),
+          '/': (context) => Profile(),
           '/menu': (context) => MenuScreen(),
           '/home': (context) => Home(),
           '/login': (context) => Login(),
@@ -41,6 +43,7 @@ class DscApp extends StatelessWidget {
           '/projects': (context) => Projects(),
           '/events': (context) => AllEvetScreen(),
           '/team': (context) => Team(),
+          '/news' : (context) => NewsView(),
         },
       ),
     );

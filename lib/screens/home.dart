@@ -11,6 +11,8 @@ import 'package:dsc_app/models/events.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dsc_app/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:dsc_app/models/news.dart';
+import 'package:dsc_app/widgets/news_tile.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,6 +23,10 @@ class _HomeState extends State<Home> {
   Event _event;
   EventDetail _eventDetail;
   String name = 'name';
+
+  List<dynamic> _newsData;
+  News newsObj = News();
+
   getData() async {
     var response = await http
         .get('https://dsctiet.pythonanywhere.com/api/events/?format=json');
@@ -32,64 +38,141 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<void> updateUI() async {
+    _newsData = await newsObj.getData();
+    setState(() {});
+  }
+
   @override
   void initState() {
     getData();
+    updateUI();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     AuthService _auth = AuthService();
-    final user = Provider.of<User>(context);
-    return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user.uid).userDataStream,
+   //final user = Provider.of<User>(context);
+    return StreamBuilder<User>(
+        stream: AuthService().user,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            UserData _userData = snapshot.data;
+            User _userData = snapshot.data;
             return Scaffold(
+              
               appBar: CustomAppBar(
                 title: 'DSC TIET',
                 menu: SelectedMenu.Home,
               ),
-              body: SafeArea(
-                  child: ListView(
-                children: <Widget>[
-                  Text(
-                    'Greetings ${_userData.name} !',
-                    style: TextStyle(fontSize: 28, color: Colors.grey),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  _event == null
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Center(
-                          child: CarouselSlider.builder(
-                              height: kheight(context) * 0.31,
-                              itemCount: _event.detailedEvent.length,
-                              enableInfiniteScroll: false,
-                              itemBuilder: (BuildContext context, int index) {
-                                _eventDetail = _event.detailedEvent[index];
-                                return Events(
-                                  title: _eventDetail.title,
-                                  topic: _eventDetail.topics[0].name,
-                                  content: _eventDetail.info,
-                                  onClick: () async {
-                                    await _auth.signOut();
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (context) {
-                                      return Login();
-                                    }), ModalRoute.withName('/'));
-                                  },
-                                );
-                              }),
-                        ),
-                  SizedBox(height: 20.0),
-                ],
-              )),
+              body: Card(
+                              child: SafeArea(
+                    child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                      child: Text(
+                        'Greetings ${_userData.name} !' ?? 'Greetings!',
+                        style: TextStyle(fontSize: 33, color: blueColor , fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                     SizedBox(
+                      height: 20,
+                    ),
+                    Divider(
+                      color: Colors.grey[300],
+                      endIndent: 20,
+                      indent: 20.0,
+                      thickness: 5,
+                    ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    _event == null
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Center(
+                            child: CarouselSlider.builder(
+                                height: kheight(context) * 0.31,
+                                itemCount: _event.detailedEvent.length,
+                                enableInfiniteScroll: false,
+                                itemBuilder: (BuildContext context, int index) {
+                                  _eventDetail = _event.detailedEvent[index];
+                                  return Events(
+                                    title: _eventDetail.title,
+                                    topic: _eventDetail.topics[0].name,
+                                    content: _eventDetail.info,
+                                    onClick: () async {
+                                      await _auth.signOut();
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(builder: (context) {
+                                        return Login();
+                                      }), ModalRoute.withName('/'));
+                                    },
+                                  );
+                                }),
+                          ),
+                    SizedBox(height: 20.0),
+                      Divider(
+                      color: Colors.grey[300],
+                      endIndent: 20,
+                      indent: 20.0,
+                      thickness: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                      child: Text(
+                        'Trending',
+                        style: TextStyle(fontSize: 33, color: greenColor , fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    _newsData == null
+                        ? Center(
+                            child: Container(),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: kwidth(context),
+                              height: kheight(context) * 0.4,
+                              child: Card(
+                                elevation: 5.0,
+                                child: SingleChildScrollView(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: ScrollPhysics(),
+                                    itemCount: 20 ,
+                                    itemBuilder: (context, index) {
+                                      return FutureBuilder(
+                                        future:
+                                            newsObj.getItemData(_newsData[index]),
+                                        builder: (context, snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return ExpansionTile(
+                                                title: Text(
+                                              'Loading...',
+                                              textAlign: TextAlign.center,
+                                            ));
+                                          } else {
+                                            return NewsTile(
+                                                snapshot.data, newsObj.launchURL);
+                                          }
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                    SizedBox(height: 20.0),
+                  ],
+                )),
+              ),
             );
           } else {
             return Container();

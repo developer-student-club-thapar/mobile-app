@@ -26,6 +26,7 @@ dependencies:
   firebase_core: ^0.4.4+3
   font_awesome_flutter: ^8.8.1
   cloud_firestore: ^0.13.4+2
+  webview_flutter: 
 
   http: ^0.12.0+4
   carousel_slider: ^1.4.1
