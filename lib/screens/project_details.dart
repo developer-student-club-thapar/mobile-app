@@ -13,7 +13,7 @@ class ProjectDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'DSC TIET',
+        title: 'PROJECT',
         menu: SelectedMenu.Projets,
       ),
       body: Center(

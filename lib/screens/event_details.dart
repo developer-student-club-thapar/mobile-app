@@ -13,7 +13,7 @@ class EventDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'DSC TIET',
+        title: 'EVENT',
       ),
       body: Center(
         child: Padding(

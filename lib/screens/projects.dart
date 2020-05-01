@@ -37,7 +37,7 @@ class _ProjectsState extends State<Projects> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
-          title: 'DSC TITLE',
+          title: 'PROJECTS',
           menu: SelectedMenu.Projets,
         ),
         body: SafeArea(

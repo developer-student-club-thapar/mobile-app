@@ -36,7 +36,7 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: 'DSC TITLE' , menu: SelectedMenu.Events,),
+        appBar: CustomAppBar(title: 'EVENTS' , menu: SelectedMenu.Events,),
         body: SafeArea(
           child: _event == null
               ? Center(child: CircularProgressIndicator())

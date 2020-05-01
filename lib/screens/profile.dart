@@ -34,7 +34,7 @@ class _ProfileState extends State<Profile> {
             UserData _userData = snapshot.data;
             return Scaffold(
               appBar: CustomAppBar(
-                title: 'DSC TIET',
+                title: 'PROFILE',
                 menu: SelectedMenu.Profile,
               ),
               body: Stack(
