@@ -1,4 +1,4 @@
-import 'package:dsc_app/screens/registration.dart';
+import 'package:dsc_app/screens/home.dart';
 import 'package:dsc_app/widgets/welcome_screen_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/constants/constants.dart';
@@ -129,12 +129,12 @@ class _LoginFormState extends State<LoginForm> {
                       dynamic result = await _auth.signInWithGoogle();
                       if (result == null) {
                         setState(() {
-                          error = 'lol';
+                          error = 'Fail';
                         });
                       } else {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) {
-                          return Registration();
+                          return Home();
                         }), ModalRoute.withName('/login'));
                       }
                     },

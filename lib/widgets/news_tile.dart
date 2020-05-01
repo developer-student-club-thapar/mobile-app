@@ -3,9 +3,8 @@ import 'package:dsc_app/screens/news_view.dart';
 
 class NewsTile extends StatelessWidget {
   final data;
-  final Function launcher;
 
-  NewsTile(this.data, this.launcher);
+  NewsTile(this.data);
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +15,18 @@ class NewsTile extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.launch),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>NewsView()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => NewsView(
+                            url: data['url'],
+                          )));
             },
           )
         ],
         title: Text(
           data['title'],
-          style: TextStyle( 
+          style: TextStyle(
             fontSize: 18,
           ),
         ),

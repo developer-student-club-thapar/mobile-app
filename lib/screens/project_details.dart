@@ -14,6 +14,7 @@ class ProjectDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'DSC TIET',
+        menu: SelectedMenu.Projets,
       ),
       body: Center(
         child: Padding(

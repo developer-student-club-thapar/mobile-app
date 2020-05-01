@@ -67,7 +67,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               title: 'Register',
               colour: blueColor,
               onPressed: () {
-                //Navigator.pushNamed(context, '/registration');
+                Navigator.pushNamed(context, '/register');
               },
             ),
           ],

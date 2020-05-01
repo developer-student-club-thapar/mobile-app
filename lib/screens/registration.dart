@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dsc_app/models/user.dart';
 import 'package:dsc_app/database/firestore-user_database.dart';
+import 'package:dsc_app/networking/auth.dart';
 
 class Registration extends StatefulWidget {
   final Function toggleView;
@@ -15,8 +16,9 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    final user = Provider.of<User>(context);
-    final db = DatabaseService(uid: user.uid);
+
+    final AuthService _auth = AuthService();
+
     String name = '';
     String email = '';
     String gender = '';
@@ -37,15 +39,20 @@ class _RegistrationState extends State<Registration> {
                     name = value;
                   });
                 },
-              ),
-              TextFormField(
-                decoration: InputDecoration(hintText: 'Enter email'),
-                onSaved: (value) {
-                  setState(() {
-                    email = value;
-                  });
+                onChanged: (value) {
+                  name = value;
                 },
               ),
+              TextFormField(
+                  decoration: InputDecoration(hintText: 'Enter email'),
+                  onSaved: (value) {
+                    setState(() {
+                      email = value;
+                    });
+                  },
+                  onChanged: (value) {
+                    email = value;
+                  }),
               TextFormField(
                 decoration: InputDecoration(hintText: 'Enter gender'),
                 onSaved: (value) {
@@ -55,36 +62,47 @@ class _RegistrationState extends State<Registration> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(hintText: 'Enter year'),
-                onSaved: (value) {
-                  setState(() {
+                  decoration: InputDecoration(hintText: 'Enter year'),
+                  onSaved: (value) {
+                    setState(() {
+                      year = int.parse(value);
+                    });
+                  },
+                  onChanged: (value) {
                     year = int.parse(value);
-                  });
-                },
-              ),
+                  }),
               TextFormField(
-                decoration: InputDecoration(hintText: 'thapar student?'),
-                onSaved: (value) {
-                  setState(() {
+                  decoration: InputDecoration(hintText: 'thapar student?'),
+                  onSaved: (value) {
+                    setState(() {
+                      if (value == 'yes') {
+                        isThaparStudent = true;
+                      } else
+                        isThaparStudent = false;
+                    });
+                  },
+                  onChanged: (value) {
                     if (value == 'yes') {
                       isThaparStudent = true;
                     } else
                       isThaparStudent = false;
-                  });
-                },
-              ),
+                  }),
               RaisedButton(
                   child: Text('complete registeration'),
                   onPressed: () async {
-                    await db
-                        .updateUserData(
-                            name, email, gender, year, isThaparStudent)
-                        .whenComplete(() {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) {
-                        return Home();
-                      }), ModalRoute.withName('/register'));
-                    });
+                    dynamic result = await _auth.signInWithGoogle();
+                    if (result != null) {
+                      final db = DatabaseService(uid: result.uid);
+                      await db
+                          .updateUserData(
+                              name, email, gender, year, isThaparStudent)
+                          .whenComplete(() {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) {
+                          return Home();
+                        }), ModalRoute.withName('/register'));
+                      });
+                    }
                   })
             ],
           ),

@@ -36,7 +36,7 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: 'DSC TITLE'),
+        appBar: CustomAppBar(title: 'DSC TITLE' , menu: SelectedMenu.Events,),
         body: SafeArea(
           child: _event == null
               ? Center(child: CircularProgressIndicator())
@@ -56,44 +56,44 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                                 children: <Widget>[
                                   Text(
                                     _eventDetail.title,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
                                   RichText(
                                       text: TextSpan(
                                           text: 'Date: ',
-                                          style: TextStyle(color: Colors.black),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
                                           children: <TextSpan>[
                                         TextSpan(
                                             text: _eventDetail.date,
-                                            style:
-                                                TextStyle(color: Colors.grey))
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2)
                                       ])),
                                   RichText(
                                       text: TextSpan(
                                           text: 'Venue: ',
-                                          style: TextStyle(color: Colors.black),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
                                           children: <TextSpan>[
                                         TextSpan(
                                             text: _eventDetail.venue,
-                                            style:
-                                                TextStyle(color: Colors.grey))
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2)
                                       ]))
                                 ],
                               ),
-                              subtitle: Text(
-                                _eventDetail.info,
-                                maxLines: 1,
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 10.0,
-                                  color: Colors.black,
-                                ),
-                              ),
+                              subtitle: Text(_eventDetail.info,
+                                  maxLines: 1,
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.bodyText2),
                               trailing: RaisedButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -104,7 +104,7 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                                     ),
                                   );
                                 },
-                                color: getColorButton(r),
+                                color: blueColor,
                                 textColor: Colors.white,
                                 child: Text(
                                   'Learn More',

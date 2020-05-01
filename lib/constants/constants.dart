@@ -24,7 +24,7 @@ TextStyle kTeamDialogueRole =
 TextStyle kMemberCategryStyle = GoogleFonts.poppins(
     color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.w300);
 TextStyle kMemberCategryStyleHeading = GoogleFonts.poppins(
-    color: Colors.grey, fontSize: 28.0, fontWeight: FontWeight.w300);
+    color: Colors.white, fontSize: 28.0, fontWeight: FontWeight.w300);
 TextStyle kEventHeading =
     GoogleFonts.poppins(color: Colors.black, fontSize: 28.0);
 
@@ -95,14 +95,7 @@ Color getColorButton(int selector) {
   }
 }
 
-enum SelectedMenu {
-  Home,
-  ContactUs,
-  Team,
-  Projets,
-  Events,
-  Logout,
-}
+enum SelectedMenu { Home, ContactUs, Team, Projets, Events, Logout, Profile }
 
 TextStyle KMemberCategryStyle = GoogleFonts.poppins(
     color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.w300);

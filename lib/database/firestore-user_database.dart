@@ -17,7 +17,9 @@ class DatabaseService {
       'gender': gender,
       'year': year,
       'isThaparStudent': isThaparStudent,
-      'uid': uid
+      'uid': uid,
+      'eventsAttended': [],
+      'image': ''
     });
   }
 

@@ -1,4 +1,5 @@
 import 'package:dsc_app/constants/constants.dart';
+import 'package:dsc_app/networking/authentication/wrapper.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/member_detail_card.dart';
 import 'package:flutter/gestures.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:dsc_app/models/team.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
+import 'package:async/async.dart';
 
 TeamDetails _team;
 TeamCategory _teamCategory;
@@ -28,12 +30,27 @@ class _TeamState extends State<Team> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'DSC TIET',
+        title: 'Meet The Team',
         menu: SelectedMenu.Team,
       ),
       body: TeamCategoryBuilder(),
     );
   }
+}
+
+final AsyncMemoizer _memoizer = AsyncMemoizer();
+Future getData() async {
+  var response = await http
+      .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
+  if (response.statusCode == 200) {
+    var decodedJson = jsonDecode(response.body);
+    _team = TeamDetails.fromJson(decodedJson);
+
+    return _memoizer.runOnce(() async {
+      return _team;
+    });
+  } else
+    return 'error';
 }
 
 class TeamCategoryBuilder extends StatelessWidget {
@@ -45,17 +62,26 @@ class TeamCategoryBuilder extends StatelessWidget {
           TeamDetails _teamData = snapshot.data;
 
           if (snapshot.connectionState == ConnectionState.none &&
-              snapshot.hasData == null) {
-            return Container();
-          }
-          if (snapshot.hasData) {
+              snapshot.connectionState == ConnectionState.active &&
+              snapshot.connectionState == ConnectionState.waiting &&
+              snapshot.connectionState == ConnectionState.done) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Expanded(
+              child: Container(
+                child: Image.asset(
+                  'lib/assets/undraw_page_not_found_su7k.png',
+                ),
+              ),
+            );
+          } else if (snapshot.hasData) {
             return ListView.builder(
               cacheExtent: 1000,
               addAutomaticKeepAlives: true,
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               dragStartBehavior: DragStartBehavior.start,
-              itemCount: _team.category.length,
+              itemCount: _teamData.category.length,
               itemBuilder: (BuildContext context, int index) {
                 _teamCategory = _teamData.category[index];
                 return SingleChildScrollView(
@@ -63,15 +89,6 @@ class TeamCategoryBuilder extends StatelessWidget {
                     children: <Widget>[
                       SizedBox(
                         height: 30,
-                      ),
-                      Center(
-                        child: Container(
-                          child: Text("Meet the team",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 35.0,
-                                  fontWeight: FontWeight.bold)),
-                        ),
                       ),
                       SizedBox(height: 20),
                       Container(
@@ -85,7 +102,10 @@ class TeamCategoryBuilder extends StatelessWidget {
                         ),
                         child: Text(
                           _teamCategory.name, //Category name
-                          style: KMemberCategryStyle,
+                          style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 28.0,
+                              fontWeight: FontWeight.w300),
                         ),
                       ),
                       SizedBox(
@@ -93,7 +113,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       Text(
                         "Head",
-                        style: KMemberCategryStyleHeading,
+                        style: Theme.of(context).textTheme.headline2,
                       ),
                       CarouselSlider.builder(
                           // Carousel for building the heads card
@@ -119,7 +139,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       Text(
                         "Members",
-                        style: KMemberCategryStyleHeading,
+                        style: Theme.of(context).textTheme.headline2,
                       ),
                       CarouselSlider.builder(
                           // Carousel for building the members card
@@ -146,24 +166,9 @@ class TeamCategoryBuilder extends StatelessWidget {
               },
             );
           } else
-            return Center(
-                child: Container(
-              child:
-                  CircularProgressIndicator(), //incase the data is not available
-            ));
+            return Center(child: CircularProgressIndicator());
         });
   }
-}
-
-Future getData() async {
-  var response = await http
-      .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
-  if (response.statusCode == 200) {
-    var decodedJson = jsonDecode(response.body);
-    _team = TeamDetails.fromJson(decodedJson);
-    return _team;
-  } else
-    return 'error';
 }
 
 //Selecting the colour
@@ -171,28 +176,28 @@ Color getColor(int selector) {
   switch (selector) {
     case 1:
       {
-        return Color.fromRGBO(66, 133, 244, 0.7);
+        return Color.fromRGBO(66, 133, 244, 1);
       }
       break;
 
     case 2:
       {
-        return Color.fromRGBO(219, 68, 55, 0.7);
+        return Color.fromRGBO(219, 68, 55, 1);
       }
       break;
     case 3:
       {
-        return Color.fromRGBO(244, 180, 0, 0.7);
+        return Color.fromRGBO(244, 180, 0, 1);
       }
       break;
     case 4:
       {
-        return Color.fromRGBO(15, 157, 88, 0.7);
+        return Color.fromRGBO(15, 157, 88, 1);
       }
       break;
     default:
       {
-        return Color.fromRGBO(219, 68, 55, 0.7);
+        return Color.fromRGBO(219, 68, 55, 1);
       }
       break;
   }

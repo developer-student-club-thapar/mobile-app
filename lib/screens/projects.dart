@@ -36,7 +36,10 @@ class _ProjectsState extends State<Projects> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: 'DSC TITLE'),
+        appBar: CustomAppBar(
+          title: 'DSC TITLE',
+          menu: SelectedMenu.Projets,
+        ),
         body: SafeArea(
           child: _project == null
               ? Center(child: CircularProgressIndicator())
@@ -56,9 +59,8 @@ class _ProjectsState extends State<Projects> {
                                 children: <Widget>[
                                   Text(
                                     _projectDetail.name ?? '',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
@@ -68,14 +70,16 @@ class _ProjectsState extends State<Projects> {
                                     child: RichText(
                                         text: TextSpan(
                                             text: 'Faculty: ',
-                                            style:
-                                                TextStyle(color: Colors.black),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
                                             children: <TextSpan>[
                                           TextSpan(
                                               text:
                                                   _projectDetail.faculty ?? '',
-                                              style:
-                                                  TextStyle(color: Colors.grey))
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2)
                                         ])),
                                   ),
                                   Visibility(
@@ -84,14 +88,16 @@ class _ProjectsState extends State<Projects> {
                                     child: RichText(
                                         text: TextSpan(
                                             text: 'Funding: ',
-                                            style:
-                                                TextStyle(color: Colors.black),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
                                             children: <TextSpan>[
                                           TextSpan(
                                               text:
                                                   _projectDetail.funding ?? '',
-                                              style:
-                                                  TextStyle(color: Colors.grey))
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2)
                                         ])),
                                   )
                                 ],
@@ -101,10 +107,7 @@ class _ProjectsState extends State<Projects> {
                                 maxLines: 1,
                                 textAlign: TextAlign.left,
                                 overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 10.0,
-                                  color: Colors.black,
-                                ),
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
                               trailing: RaisedButton(
                                 onPressed: () {

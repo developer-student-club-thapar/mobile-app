@@ -2,6 +2,7 @@ import 'package:dsc_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:dsc_app/widgets/custom_icon.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MemberCard extends StatelessWidget {
   final String name;
@@ -29,84 +30,8 @@ class MemberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
-      width: 300,
+      width: kwidth(context) * 0.7,
       child: Stack(children: <Widget>[
-        ConstrainedBox(
-          constraints: BoxConstraints.expand(),
-          child: Card(
-            elevation: 5,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 10),
-                      Container(
-                        height: 140,
-                        width: 110,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 0.1),
-                            shape: BoxShape.rectangle),
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Text(
-                            name == null ? 'Loading..' : name,
-                            style: kMemberCardTitle,
-                            maxLines: 2,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                          )),
-                      Text(
-                        role == null ? 'Loading' : role,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Row()
-                    ]),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  
-                  children: <Widget>[
-                    CustomClickableIcon(
-                      url: linkedinUrl,
-                      icon: FontAwesomeIcons.linkedin,
-                      visibility: true ?? false,
-                    ),
-                    CustomClickableIcon(
-                      url: githubUrl,
-                      icon: FontAwesomeIcons.githubSquare,
-                      visibility: true ?? false,
-                    ),
-                    CustomClickableIcon(
-                      url: mediumUrl,
-                      icon: FontAwesomeIcons.medium,
-                      visibility: true ?? false,
-                    ),
-                    CustomClickableIcon(
-                      url: twitterUrl,
-                      icon: FontAwesomeIcons.twitter,
-                      visibility: true ?? false,
-                    ),
-                    CustomClickableIcon(
-                      url: 'mailto:$email',
-                      icon: FontAwesomeIcons.envelope,
-                      visibility: true ?? false,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
         Positioned(
           left: 15,
           child: Align(
@@ -119,7 +44,88 @@ class MemberCard extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+        ConstrainedBox(
+          constraints: BoxConstraints.expand(),
+          child: Card(
+            elevation: 5,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Container(
+                          height: 140,
+                          width: kwidth(context) * 0.28,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 0.1),
+                              shape: BoxShape.rectangle),
+                          child: Image.network(
+                            image,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(top: 5),
+                          child: Text(
+                            name == null ? 'Loading..' : name,
+                            style: Theme.of(context).textTheme.subtitle2,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                          )),
+                      Text(
+                        role == null ? 'Loading' : role,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      Row()
+                    ]),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CustomClickableIcon(
+                        url: linkedinUrl,
+                        icon: FontAwesomeIcons.linkedin,
+                        visibility: true ?? false,
+                      ),
+                      CustomClickableIcon(
+                        url: githubUrl,
+                        icon: FontAwesomeIcons.githubSquare,
+                        visibility: true ?? false,
+                      ),
+                      CustomClickableIcon(
+                        url: mediumUrl,
+                        icon: FontAwesomeIcons.medium,
+                        visibility: true ?? false,
+                      ),
+                      CustomClickableIcon(
+                        url: twitterUrl,
+                        icon: FontAwesomeIcons.twitter,
+                        visibility: true ?? false,
+                      ),
+                      CustomClickableIcon(
+                        url: 'mailto:$email',
+                        icon: FontAwesomeIcons.envelope,
+                        visibility: true ?? false,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
       ]),
     );
   }
@@ -129,28 +135,28 @@ Color getColor(int selector) {
   switch (selector % 7) {
     case 0:
       {
-        return Color.fromRGBO(66, 133, 244, 0.5);
+        return Color.fromRGBO(66, 133, 244, 1);
       }
       break;
 
     case 1:
       {
-        return Color.fromRGBO(219, 68, 55, 0.5);
+        return Color.fromRGBO(219, 68, 55, 1);
       }
       break;
     case 2:
       {
-        return Color.fromRGBO(244, 180, 0, 0.5);
+        return Color.fromRGBO(244, 180, 0, 1);
       }
       break;
     case 3:
       {
-        return Color.fromRGBO(15, 157, 88, 0.5);
+        return Color.fromRGBO(15, 157, 88, 1);
       }
       break;
     default:
       {
-        return Color.fromRGBO(219, 68, 55, 0.5);
+        return Color.fromRGBO(219, 68, 55, 1);
       }
       break;
   }
