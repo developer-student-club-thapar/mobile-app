@@ -43,7 +43,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     setState(() {
                       widget.selectedMenu = SelectedMenu.Home;
                     });
-                    Navigator.pushReplacementNamed(context, '/home');
+                    Navigator.pushReplacementNamed(context, '/nhome');
                   },
                   title: 'HOME',
                   color: widget.selectedMenu == SelectedMenu.Home

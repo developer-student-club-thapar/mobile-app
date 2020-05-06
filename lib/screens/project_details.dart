@@ -1,207 +1,145 @@
+import 'package:dsc_app/widgets/bottom_tean_row.dart';
 import 'package:flutter/material.dart';
-import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/constants/constants.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
 import 'package:dsc_app/models/projects.dart';
 
-class ProjectDetailsPage extends StatelessWidget {
-  final ProjectDetail _projectDetail;
-  ProjectDetailsPage(this._projectDetail);
+class ProjectDetailsPage extends StatefulWidget {
+  final ProjectDetail project;
+
+  ProjectDetailsPage(this.project);
+
+  @override
+  _ProjectDetailsPageState createState() => _ProjectDetailsPageState();
+}
+
+class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
+  List<String> imageLink = [];
+  List<String> names = [];
+  bool loaded = false;
+  void extractImageLinks(List<String> imagelist, List<String> namelist) {
+    imagelist.add(widget.project.projectLead.image);
+    namelist.add(widget.project.projectLead.name);
+
+    for (int i = 0; i < widget.project.members.length; i++) {
+      imagelist.add(widget.project.members[i].image);
+    }
+    for (int j = 0; j < widget.project.members.length; j++) {
+      namelist.add(widget.project.members[j].name);
+    }
+  }
+
+  void gettingData() async {
+    await Future.delayed(Duration(seconds: 2));
+    loaded = !loaded;
+    setState(() {});
+  }
+
+  @override
+  initState() {
+    extractImageLinks(imageLink, names);
+    super.initState();
+    gettingData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'PROJECT',
-        menu: SelectedMenu.Projets,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    //Decoration for category title
-                    color: getColor(r),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0),
-                    ),
-                  ),
-                  child: Text(
-                    _projectDetail.name,
-                    style: kEventTitle,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Center(
-                            child: Wrap(
-                              //    direction: Axis.vertical,
-                              runSpacing: 15.0,
-                              children: <Widget>[
-                                Text(
-                                  _projectDetail.description,
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    //Decoration for category title
-                    color: getColor(r + 1),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0),
-                    ),
-                  ),
-                  child: Text(
-                    'Topics Covered:',
-                    style: kEventHeading,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      //Decoration for category title
-                      color: getColor(r + 2),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
+        body: loaded
+            ? CustomScrollView(
+                scrollDirection: Axis.vertical,
+                slivers: <Widget>[
+                  SliverAppBar(
+                    backgroundColor: Colors.black,
+                    floating: true,
+                    pinned: true,
+                    forceElevated: true,
+                    elevation: 5,
+                    snap: true,
+                    title: Text(widget.project.name,
+                        style: TextStyle(color: Colors.black)),
+                    centerTitle: true,
+                    expandedHeight: 250,
+                    flexibleSpace: FlexibleSpaceBar(
+                      centerTitle: true,
+                      background: Image.network(
+                        widget.project.image,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    child: Text(
-                      'Faculty:',
-                      style: kEventHeading,
-                    ),
                   ),
-                  Text(_projectDetail.faculty,
-                      style: TextStyle(fontSize: 20.0)),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      //Decoration for category title
-                      color: getColor(r - 2),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Text(
-                      'Funding:',
-                      style: kEventHeading,
-                    ),
-                  ),
-                  Text(
-                    _projectDetail.funding,
-                    style: TextStyle(fontSize: 20.0),
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Center(
-                child: RaisedButton(
-                  onPressed: () {
-                    try {
-                      launch(_projectDetail.link);
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
-                  color: getColorButton(r),
-                  textColor: Colors.white,
-                  child: Text(
-                    'Github Link',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(fontSize: 25),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    //Decoration for category title
-                    color: getColor(r + 1),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0),
-                    ),
-                  ),
-                  child: Text(
-                    'Topics Covered:',
-                    style: kEventHeading,
-                  ),
-                ),
-              ),
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Center(
-                            child: Wrap(
-                              //    direction: Axis.vertical,
-                              runSpacing: 15.0,
-                              children: <Widget>[
-                                Text(
-                                  _projectDetail.extra,
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                              ],
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Wrap(
+                                runSpacing: 15.0,
+                                children: <Widget>[
+                                  Text(
+                                    widget.project.description,
+                                    textAlign: TextAlign.justify,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ]),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Members :',
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: kwidth(context),
+                                height: 110,
+                                child: BottomRow(
+                                  imageUrl: imageLink,
+                                  totalPeople: imageLink.length,
+                                  name: names,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: kwidth(context),
+                          height: kheight(context) * 0.06,
+                          child: RaisedButton(
+                            onPressed: () async {
+                              try {
+                                launch(widget.project.githubLink);
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            color: blueColor,
+                            //   textColor: Colors.white,
+                            child: Text(
+                              'Github Link',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               )
-            ],
-          ),
-        ),
-      ),
-    );
+            : Center(child: CircularProgressIndicator()));
   }
 }
 

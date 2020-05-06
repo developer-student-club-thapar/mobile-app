@@ -18,7 +18,7 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    User _user = user;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -37,7 +37,10 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
             ),
           ),
           SizedBox(height: 10),
-          TextTransition(user: _user ?? null),
+          Expanded(
+              child: user == null
+                  ? TextTransition(null)
+                  : TextTransition(user.name)),
         ],
       ),
     );
@@ -45,8 +48,8 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
 }
 
 class TextTransition extends StatefulWidget {
-  final User user;
-  TextTransition({this.user});
+  final String _name;
+  TextTransition(this._name);
   @override
   _TextTransitionState createState() => _TextTransitionState();
 }
@@ -74,7 +77,7 @@ class _TextTransitionState extends State<TextTransition>
   Widget build(BuildContext context) {
     _animationController.forward();
     Future.delayed(Duration(seconds: 3)).then((value) {
-      if (widget.user == null) {
+      if (widget._name == null) {
         if (Navigator.canPop(context)) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => WelcomeScreen()));
@@ -82,16 +85,15 @@ class _TextTransitionState extends State<TextTransition>
         } else
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => WelcomeScreen()));
-      } else
-        {
+      } else {
         if (Navigator.canPop(context)) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NewHome()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewHome()));
           Navigator.pop(context);
         } else
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NewHome()));
-      } 
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewHome()));
+      }
     });
     return FutureBuilder(
         future: delay(),
@@ -100,10 +102,17 @@ class _TextTransitionState extends State<TextTransition>
             return FadeTransition(
               opacity: _animation,
               child: Container(
-                  child: Text(
-                'Welcome ' + (widget.user.name).toString() ?? '',
-                style: GoogleFonts.poppins(fontSize: 23, color: Colors.white),
-              )),
+                  child: widget._name != null
+                      ? Text(
+                          'Welcome ' + widget._name ?? '',
+                          style: GoogleFonts.poppins(
+                              fontSize: 23, color: Colors.white),
+                        )
+                      : Text(
+                          'Welcome',
+                          style: GoogleFonts.poppins(
+                              fontSize: 23, color: Colors.white),
+                        )),
             );
           } else
             return Container(color: Colors.black);
@@ -112,6 +121,6 @@ class _TextTransitionState extends State<TextTransition>
 }
 
 Future delay() async {
-  await Future.delayed(Duration(milliseconds: 10));
+  await Future.delayed(Duration(seconds: 1));
   return true;
 }

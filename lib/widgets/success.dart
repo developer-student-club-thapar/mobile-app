@@ -41,7 +41,7 @@ class SuccessPage extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, '/nhome');
             },
             color: blueColor,
             textColor: Colors.white,

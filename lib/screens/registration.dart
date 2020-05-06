@@ -1,4 +1,5 @@
 import 'package:dsc_app/screens/home.dart';
+import 'package:dsc_app/screens/new_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dsc_app/models/user.dart';
@@ -99,7 +100,7 @@ class _RegistrationState extends State<Registration> {
                           .whenComplete(() {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) {
-                          return Home();
+                          return NewHome();
                         }), ModalRoute.withName('/register'));
                       });
                     }

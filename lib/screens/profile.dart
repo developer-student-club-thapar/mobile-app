@@ -73,7 +73,7 @@ class _ProfileState extends State<Profile> {
                                 height: kheight(context) * 0.1,
                               ),
                               Text(_userData.name,
-                                  style: Theme.of(context).textTheme.headline4),
+                                  style: Theme.of(context).textTheme.headline3),
                               Text(_userData.email,
                                   style: Theme.of(context).textTheme.headline6),
 
@@ -102,7 +102,7 @@ class _ProfileState extends State<Profile> {
                                         Text('Previous Events :',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline4,
+                                                .headline3,
                                             textAlign: TextAlign.left),
                                         Expanded(
                                           child: Container(

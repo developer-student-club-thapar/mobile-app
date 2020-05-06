@@ -7,7 +7,6 @@ import 'package:dsc_app/screens/profile.dart';
 import 'package:dsc_app/screens/projects.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:dsc_app/screens/home.dart';
 import 'package:dsc_app/screens/menu_screen.dart';
 import 'package:dsc_app/screens/fundus.dart';
 import 'package:dsc_app/screens/welcome_screen.dart';
@@ -36,12 +35,10 @@ class DscApp extends StatelessWidget {
           cardColor: Color.fromRGBO(217, 217, 217, 0.1),
           scaffoldBackgroundColor: Colors.black,
           iconTheme: IconThemeData(
-            color: Color.fromRGBO(255, 255, 255, 0.3),
-            size: 40
-          ),
+              color: Color.fromRGBO(255, 255, 255, 0.3), size: 40),
           textTheme: TextTheme(
               headline2: GoogleFonts.poppins(color: Colors.white, fontSize: 28),
-              headline4: GoogleFonts.poppins(
+              headline3: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 25,
                   fontWeight: FontWeight.w500),
@@ -51,10 +48,14 @@ class DscApp extends StatelessWidget {
                 color: Color.fromRGBO(255, 255, 255, 0.5),
                 fontSize: 15.0,
               ),
-              bodyText1: GoogleFonts.poppins(
+              headline4: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
+              bodyText1: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 20,
+              ),
               bodyText2: GoogleFonts.poppins(
                   color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 10),
               subtitle1: GoogleFonts.poppins(
@@ -66,9 +67,9 @@ class DscApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => NewHome(),
+          '/': (context) => Wrapper(),
           '/menu': (context) => MenuScreen(),
-          '/home': (context) => Home(),
+          '/home': (context) => NewHome(),
           '/login': (context) => Login(),
           '/register': (context) => Registration(),
           '/welcome': (context) => WelcomeScreen(),

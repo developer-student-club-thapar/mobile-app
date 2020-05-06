@@ -57,7 +57,7 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                                   Text(
                                     _eventDetail.title,
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.headline4,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),

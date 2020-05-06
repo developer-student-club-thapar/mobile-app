@@ -15,14 +15,14 @@ class Projects extends StatefulWidget {
 
 class _ProjectsState extends State<Projects> {
   Project _project;
-  ProjectDetail _projectDetail;
+  ProjectDetail projectDetail;
   getData() async {
     var response = await http
         .get('https://dsctiet.pythonanywhere.com/api/projects/?format=json');
     if (response.statusCode == 200) {
       var decodedJson = jsonDecode(response.body);
       _project = Project.fromJson(decodedJson);
-      print(_project.detailedProject.length);
+
       setState(() {});
     }
   }
@@ -47,7 +47,7 @@ class _ProjectsState extends State<Projects> {
                   child: ListView.builder(
                       itemCount: _project.detailedProject.length,
                       itemBuilder: (BuildContext context, int index) {
-                        _projectDetail = _project.detailedProject[index];
+                        projectDetail = _project.detailedProject[index];
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
@@ -58,15 +58,15 @@ class _ProjectsState extends State<Projects> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    _projectDetail.name ?? '',
+                                    projectDetail.name ?? '',
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.headline4,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
                                   Visibility(
                                     maintainSize: false,
-                                    visible: _projectDetail.funding != '',
+                                    visible: projectDetail.funding != '',
                                     child: RichText(
                                         text: TextSpan(
                                             text: 'Faculty: ',
@@ -75,35 +75,29 @@ class _ProjectsState extends State<Projects> {
                                                 .subtitle1,
                                             children: <TextSpan>[
                                           TextSpan(
-                                              text:
-                                                  _projectDetail.faculty ?? '',
+                                              text: projectDetail.faculty ?? '',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .subtitle2)
                                         ])),
                                   ),
-                                  Visibility(
-                                    maintainSize: false,
-                                    visible: _projectDetail.funding != '',
-                                    child: RichText(
-                                        text: TextSpan(
-                                            text: 'Funding: ',
+                                  RichText(
+                                      text: TextSpan(
+                                          text: 'Funding: ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                          children: <TextSpan>[
+                                        TextSpan(
+                                            text: projectDetail.funding ?? '',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1,
-                                            children: <TextSpan>[
-                                          TextSpan(
-                                              text:
-                                                  _projectDetail.funding ?? '',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle2)
-                                        ])),
-                                  )
+                                                .subtitle2)
+                                      ]))
                                 ],
                               ),
                               subtitle: Text(
-                                _projectDetail.description,
+                                projectDetail.description,
                                 maxLines: 1,
                                 textAlign: TextAlign.left,
                                 overflow: TextOverflow.ellipsis,
@@ -112,12 +106,11 @@ class _ProjectsState extends State<Projects> {
                               trailing: RaisedButton(
                                 onPressed: () {
                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProjectDetailsPage(_projectDetail),
-                                    ),
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProjectDetailsPage(_project
+                                                  .detailedProject[index])));
                                 },
                                 color: getColorButton(r),
                                 textColor: Colors.white,

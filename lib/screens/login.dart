@@ -1,4 +1,5 @@
 import 'package:dsc_app/screens/home.dart';
+import 'package:dsc_app/screens/new_home.dart';
 import 'package:dsc_app/widgets/welcome_screen_button.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/constants/constants.dart';
@@ -134,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                       } else {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) {
-                          return Home();
+                          return NewHome();
                         }), ModalRoute.withName('/login'));
                       }
                     },
