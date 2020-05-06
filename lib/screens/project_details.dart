@@ -47,97 +47,105 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: loaded
-            ? CustomScrollView(
-                scrollDirection: Axis.vertical,
-                slivers: <Widget>[
-                  SliverAppBar(
-                    backgroundColor: Colors.black,
-                    floating: true,
-                    pinned: true,
-                    forceElevated: true,
-                    elevation: 5,
-                    snap: true,
-                    title: Text(widget.project.name,
-                        style: TextStyle(color: Colors.black)),
-                    centerTitle: true,
-                    expandedHeight: 250,
-                    flexibleSpace: FlexibleSpaceBar(
-                      centerTitle: true,
-                      background: Image.network(
-                        widget.project.image,
-                        fit: BoxFit.cover,
+            ? SafeArea(
+                child: CustomScrollView(
+                  scrollDirection: Axis.vertical,
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      backgroundColor: Colors.black,
+                      floating: true,
+                      pinned: true,
+                      forceElevated: true,
+                      elevation: 5,
+                      snap: true,
+                      expandedHeight: 250,
+                      leading: Container(),
+                      flexibleSpace: FlexibleSpaceBar(
+                        centerTitle: true,
+                        background: Image.network(
+                          widget.project.image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildListDelegate(
-                      [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Wrap(
-                                runSpacing: 15.0,
-                                children: <Widget>[
-                                  Text(
-                                    widget.project.description,
-                                    textAlign: TextAlign.justify,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ],
-                              ),
+                    SliverList(
+                      delegate: SliverChildListDelegate(
+                        [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12.0),
+                            child: Center(
+                              child: Text(widget.project.name,
+                                  style: Theme.of(context).textTheme.headline2),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Members :',
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                width: kwidth(context),
-                                height: 110,
-                                child: BottomRow(
-                                  imageUrl: imageLink,
-                                  totalPeople: imageLink.length,
-                                  name: names,
+                          SizedBox(height: 10.0),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Wrap(
+                                  runSpacing: 15.0,
+                                  children: <Widget>[
+                                    Text(
+                                      widget.project.description,
+                                      textAlign: TextAlign.justify,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Container(
-                          width: kwidth(context),
-                          height: kheight(context) * 0.06,
-                          child: RaisedButton(
-                            onPressed: () async {
-                              try {
-                                launch(widget.project.githubLink);
-                              } catch (e) {
-                                print(e);
-                              }
-                            },
-                            color: blueColor,
-                            //   textColor: Colors.white,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Github Link',
-                              style: Theme.of(context).textTheme.bodyText1,
+                              'Members :',
+                              style: Theme.of(context).textTheme.headline5,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  width: kwidth(context),
+                                  height: 110,
+                                  child: BottomRow(
+                                    imageUrl: imageLink,
+                                    totalPeople: imageLink.length,
+                                    name: names,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: kwidth(context),
+                            height: kheight(context) * 0.06,
+                            child: RaisedButton(
+                              onPressed: () async {
+                                try {
+                                  launch(widget.project.githubLink);
+                                } catch (e) {
+                                  print(e);
+                                }
+                              },
+                              color: blueColor,
+                              //   textColor: Colors.white,
+                              child: Text(
+                                'Github Link',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               )
             : Center(child: CircularProgressIndicator()));
   }

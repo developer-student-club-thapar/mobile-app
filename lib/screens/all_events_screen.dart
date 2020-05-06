@@ -22,7 +22,7 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
     if (response.statusCode == 200) {
       var decodedJson = jsonDecode(response.body);
       _event = Event.fromJson(decodedJson);
-      print(_event.detailedEvent.length);
+
       setState(() {});
     }
   }
@@ -36,7 +36,10 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: 'EVENTS' , menu: SelectedMenu.Events,),
+        appBar: CustomAppBar(
+          title: 'EVENTS',
+          menu: SelectedMenu.Events,
+        ),
         body: SafeArea(
           child: _event == null
               ? Center(child: CircularProgressIndicator())

@@ -1,15 +1,13 @@
 import 'package:dsc_app/constants/constants.dart';
-import 'package:dsc_app/networking/authentication/wrapper.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
+import 'package:dsc_app/widgets/team_list.dart';
 import 'package:dsc_app/widgets/team_tile.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dsc_app/models/team.dart';
 import 'package:http/http.dart' as http;
-import 'package:async/async.dart';
 
 TeamDetails _team;
 TeamCategory _teamCategory;
@@ -77,6 +75,8 @@ class TeamCategoryBuilder extends StatelessWidget {
               itemCount: _teamData.category.length,
               itemBuilder: (BuildContext context, int index) {
                 _teamCategory = _teamData.category[index];
+                    
+
                 return SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
@@ -97,7 +97,8 @@ class TeamCategoryBuilder extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(
+                              top: 8.0, bottom: 8.0, left: 16),
                           child: Text(
                             "Head",
                             style: GoogleFonts.poppins(
@@ -106,24 +107,17 @@ class TeamCategoryBuilder extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ListView.builder(
-                          // Carousel for building the heads card
-                          shrinkWrap: true,
-                          itemCount: _teamCategory.heads.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            return TeamTile(
-                              name: _teamCategory.heads[i].name,
-                              image: _teamCategory.heads[i].image,
-                              role: _teamCategory.heads[i].role,
-                            );
-                          }),
+                      TeamList(
+                        membersList: _teamCategory.heads,
+                      ),
                       SizedBox(
                         height: 30.0,
                       ),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(
+                              top: 8.0, bottom: 8.0, left: 16),
                           child: Text(
                             "Members",
                             style: GoogleFonts.poppins(
@@ -132,17 +126,9 @@ class TeamCategoryBuilder extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ListView.builder(
-                          // Carousel for building the members card
-                          shrinkWrap: true,
-                          itemCount: _teamData.category[index].members.length,
-                          itemBuilder: (BuildContext context, int j) {
-                            return TeamTile(
-                              name: _teamCategory.members[j].name,
-                              image: _teamCategory.members[j].image,
-                              role: _teamCategory.members[j].role,
-                            );
-                          }),
+                      TeamList(
+                        membersList: _teamCategory.members,
+                      ),
                     ],
                   ),
                 );

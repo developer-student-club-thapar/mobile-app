@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TeamTile extends StatelessWidget {
   final String image;
@@ -8,7 +9,7 @@ class TeamTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Card(
         elevation: 10.0,
         child: ListTile(
@@ -25,7 +26,7 @@ class TeamTile extends StatelessWidget {
           leading: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               return CircleAvatar(
-                backgroundImage: NetworkImage(image),
+                backgroundImage: CachedNetworkImageProvider(image),
                 maxRadius: constraints.maxHeight / 2,
                 minRadius: 20.0,
               );
