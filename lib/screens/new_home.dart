@@ -1,5 +1,5 @@
 import 'package:dsc_app/constants/constants.dart';
-import 'package:dsc_app/screens/home.dart';
+import 'package:dsc_app/screens/team_member_detial.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -98,27 +98,30 @@ class HomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: kwidth(context) * 0.28,
-        height: kwidth(context) * 0.28,
-        child: Card(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              icon,
-              color: iconColor,
-              size: kwidth(context) * 0.2,
-            ),
-            Text(
-              title,
-              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            )
-          ],
-        )),
+    return GestureDetector(
+      onTap: onClick,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: kwidth(context) * 0.28,
+          height: kwidth(context) * 0.28,
+          child: Card(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                icon,
+                color: iconColor,
+                size: kwidth(context) * 0.2,
+              ),
+              Text(
+                title,
+                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+              )
+            ],
+          )),
+        ),
       ),
     );
   }

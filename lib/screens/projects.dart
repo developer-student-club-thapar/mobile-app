@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:dsc_app/networking/api.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/models/projects.dart';
@@ -16,15 +17,14 @@ class Projects extends StatefulWidget {
 class _ProjectsState extends State<Projects> {
   Project _project;
   ProjectDetail projectDetail;
+  Api api = Api(path: '/projects/?format=json');
   getData() async {
-    var response = await http
-        .get('https://dsctiet.pythonanywhere.com/api/projects/?format=json');
-    if (response.statusCode == 200) {
-      var decodedJson = jsonDecode(response.body);
-      _project = Project.fromJson(decodedJson);
-
+    var result = await api.fetchData();
+    if (result != null) {
+      _project = Project.fromJson(result);
       setState(() {});
-    }
+    } else
+      _project = null;
   }
 
   @override

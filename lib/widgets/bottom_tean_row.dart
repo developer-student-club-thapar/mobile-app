@@ -1,5 +1,6 @@
 import 'package:dsc_app/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class BottomRow extends StatelessWidget {
   final List<String> imageUrl;
@@ -43,11 +44,19 @@ class ImageCircle extends StatelessWidget {
             width: 70.0,
             height: 70.0,
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 2),
-                color: Colors.white,
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: NetworkImage(image), fit: BoxFit.cover)),
+              border: Border.all(color: Colors.white, width: 2),
+              color: Colors.white,
+              shape: BoxShape.circle
+            ),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return CircleAvatar(
+                  backgroundImage: CachedNetworkImageProvider(image),
+                  maxRadius: constraints.maxHeight / 2,
+                  minRadius: 20.0,
+                );
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),

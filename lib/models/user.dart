@@ -12,7 +12,7 @@ class UserData {
   final String name;
   final String email;
   final String gender;
-  final int year;
+  final String year;
   final bool isThaparStudent;
   final List eventsAttended;
   final String image;

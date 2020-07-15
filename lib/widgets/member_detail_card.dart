@@ -2,7 +2,6 @@ import 'package:dsc_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:dsc_app/widgets/custom_icon.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MemberCard extends StatelessWidget {
   final String name;

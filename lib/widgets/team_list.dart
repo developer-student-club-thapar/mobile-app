@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:dsc_app/widgets/team_tile.dart';
 
 class TeamList extends StatefulWidget {
   final List membersList;
-  TeamList({this.membersList});
+  final String department;
+  TeamList({this.membersList , this.department});
 
   @override
   _TeamListState createState() => _TeamListState();
@@ -19,9 +21,8 @@ class _TeamListState extends State<TeamList> {
         itemCount: widget.membersList.length,
         itemBuilder: (BuildContext context, int i) {
           return TeamTile(
-            name: widget.membersList[i].name,
-            image: widget.membersList[i].image,
-            role: widget.membersList[i].role,
+            teamMemberDetail: widget.membersList[i],
+            department: widget.department,
           );
         });
   }

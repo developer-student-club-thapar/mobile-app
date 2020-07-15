@@ -1,3 +1,4 @@
+import 'package:dsc_app/networking/api.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -16,15 +17,14 @@ class AllEvetScreen extends StatefulWidget {
 class _AllEvetScreenState extends State<AllEvetScreen> {
   Event _event;
   EventDetail _eventDetail;
+  Api api = Api(path: '/events/?format=json');
   getData() async {
-    var response = await http
-        .get('https://dsctiet.pythonanywhere.com/api/events/?format=json');
-    if (response.statusCode == 200) {
-      var decodedJson = jsonDecode(response.body);
-      _event = Event.fromJson(decodedJson);
-
+    var result = await api.fetchData();
+    if (result!=null) {
+      _event = Event.fromJson(result);
       setState(() {});
-    }
+    } else
+      _event = null;
   }
 
   @override
@@ -51,68 +51,71 @@ class _AllEvetScreenState extends State<AllEvetScreen> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
-                            child: ListTile(
-                              enabled: true,
-                              // dense: true,
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    _eventDetail.title,
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                  ),
-                                  RichText(
-                                      text: TextSpan(
-                                          text: 'Date: ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1,
-                                          children: <TextSpan>[
-                                        TextSpan(
-                                            text: _eventDetail.date,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2)
-                                      ])),
-                                  RichText(
-                                      text: TextSpan(
-                                          text: 'Venue: ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1,
-                                          children: <TextSpan>[
-                                        TextSpan(
-                                            text: _eventDetail.venue,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2)
-                                      ]))
-                                ],
-                              ),
-                              subtitle: Text(_eventDetail.info,
-                                  maxLines: 1,
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.bodyText2),
-                              trailing: RaisedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          EventDetailsPage(_eventDetail),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                enabled: true,
+                                // dense: true,
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      _eventDetail.title,
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
                                     ),
-                                  );
-                                },
-                                color: blueColor,
-                                textColor: Colors.white,
-                                child: Text(
-                                  'Learn More',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(fontSize: 13),
+                                    RichText(
+                                        text: TextSpan(
+                                            text: 'Date: ',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
+                                            children: <TextSpan>[
+                                          TextSpan(
+                                              text: _eventDetail.date,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2)
+                                        ])),
+                                    RichText(
+                                        text: TextSpan(
+                                            text: 'Venue: ',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
+                                            children: <TextSpan>[
+                                          TextSpan(
+                                              text: _eventDetail.venue,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2)
+                                        ]))
+                                  ],
+                                ),
+                                subtitle: Text(_eventDetail.info,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.left,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.bodyText2),
+                                trailing: RaisedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EventDetailsPage(_event.detailedEvent[index]),
+                                      ),
+                                    );
+                                  },
+                                  color: blueColor,
+                                  textColor: Colors.white,
+                                  child: Text(
+                                    'Learn More',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(fontSize: 13),
+                                  ),
                                 ),
                               ),
                             ),

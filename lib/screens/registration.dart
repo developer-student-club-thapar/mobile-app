@@ -23,7 +23,7 @@ class _RegistrationState extends State<Registration> {
     String name = '';
     String email = '';
     String gender = '';
-    int year = 0;
+    String year = '0';
     bool isThaparStudent = false;
     return Scaffold(
       body: Container(
@@ -66,11 +66,11 @@ class _RegistrationState extends State<Registration> {
                   decoration: InputDecoration(hintText: 'Enter year'),
                   onSaved: (value) {
                     setState(() {
-                      year = int.parse(value);
+                      year = value;
                     });
                   },
                   onChanged: (value) {
-                    year = int.parse(value);
+                    year = value;
                   }),
               TextFormField(
                   decoration: InputDecoration(hintText: 'thapar student?'),

@@ -1,10 +1,9 @@
-import 'package:dsc_app/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/constants/constants.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:dsc_app/widgets/menu_item.dart';
 import 'package:dsc_app/networking/auth.dart';
-import 'package:dsc_app/screens/login.dart';
+import 'package:flutter/services.dart';
 
 class MenuScreen extends StatefulWidget {
   SelectedMenu selectedMenu;
@@ -115,11 +114,9 @@ class _MenuScreenState extends State<MenuScreen> {
                     setState(() {
                       widget.selectedMenu = SelectedMenu.Logout;
                     });
-                    await _auth.signOut().whenComplete(() {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) {
-                        return WelcomeScreen();
-                      }), ModalRoute.withName('/menu'));
+                    await _auth.signOut().then((value) {
+                      SystemChannels.platform
+                          .invokeMethod('SystemNavigator.pop');
                     });
                   },
                   title: 'LOGOUT',

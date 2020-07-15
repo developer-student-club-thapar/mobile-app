@@ -7,7 +7,6 @@ import 'package:dsc_app/models/projects.dart';
 
 class ProjectDetailsPage extends StatefulWidget {
   final ProjectDetail project;
-
   ProjectDetailsPage(this.project);
 
   @override

@@ -9,6 +9,23 @@ double kwidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
 }
 
+InputDecoration textInputDecoration(String label, BuildContext context) {
+  return InputDecoration(
+    fillColor: Theme.of(context).cardColor,
+    
+    filled: true,
+    labelText: label,
+    labelStyle: Theme.of(context).textTheme.subtitle2,
+    contentPadding: EdgeInsets.all(12.0),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.black, width: 2.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+    ),
+  );
+}
+
 TextStyle kEventTitle = GoogleFonts.poppins(
     color: Colors.black, fontWeight: FontWeight.bold, fontSize: 28);
 

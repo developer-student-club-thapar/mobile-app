@@ -10,7 +10,7 @@ class CustomClickableIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
+      padding: const EdgeInsets.only(right: 15.0),
       child: Visibility(
         maintainSize: false,
         visible: visibility,

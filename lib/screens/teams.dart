@@ -1,16 +1,15 @@
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/team_list.dart';
-import 'package:dsc_app/widgets/team_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dsc_app/models/team.dart';
-import 'package:http/http.dart' as http;
+import 'package:dsc_app/networking/api.dart';
 
 TeamDetails _team;
 TeamCategory _teamCategory;
+Api api = Api(path: '/team/?format=json');
 
 class Team extends StatefulWidget {
   @override
@@ -36,14 +35,12 @@ class _TeamState extends State<Team> {
 }
 
 Future getData() async {
-  var response = await http
-      .get('https://dsctiet.pythonanywhere.com/api/team/?format=json');
-  if (response.statusCode == 200) {
-    var decodedJson = jsonDecode(response.body);
-    _team = TeamDetails.fromJson(decodedJson);
+  var result = await api.fetchData();
+  if (result != null) {
+    _team = TeamDetails.fromJson(result);
     return _team;
   } else
-    return 'error';
+    return null;
 }
 
 class TeamCategoryBuilder extends StatelessWidget {
@@ -75,7 +72,6 @@ class TeamCategoryBuilder extends StatelessWidget {
               itemCount: _teamData.category.length,
               itemBuilder: (BuildContext context, int index) {
                 _teamCategory = _teamData.category[index];
-                    
 
                 return SingleChildScrollView(
                   child: Column(
@@ -109,6 +105,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       TeamList(
                         membersList: _teamCategory.heads,
+                        department: _teamCategory.name,
                       ),
                       SizedBox(
                         height: 30.0,
@@ -128,6 +125,7 @@ class TeamCategoryBuilder extends StatelessWidget {
                       ),
                       TeamList(
                         membersList: _teamCategory.members,
+                        department: _teamCategory.name,
                       ),
                     ],
                   ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:dsc_app/models/user.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:dsc_app/screens/new_home.dart';
+import 'package:dsc_app/networking/auth.dart';
 
 class Wrapper extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -39,8 +40,14 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
           SizedBox(height: 10),
           Expanded(
               child: user == null
-                  ? TextTransition(null)
-                  : TextTransition(user.name)),
+                  ? TextTransition(
+                      name: null,
+                      auth: _auth,
+                    )
+                  : TextTransition(
+                      name: user.name,
+                      auth: _auth,
+                    )),
         ],
       ),
     );
@@ -48,8 +55,9 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
 }
 
 class TextTransition extends StatefulWidget {
-  final String _name;
-  TextTransition(this._name);
+  final String name;
+  final AuthService auth;
+  TextTransition({this.name, this.auth});
   @override
   _TextTransitionState createState() => _TextTransitionState();
 }
@@ -76,15 +84,18 @@ class _TextTransitionState extends State<TextTransition>
   @override
   Widget build(BuildContext context) {
     _animationController.forward();
-    Future.delayed(Duration(seconds: 3)).then((value) {
-      if (widget._name == null) {
-        if (Navigator.canPop(context)) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => WelcomeScreen()));
-          Navigator.pop(context);
-        } else
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    Future.delayed(Duration(seconds: 3), () async {
+      if (widget.name == null) {
+        var result = await signIn(widget.auth);
+        if (result) {
+          if (Navigator.canPop(context)) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => NewHome()));
+            Navigator.pop(context);
+          } else
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => NewHome()));
+        }
       } else {
         if (Navigator.canPop(context)) {
           Navigator.push(
@@ -102,9 +113,9 @@ class _TextTransitionState extends State<TextTransition>
             return FadeTransition(
               opacity: _animation,
               child: Container(
-                  child: widget._name != null
+                  child: widget.name != null
                       ? Text(
-                          'Welcome ' + widget._name ?? '',
+                          'Welcome ' + widget.name ?? '',
                           style: GoogleFonts.poppins(
                               fontSize: 23, color: Colors.white),
                         )
@@ -123,4 +134,16 @@ class _TextTransitionState extends State<TextTransition>
 Future delay() async {
   await Future.delayed(Duration(seconds: 1));
   return true;
+}
+
+signIn(AuthService authService) async {
+  try {
+    dynamic result = await authService.signInWithGoogle();
+    if (result == null) {
+      return false;
+    } else
+      return true;
+  } catch (e) {
+    return false;
+  }
 }
