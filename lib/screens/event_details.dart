@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dsc_app/models/events.dart';
 import 'package:flutter/material.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
@@ -9,192 +10,283 @@ import 'dart:math';
 class EventDetailsPage extends StatelessWidget {
   final EventDetail _eventDetail;
   EventDetailsPage(this._eventDetail);
+  List<Chip> _topics;
   @override
   Widget build(BuildContext context) {
+    int i = 0;
+    _topics = _eventDetail.topics.map((e) {
+      i++;
+      return Chip(
+        backgroundColor: getColorButton(i % 4),
+        shadowColor: redColor,
+        label: Text(
+          e.name,
+          style: TextStyle(fontSize: 20.0, color: Colors.white),
+        ),
+      );
+    }).toList();
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'EVENT',
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    //Decoration for category title
-                    color: getColor(r),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              child: SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: kheight(context) / 3,
+                      child: CachedNetworkImage(
+                        imageUrl: _eventDetail.image,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    _eventDetail.title,
-                    style: kEventTitle,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Center(
-                            child: Wrap(
-                              //    direction: Axis.vertical,
-                              runSpacing: 15.0,
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: kheight(context) * 0.28,
+                        bottom: kheight(context) * 0.08,
+                      ),
+                      child: Card(
+                        elevation: 5.0,
+                        margin: EdgeInsets.zero,
+                        color: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40))),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40)),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: ListView(
+                              shrinkWrap: true,
+                              primary: false,
+                              scrollDirection: Axis.vertical,
+                              padding: EdgeInsets.symmetric(vertical: 15),
                               children: <Widget>[
-                                Text(
-                                  _eventDetail.info,
-                                  style: TextStyle(fontSize: 20.0),
+                                Center(
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                      //Decoration for category title
+                                      // color: getColor(r),
+                                      borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(10.0),
+                                        topLeft: Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      _eventDetail.title,
+                                      style: kEventTitle.copyWith(
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.date_range,
+                                        color: Colors.white,
+                                        size: 35,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text('Date: ${_eventDetail.date}',
+                                              style: TextStyle(fontSize: 20.0)),
+                                          Text('Time: ${_eventDetail.time}',
+                                              style: TextStyle(fontSize: 20.0)),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.location_on,
+                                        color: Colors.white,
+                                        size: 35,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text('Venue:',
+                                              style: TextStyle(fontSize: 20.0)),
+                                          Text(
+                                            _eventDetail.venue,
+                                            style: TextStyle(fontSize: 20.0),
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Center(
+                                  child: Card(
+                                    margin: EdgeInsets.zero,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18)),
+                                    color: Color.fromRGBO(217, 217, 217, 0.1),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0),
+                                              child: Text(
+                                                'Details',
+                                                style: kEventHeading.copyWith(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0)
+                                                  .copyWith(top: 0),
+                                              child: Center(
+                                                child: Wrap(
+                                                  //    direction: Axis.vertical,
+                                                  runSpacing: 15.0,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      _eventDetail.info,
+                                                      style: TextStyle(
+                                                          fontSize: 20.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Center(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      //Decoration for category title
+                                      // color: getColor(r + 1),
+                                      borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(10.0),
+                                        topLeft: Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Topics Covered:',
+                                      style: kEventHeading.copyWith(
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18)),
+                                  margin: EdgeInsets.zero,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Wrap(
+                                      direction: Axis.horizontal,
+                                      children: _topics,
+                                      alignment: WrapAlignment.start,
+                                      spacing: 8,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Center(
+                                    child: RaisedButton(
+                                      onPressed: () {
+                                        try {
+                                          launch(_eventDetail.docs);
+                                        } catch (e) {
+                                          print(e);
+                                        }
+                                      },
+                                      color: getColorButton(r),
+                                      textColor: Colors.white,
+                                      child: Text(
+                                        'Learn More!',
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 25),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ]),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    //Decoration for category title
-                    color: getColor(r + 1),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0),
-                    ),
-                  ),
-                  child: Text(
-                    'Topics Covered:',
-                    style: kEventHeading,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Center(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _eventDetail.topics.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Center(
-                              child: Text(
-                            _eventDetail.topics[index].name,
-                            style: TextStyle(fontSize: 20.0),
-                          ));
-                        }),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      //Decoration for category title
-                      color: getColor(r + 2),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
+                        ),
                       ),
                     ),
-                    child: Text(
-                      'Date:',
-                      style: kEventHeading,
-                    ),
-                  ),
-                  Text(_eventDetail.date, style: TextStyle(fontSize: 20.0)),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      //Decoration for category title
-                      color: getColor(r - 2),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Text(
-                      'Venue:',
-                      style: kEventHeading,
-                    ),
-                  ),
-                  Text(
-                    _eventDetail.venue,
-                    style: TextStyle(fontSize: 20.0),
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:10.0),
-                child: Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      try {
-                        launch(_eventDetail.link);
-                      } catch (e) {
-                        print(e);
-                      }
-                    },
-                    color: getColorButton(r),
-                    textColor: Colors.white,
-                    child: Text(
-                      'Register!',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(fontSize: 25),
-                    ),
-                  ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              GestureDetector(
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: GestureDetector(
                 onTap: () {
                   try {
-                    launch(_eventDetail.docs);
+                    launch(_eventDetail.link);
                   } catch (e) {
                     print(e);
                   }
                 },
-                child: Center(
-                    child: Text(
-                  'Click here to learn more.',
-                  style: TextStyle(fontSize: 20, color: Color(0xffb0000FF)),
-                )),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: kwidth(context),
+                  height: kheight(context) * 0.08,
+                  color: getColorButton(r + 1),
+                  child: Text(
+                    'Register!',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(
-                height: 20,
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
