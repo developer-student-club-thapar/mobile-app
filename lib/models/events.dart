@@ -22,6 +22,7 @@ class EventDetail {
   String link;
   String docs;
   bool headlineEvent;
+  String image;
 
   EventDetail(
       {this.id,
@@ -33,7 +34,8 @@ class EventDetail {
       this.topics,
       this.link,
       this.docs,
-      this.headlineEvent});
+      this.headlineEvent,
+      this.image});
 
   EventDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -42,6 +44,7 @@ class EventDetail {
     venue = json['venue'];
     title = json['title'];
     info = json['info'];
+    image = json['image'];
     if (json['topics'] != null) {
       topics = new List<Topics>();
       json['topics'].forEach((v) {
@@ -67,6 +70,7 @@ class EventDetail {
     data['link'] = this.link;
     data['docs'] = this.docs;
     data['headline_event'] = this.headlineEvent;
+    data['image'] = this.image;
     return data;
   }
 }
