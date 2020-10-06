@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^4.0.4
-  
+  data_connection_checker: ^0.3.4
   firebase_auth: ^0.15.5+3
   google_sign_in: ^4.4.0
   firebase_core: ^0.4.4+3
