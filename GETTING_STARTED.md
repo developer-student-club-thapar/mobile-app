@@ -1,4 +1,4 @@
-# Welcome to the contributions of DSC-TIET Official Mobile App
+# Welcome to the Official Repository of DSC-TIET Official Mobile App
 
 We follow a systematic Git Workflow -
 

@@ -1,8 +1,8 @@
-
-on: 
+on:
   push:
-    tags-ignore:
-      - 'v*.*'
+    branches: [master]
+  pull_request:
+    branches : [master]
 name: Test by building an apk
 jobs:
   build:
@@ -15,6 +15,6 @@ jobs:
         java-version: '12.x'
     - uses: subosito/flutter-action@v1
       with:
-        flutter-version: '1.12.13+hotfix.9'
+        channel: 'stable'
     - run: flutter pub get
     - run: flutter build apk --split-per-abi
