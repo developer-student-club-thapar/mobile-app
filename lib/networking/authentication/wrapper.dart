@@ -1,13 +1,14 @@
 import 'dart:async';
+
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dsc_app/constants/constants.dart';
-import 'package:dsc_app/screens/welcome_screen.dart';
+import 'package:dsc_app/models/user.dart';
+import 'package:dsc_app/networking/auth.dart';
+import 'package:dsc_app/screens/new_home.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:dsc_app/models/user.dart';
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:dsc_app/screens/new_home.dart';
-import 'package:dsc_app/networking/auth.dart';
 
 class Wrapper extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-
+    final internet = Provider.of<DataConnectionStatus>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -39,15 +40,30 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
           ),
           SizedBox(height: 10),
           Expanded(
-              child: user == null
-                  ? TextTransition(
-                      name: null,
-                      auth: _auth,
-                    )
-                  : TextTransition(
-                      name: user.name,
-                      auth: _auth,
-                    )),
+            child: internet == DataConnectionStatus.connected
+                ? user == null
+                    ? TextTransition(
+                        name: null,
+                        auth: _auth,
+                      )
+                    : TextTransition(
+                        name: user.name,
+                        auth: _auth,
+                      )
+                : FittedBox(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'You are Offline!\nPlease Check your\nInternet Connection Again!',
+                          style: TextStyle(fontSize: 30),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+          ),
         ],
       ),
     );
@@ -58,19 +74,18 @@ class TextTransition extends StatefulWidget {
   final String name;
   final AuthService auth;
   TextTransition({this.name, this.auth});
+
   @override
   _TextTransitionState createState() => _TextTransitionState();
 }
 
-class _TextTransitionState extends State<TextTransition>
-    with SingleTickerProviderStateMixin {
+class _TextTransitionState extends State<TextTransition> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _animation;
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
     super.initState();
   }
@@ -86,24 +101,21 @@ class _TextTransitionState extends State<TextTransition>
     _animationController.forward();
     Future.delayed(Duration(seconds: 3), () async {
       if (widget.name == null) {
+        if (Provider.of<DataConnectionStatus>(context, listen: false) != DataConnectionStatus.connected) return;
         var result = await signIn(widget.auth);
         if (result) {
           if (Navigator.canPop(context)) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => NewHome()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
             Navigator.pop(context);
           } else
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => NewHome()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
         }
       } else {
         if (Navigator.canPop(context)) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NewHome()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
           Navigator.pop(context);
         } else
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NewHome()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
       }
     });
     return FutureBuilder(
@@ -116,13 +128,11 @@ class _TextTransitionState extends State<TextTransition>
                   child: widget.name != null
                       ? Text(
                           'Welcome ' + widget.name ?? '',
-                          style: GoogleFonts.poppins(
-                              fontSize: 23, color: Colors.white),
+                          style: GoogleFonts.poppins(fontSize: 23, color: Colors.white),
                         )
                       : Text(
                           'Welcome',
-                          style: GoogleFonts.poppins(
-                              fontSize: 23, color: Colors.white),
+                          style: GoogleFonts.poppins(fontSize: 23, color: Colors.white),
                         )),
             );
           } else
