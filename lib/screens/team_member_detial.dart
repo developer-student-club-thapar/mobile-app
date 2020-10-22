@@ -1,21 +1,25 @@
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dsc_app/constants/constants.dart';
+import 'package:dsc_app/models/team.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/custom_icon.dart';
+import 'package:dsc_app/widgets/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class TeamMemberDetails extends StatelessWidget {
-  final  member;
-  final String department;
-  TeamMemberDetails({this.member, this.department});
+  final Members member;
+  TeamMemberDetails({this.member});
   @override
   Widget build(BuildContext context) {
+    final internet = Provider.of<DataConnectionStatus>(context);
     return Scaffold(
       appBar: CustomAppBar(
         title: 'TEAM MEMBER',
         menu: SelectedMenu.Team,
       ),
-      body: SafeArea(
+      body: internet == DataConnectionStatus.connected ?  SafeArea(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,6 +46,7 @@ class TeamMemberDetails extends StatelessWidget {
                             Text(
                               member.name,
                               style: Theme.of(context).textTheme.headline2,
+                              textAlign: TextAlign.center,
                             ),
                             Text(
                               member.email,
@@ -53,11 +58,7 @@ class TeamMemberDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 teamColumn('Role', member.role, context),
-                                teamColumn('Department', department, context),
                               ],
-                            ),
-                            SizedBox(
-                              height: kheight(context) * 0.03,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -109,7 +110,7 @@ class TeamMemberDetails extends StatelessWidget {
             ),
           )
         ],
-      )),
+      )) : NoInternet()
     );
   }
 }

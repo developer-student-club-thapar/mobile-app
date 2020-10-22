@@ -12,7 +12,6 @@ double kwidth(BuildContext context) {
 InputDecoration textInputDecoration(String label, BuildContext context) {
   return InputDecoration(
     fillColor: Theme.of(context).cardColor,
-    
     filled: true,
     labelText: label,
     labelStyle: Theme.of(context).textTheme.subtitle2,
@@ -118,3 +117,5 @@ TextStyle KMemberCategryStyle = GoogleFonts.poppins(
     color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.w300);
 TextStyle KMemberCategryStyleHeading = GoogleFonts.poppins(
     color: Colors.grey, fontSize: 28.0, fontWeight: FontWeight.w300);
+
+enum MemberType { Lead, CoLead, Core }

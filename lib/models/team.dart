@@ -1,108 +1,45 @@
-class TeamDetails {
-  List<TeamCategory> category;
+class MembersList {
+  List<Members> members;
 
-  TeamDetails({this.category});
+  MembersList({this.members});
 
-  factory TeamDetails.fromJson(List<dynamic> parsedJson) {
+  factory MembersList.fromJson(List<dynamic> parsedJson) {
 
-    List<TeamCategory> category =  List<TeamCategory>();
-    category = parsedJson.map((i)=>TeamCategory.fromJson(i)).toList();
+    List<Members> members =  List<Members>();
+    members = parsedJson.map((i)=>Members.fromJson(i)).toList();
 
-    return  TeamDetails(
-       category: category,
+    return  MembersList(
+      members: members,
     );
   }
 }
-
-class TeamCategory {
-  int id;
-  String name;
-  List<Heads> heads;
+class LeadList {
   List<Members> members;
 
-  TeamCategory({this.id, this.name, this.heads, this.members});
+  LeadList({this.members});
 
-  TeamCategory.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    if (json['heads'] != null) {
-      heads =  List<Heads>();
-      json['heads'].forEach((v) {
-        heads.add(Heads.fromJson(v));
-      });
-    }
-    if (json['members'] != null) {
-      members = new List<Members>();
-      json['members'].forEach((v) {
-        members.add(new Members.fromJson(v));
-      });
-    }
+  factory LeadList.fromJson(List<dynamic> parsedJson) {
+
+    List<Members> members =  List<Members>();
+    members = parsedJson.map((i)=>Members.fromJson(i)).toList();
+
+    return  LeadList(
+      members: members,
+    );
   }
+}class CoLeadList {
+  List<Members> members;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    if (this.heads != null) {
-      data['heads'] = this.heads.map((v) => v.toJson()).toList();
-    }
-    if (this.members != null) {
-      data['members'] = this.members.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
+  CoLeadList({this.members});
 
-class Heads {
-  int id;
-  String name;
-  String role;
-  String email;
-  String githubUrl;
-  String linkedinUrl;
-  String twitterUrl;
-  String mediumUrl;
-  String devUrl;
-  String image;
+  factory CoLeadList.fromJson(List<dynamic> parsedJson) {
 
-  Heads(
-      {this.id,
-      this.name,
-      this.role,
-      this.email,
-      this.githubUrl,
-      this.linkedinUrl,
-      this.twitterUrl,
-      this.mediumUrl,
-      this.devUrl,
-      this.image});
+    List<Members> members =  List<Members>();
+    members = parsedJson.map((i)=>Members.fromJson(i)).toList();
 
-  Heads.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    role = json['role'];
-    email = json['email'];
-    githubUrl = json['github_url'];
-    linkedinUrl = json['linkedin_url'];
-    twitterUrl = json['twitter_url'];
-    mediumUrl = json['medium_url'];
-    devUrl = json['dev_url'];
-    image = json['image'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['role'] = this.role;
-    data['email'] = this.email;
-    data['github_url'] = this.githubUrl;
-    data['linkedin_url'] = this.linkedinUrl;
-    data['twitter_url'] = this.twitterUrl;
-    data['medium_url'] = this.mediumUrl;
-    data['dev_url'] = this.devUrl;
-    data['image'] = this.image;
-    return data;
+    return  CoLeadList(
+      members: members,
+    );
   }
 }
 
@@ -120,15 +57,15 @@ class Members {
 
   Members(
       {this.id,
-      this.name,
-      this.role,
-      this.email,
-      this.githubUrl,
-      this.linkedinUrl,
-      this.twitterUrl,
-      this.mediumUrl,
-      this.devUrl,
-      this.image});
+        this.name,
+        this.role,
+        this.email,
+        this.githubUrl,
+        this.linkedinUrl,
+        this.twitterUrl,
+        this.mediumUrl,
+        this.devUrl,
+        this.image});
 
   Members.fromJson(Map<String, dynamic> json) {
     id = json['id'];

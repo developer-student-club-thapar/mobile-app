@@ -1,15 +1,14 @@
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
+import 'package:dsc_app/widgets/no_internet.dart';
 import 'package:dsc_app/widgets/team_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dsc_app/models/team.dart';
 import 'package:dsc_app/networking/api.dart';
-
-TeamDetails _team;
-TeamCategory _teamCategory;
-Api api = Api(path: '/team/?format=json');
+import 'package:provider/provider.dart';
 
 class Team extends StatefulWidget {
   @override
@@ -17,6 +16,37 @@ class Team extends StatefulWidget {
 }
 
 class _TeamState extends State<Team> {
+  Api apiMembers = Api(path: '/members/?format=json');
+  Api apiLeads = Api(path: '/leads/?format=json');
+  Api apiCoLeads = Api(path: '/co-leads/?format=json');
+
+  Future<LeadList> getLeads() async {
+    var result = await apiLeads.fetchData();
+    if (result != null) {
+      LeadList _leadList = LeadList.fromJson(result);
+      return _leadList;
+    }
+    return null;
+  }
+
+  Future<CoLeadList> getCoLeads() async {
+    var result = await apiCoLeads.fetchData();
+    if (result != null) {
+      CoLeadList _coLeadList = CoLeadList.fromJson(result);
+      return _coLeadList;
+    }
+    return null;
+  }
+
+  Future<MembersList> getCore() async {
+    var result = await apiMembers.fetchData();
+    if (result != null) {
+      MembersList _membersList = MembersList.fromJson(result);
+      return _membersList;
+    }
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -24,117 +54,98 @@ class _TeamState extends State<Team> {
 
   @override
   Widget build(BuildContext context) {
+    final internet = Provider.of<DataConnectionStatus>(context);
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Meet The Team',
-        menu: SelectedMenu.Team,
-      ),
-      body: TeamCategoryBuilder(),
-    );
-  }
-}
-
-Future getData() async {
-  var result = await api.fetchData();
-  if (result != null) {
-    _team = TeamDetails.fromJson(result);
-    return _team;
-  } else
-    return null;
-}
-
-class TeamCategoryBuilder extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getData(),
-        builder: (BuildContext context, snapshot) {
-          TeamDetails _teamData = snapshot.data;
-
-          if (snapshot.connectionState == ConnectionState.none &&
-              snapshot.connectionState == ConnectionState.active &&
-              snapshot.connectionState == ConnectionState.waiting &&
-              snapshot.connectionState == ConnectionState.done) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Expanded(
-              child: Container(
-                child: Image.asset(
-                  'lib/assets/undraw_page_not_found_su7k.png',
+        appBar: CustomAppBar(
+          title: 'Meet The Team',
+          menu: SelectedMenu.Team,
+        ),
+        body: internet == DataConnectionStatus.connected ? ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16),
+                child: Text(
+                  "Leads",
+                  style: GoogleFonts.poppins(
+                      color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 23),
                 ),
               ),
-            );
-          } else if (snapshot.hasData) {
-            return ListView.builder(
-              addAutomaticKeepAlives: true,
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: _teamData.category.length,
-              itemBuilder: (BuildContext context, int index) {
-                _teamCategory = _teamData.category[index];
-
-                return SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        _teamCategory.name, //Category name
-                        style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 8.0, bottom: 8.0, left: 16),
-                          child: Text(
-                            "Head",
-                            style: GoogleFonts.poppins(
-                                color: Color.fromRGBO(255, 255, 255, 0.5),
-                                fontSize: 23),
-                          ),
-                        ),
-                      ),
-                      TeamList(
-                        membersList: _teamCategory.heads,
-                        department: _teamCategory.name,
-                      ),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 8.0, bottom: 8.0, left: 16),
-                          child: Text(
-                            "Members",
-                            style: GoogleFonts.poppins(
-                                color: Color.fromRGBO(255, 255, 255, 0.5),
-                                fontSize: 23),
-                          ),
-                        ),
-                      ),
-                      TeamList(
-                        membersList: _teamCategory.members,
-                        department: _teamCategory.name,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          } else
-            return Center(child: CircularProgressIndicator());
-        });
+            ),
+            FutureBuilder(
+                future: getLeads(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasError == false &&
+                      snapshot.data != null &&
+                      snapshot.hasData) {
+                    return createLeads(context, snapshot);
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Center(
+                        child: Container(child: CircularProgressIndicator()));
+                  }
+                  return NoInternet();
+                }),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16),
+                child: Text(
+                  "Co-Leads",
+                  style: GoogleFonts.poppins(
+                      color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 23),
+                ),
+              ),
+            ),
+            FutureBuilder(
+                future: getCoLeads(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasError == false &&
+                      snapshot.data != null &&
+                      snapshot.hasData) {
+                    return createCoLeads(context, snapshot);
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Center(
+                        child: Container(child: CircularProgressIndicator()));
+                  }
+                  return NoInternet();
+                }),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16),
+                child: Text(
+                  "Core",
+                  style: GoogleFonts.poppins(
+                      color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 23),
+                ),
+              ),
+            ),
+            FutureBuilder(
+                future: getCore(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasError == false &&
+                      snapshot.data != null &&
+                      snapshot.hasData) {
+                    return createMembers(context, snapshot);
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Center(
+                        child: Container(child: CircularProgressIndicator()));
+                  }
+                  return NoInternet();
+                }),
+          ],
+        ) :
+    NoInternet()
+    );
   }
 }
 
@@ -168,4 +179,25 @@ Color getColor(int selector) {
       }
       break;
   }
+}
+
+Widget createMembers(BuildContext context, AsyncSnapshot snapshot) {
+  MembersList _membersList = snapshot.data;
+  return TeamList(
+    membersList: _membersList,
+    type: MemberType.Core,
+  );
+}
+
+Widget createLeads(BuildContext context, AsyncSnapshot snapshot) {
+  LeadList _leadList = snapshot.data;
+  return TeamList(
+    leadList: _leadList,
+    type: MemberType.Lead,
+  );
+}
+
+Widget createCoLeads(BuildContext context, AsyncSnapshot snapshot) {
+  CoLeadList _coLeadList = snapshot.data;
+  return TeamList(coLeadList: _coLeadList, type: MemberType.CoLead);
 }

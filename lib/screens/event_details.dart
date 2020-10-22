@@ -33,11 +33,13 @@ class EventDetailsPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Stack(
                   children: [
-                    Container(
-                      height: kheight(context) / 3,
-                      child: CachedNetworkImage(
-                        imageUrl: _eventDetail.image,
-                        fit: BoxFit.cover,
+                    Center(
+                      child: Container(
+                        height: kheight(context) / 3,
+                        child: CachedNetworkImage(
+                          imageUrl: _eventDetail.image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Container(

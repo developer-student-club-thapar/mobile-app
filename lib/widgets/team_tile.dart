@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class TeamTile extends StatelessWidget {
-  final  teamMemberDetail;
-  final String department;
-  TeamTile({this.teamMemberDetail, this.department});
+  final Members teamMemberDetail;
+
+  TeamTile({this.teamMemberDetail});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +18,6 @@ class TeamTile extends StatelessWidget {
               MaterialPageRoute(
                   builder: (BuildContext context) => TeamMemberDetails(
                         member: teamMemberDetail,
-                        department: department,
                       )));
         },
         child: Card(
