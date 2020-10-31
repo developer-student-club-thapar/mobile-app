@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/models/user.dart';

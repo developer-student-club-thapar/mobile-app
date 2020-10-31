@@ -35,11 +35,15 @@ class TeamTile extends StatelessWidget {
             contentPadding: EdgeInsets.all(8),
             leading: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                return CircleAvatar(
-                  backgroundImage:
-                      CachedNetworkImageProvider(teamMemberDetail.image),
-                  maxRadius: constraints.maxHeight / 2,
-                  minRadius: 20.0,
+                return CachedNetworkImage(
+                  imageUrl: teamMemberDetail.image,
+                  imageBuilder: (context, imageProvider) => CircleAvatar(
+                    backgroundImage: imageProvider,
+                    maxRadius: constraints.maxHeight / 2,
+                    backgroundColor: Colors.white,
+                    minRadius: 20.0,
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.person , color: Colors.white,),
                 );
               },
             ),

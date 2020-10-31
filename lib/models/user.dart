@@ -8,14 +8,14 @@ class User {
 }
 
 class UserData {
-  final String uid;
-  final String name;
-  final String email;
-  final String gender;
-  final String year;
+final  String name;
   final bool isThaparStudent;
-  final List eventsAttended;
   final String image;
+  final String uid;
+  final String gender;
+  final int year;
+  final List<String> eventsAttended;
+  final String email;
   //social media links....
   UserData(
       {this.uid,
@@ -29,6 +29,7 @@ class UserData {
 
   factory UserData.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data;
+
     return UserData(
         uid: doc.documentID,
         email: data['email'] ?? '',
@@ -36,7 +37,7 @@ class UserData {
         isThaparStudent: data['isThaparStudent'] ?? '',
         name: data['name'] ?? '',
         year: data['year'] ?? 0,
-        eventsAttended: data['eventsAttended'] ?? '',
+        eventsAttended: data['eventsAttended'].cast<String>() ?? '',
         image: data['image'] ?? '');
   }
 }

@@ -37,109 +37,121 @@ class _ProjectsState extends State<Projects> {
   Widget build(BuildContext context) {
     final internet = Provider.of<DataConnectionStatus>(context);
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'PROJECTS',
-        menu: SelectedMenu.Projets,
-      ),
-      body: internet == DataConnectionStatus.connected ? FutureBuilder(
-        builder: (context, projectSnapt) {
-          if (projectSnapt.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: Container(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          } else if (projectSnapt.connectionState == ConnectionState.done &&
-              projectSnapt.hasError == false) {
-            _project = projectSnapt.data;
-            return SafeArea(
-              child: Center(
-                child: ListView.builder(
-                    itemCount: _project.detailedProject.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      projectDetail = _project.detailedProject[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          child: ListTile(
-                            enabled: true,
-                            // dense: true,
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  projectDetail.name ?? '',
-                                  style: Theme.of(context).textTheme.headline4,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ),
-                                Visibility(
-                                  maintainSize: false,
-                                  visible: projectDetail.funding != '',
-                                  child: RichText(
-                                      text: TextSpan(
-                                          text: 'Faculty: ',
+        appBar: CustomAppBar(
+          title: 'PROJECTS',
+          menu: SelectedMenu.Projets,
+        ),
+        body: internet == DataConnectionStatus.connected
+            ? FutureBuilder(
+                future: getData(),
+                builder: (context, projectSnapt) {
+                  if (projectSnapt.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Container(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else if (projectSnapt.connectionState ==
+                          ConnectionState.done &&
+                      projectSnapt.hasError == false) {
+                    _project = projectSnapt.data;
+                    return SafeArea(
+                      child: Center(
+                        child: ListView.builder(
+                            itemCount: _project.detailedProject.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              projectDetail = _project.detailedProject[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  child: ListTile(
+                                    enabled: true,
+                                    // dense: true,
+                                    title: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          projectDetail.name ?? '',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle1,
-                                          children: <TextSpan>[
-                                        TextSpan(
-                                            text: projectDetail.faculty ?? '',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2)
-                                      ])),
+                                              .headline4,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                        Visibility(
+                                          maintainSize: false,
+                                          visible: projectDetail.funding != '',
+                                          child: RichText(
+                                              text: TextSpan(
+                                                  text: 'Faculty: ',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1,
+                                                  children: <TextSpan>[
+                                                TextSpan(
+                                                    text:
+                                                        projectDetail.faculty ??
+                                                            '',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle2)
+                                              ])),
+                                        ),
+                                        RichText(
+                                            text: TextSpan(
+                                                text: 'Funding: ',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                                children: <TextSpan>[
+                                              TextSpan(
+                                                  text: projectDetail.funding ??
+                                                      '',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle2)
+                                            ]))
+                                      ],
+                                    ),
+                                    subtitle: Text(
+                                      projectDetail.description,
+                                      maxLines: 1,
+                                      textAlign: TextAlign.left,
+                                      overflow: TextOverflow.ellipsis,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                    trailing: RaisedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProjectDetailsPage(_project
+                                                            .detailedProject[
+                                                        index])));
+                                      },
+                                      color: getColorButton(r),
+                                      textColor: Colors.white,
+                                      child: Text(
+                                        'Learn More',
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 13),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                RichText(
-                                    text: TextSpan(
-                                        text: 'Funding: ',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
-                                        children: <TextSpan>[
-                                      TextSpan(
-                                          text: projectDetail.funding ?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2)
-                                    ]))
-                              ],
-                            ),
-                            subtitle: Text(
-                              projectDetail.description,
-                              maxLines: 1,
-                              textAlign: TextAlign.left,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.bodyText2,
-                            ),
-                            trailing: RaisedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ProjectDetailsPage(_project
-                                                .detailedProject[index])));
-                              },
-                              color: getColorButton(r),
-                              textColor: Colors.white,
-                              child: Text(
-                                'Learn More',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(fontSize: 13),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            );
-          }
-          return NoInternet();
-        },
-      ) : NoInternet()
-    );
+                              );
+                            }),
+                      ),
+                    );
+                  }
+                  return NoInternet();
+                },
+              )
+            : NoInternet());
   }
 }
 

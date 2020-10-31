@@ -50,10 +50,16 @@ class ImageCircle extends StatelessWidget {
             ),
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                return CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(image),
-                  maxRadius: constraints.maxHeight / 2,
-                  minRadius: 20.0,
+                return CachedNetworkImage(
+                  imageUrl: image,
+                  imageBuilder: (context, imageProvider) => CircleAvatar(
+                    backgroundImage: imageProvider,
+                    maxRadius: constraints.maxHeight / 2,
+
+                    minRadius: 20.0,
+                  ),
+                  placeholder: (context , url )=>Icon(Icons.person),
+                  errorWidget: (context, url, error) => Icon(Icons.person),
                 );
               },
             ),

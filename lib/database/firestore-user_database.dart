@@ -24,10 +24,10 @@ class DatabaseService {
   }
 
 //get userData stream
+
   Stream<UserData> get userDataStream {
-    return userCollection
-        .document(uid)
-        .snapshots()
-        .map((snap) => UserData.fromFirestore(snap));
+    return userCollection.document(uid).snapshots().map((snap) {
+      return UserData.fromFirestore(snap);
+    });
   }
 }
