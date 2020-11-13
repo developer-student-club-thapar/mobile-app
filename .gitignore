@@ -32,7 +32,7 @@
 /build/
 /android/app/google-services.json
 /pubspec.lock
-
+/android/key.properties
 # Web related
 lib/generated_plugin_registrant.dart
 

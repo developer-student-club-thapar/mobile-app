@@ -27,22 +27,23 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     final _db = DatabaseService(uid: user.uid);
+
     return Scaffold(
         appBar: CustomAppBar(
           title: 'MY PROFILE',
           menu: SelectedMenu.Profile,
         ),
-        bottomNavigationBar: Container(
-          width: kwidth(context),
-          height: kheight(context) * 0.06,
-          child: RaisedButton(
-              color: blueColor,
-              onPressed: () {},
-              child: Text(
-                'Update Profile',
-                style: Theme.of(context).textTheme.bodyText1,
-              )),
-        ),
+        // bottomNavigationBar: Container(
+        //   width: kwidth(context),
+        //   height: kheight(context) * 0.06,
+        //   child: RaisedButton(
+        //       color: blueColor,
+        //       onPressed: () {},
+        //       child: Text(
+        //         'Update Profile',
+        //         style: Theme.of(context).textTheme.bodyText1,
+        //       )),
+        // ),
         body: StreamBuilder<UserData>(
             stream: _db.userDataStream,
             builder: (context, snapshot) {
@@ -97,41 +98,28 @@ class _ProfileState extends State<Profile> {
                             initialValue: _userData?.email ?? "",
                             decoration: textInputDecoration('Email', context)),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 18.0, vertical: 9.0),
-                        child: TextFormField(
-                            initialValue: _userData.gender,
-                            decoration: textInputDecoration('Gender', context)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 18.0, vertical: 9.0),
-                        child: TextFormField(
-                            initialValue: _userData?.year.toString() ?? "",
-                            decoration: textInputDecoration('Year', context)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 18.0, vertical: 9.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Are You A Thapar Student?',
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Switch(
-                                value: thaparStudent,
-                                activeColor: blueColor,
-                                onChanged: (value) {
-                                  setState(() {
-                                    thaparStudent = value;
-                                  });
-                                })
-                          ],
-                        ),
-                      ),
+
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       horizontal: 18.0, vertical: 9.0),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: <Widget>[
+                      //       Text(
+                      //         'Are You A Thapar Student?',
+                      //         style: Theme.of(context).textTheme.subtitle1,
+                      //       ),
+                      //       Switch(
+                      //           value: thaparStudent,
+                      //           activeColor: blueColor,
+                      //           onChanged: (value) {
+                      //             setState(() {
+                      //               thaparStudent = value;
+                      //             });
+                      //           })
+                      //     ],
+                      //   ),
+                      // ),
                       Text(
                           'Events Attended : ${_userData?.eventsAttended?.length ?? ""} ',
                           style: Theme.of(context).textTheme.subtitle1),

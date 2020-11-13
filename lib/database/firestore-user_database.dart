@@ -23,11 +23,14 @@ class DatabaseService {
     });
   }
 
-//get userData stream
-
   Stream<UserData> get userDataStream {
     return userCollection.document(uid).snapshots().map((snap) {
       return UserData.fromFirestore(snap);
     });
+  }
+
+  Future<UserData> userData() async {
+    DocumentSnapshot doc = await userCollection.document(uid).get();
+    return UserData.fromFirestore(doc);
   }
 }
