@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class WelcomeScreenButton extends StatelessWidget {
-  WelcomeScreenButton({this.title, this.colour, @required this.onPressed});
+  WelcomeScreenButton(
+      {required this.title,
+      required this.colour,
+      @required required this.onPressed});
 
   final Color colour;
   final String title;
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,6 @@ class WelcomeScreenButton extends StatelessWidget {
         elevation: 5.0,
         color: colour,
         borderRadius: BorderRadius.circular(30.0),
-        
         child: MaterialButton(
           onPressed: onPressed,
           minWidth: 200.0,

@@ -14,13 +14,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  File _image;
+  XFile? _image;
   bool thaparStudent = false;
   Future pickImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-    });
+    // var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    // setState(() {
+    //   _image = image;
+    // });
   }
 
   @override
@@ -51,7 +51,7 @@ class _ProfileState extends State<Profile> {
                 return Center(
                     child: Container(child: CircularProgressIndicator()));
               } else if (!snapshot.hasError && snapshot.hasData) {
-                UserData _userData = snapshot.data;
+                UserData _userData = snapshot.data!;
 
                 return SafeArea(
                   child: SingleChildScrollView(
@@ -70,13 +70,9 @@ class _ProfileState extends State<Profile> {
                               height: kheight(context) * 0.15,
                               width: kheight(context) * 0.15,
                               decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  image: DecorationImage(
-                                      image: _image == null
-                                          ? NetworkImage(user.image)
-                                          : FileImage(_image),
-                                      fit: BoxFit.cover)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
+                              ),
                             ),
                           ),
                         ),
@@ -210,7 +206,6 @@ class _ProfileState extends State<Profile> {
                 //     ],
                 //   ),
                 // ),
-
               }
               return NoInternet();
             }));

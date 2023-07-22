@@ -48,7 +48,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       yellowColor,
                     ],
                     textAlign: TextAlign.center,
-                    alignment: AlignmentDirectional.center,
                   ),
                 ),
               ],

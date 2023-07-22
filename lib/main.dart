@@ -1,4 +1,4 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:dsc_app/models/user.dart';
 import 'package:dsc_app/networking/authentication/wrapper.dart';
 import 'package:dsc_app/networking/internet_checker.dart';
@@ -12,16 +12,24 @@ import 'package:dsc_app/screens/profile.dart';
 import 'package:dsc_app/screens/projects.dart';
 import 'package:dsc_app/screens/registration.dart';
 import 'package:dsc_app/screens/welcome_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'database/firebase-messaging.dart';
+import 'firebase_options.dart';
 import 'networking/auth.dart';
 import 'screens/registration.dart';
 import 'screens/teams.dart';
 
-void main() => runApp(DscApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(DscApp());
+}
 
 class DscApp extends StatefulWidget {
   @override
@@ -29,15 +37,14 @@ class DscApp extends StatefulWidget {
 }
 
 class _DscAppState extends State<DscApp> {
-  Notifications _notifications;
-  @override
-  void initState() {
-    _notifications = Notifications(
-      context: context,
-
-    );
-    super.initState();
-  }
+  // Notifications? _notifications;
+  // @override
+  // void initState() {
+  //   _notifications = Notifications(
+  //     context: context,
+  //   );
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +53,12 @@ class _DscAppState extends State<DscApp> {
       DeviceOrientation.portraitDown,
     ]);
 
-    return StreamProvider<DataConnectionStatus>.value(
-      value: InternetChecker.getInternetStatus,
-      child: StreamProvider<User>.value(
-        value: AuthService().user,
+    return StreamProvider<DataConnectionStatus>(
+      initialData: DataConnectionStatus.connected,
+      create: (context) {},
+      child: StreamProvider<User>(
+        initialData: User(uid: '646', name: 'Ayush', image: ''),
+        create: (context) {},
         child: MaterialApp(
           theme: ThemeData(
             cardColor: Color.fromRGBO(217, 217, 217, 0.1),

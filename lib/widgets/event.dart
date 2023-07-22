@@ -7,7 +7,12 @@ class Events extends StatelessWidget {
   final String topic;
   final String content;
   final Function onClick;
-  Events({this.title, this.topic, this.content , this.onClick});
+  Events({
+    required this.title,
+    required this.topic,
+    required this.content,
+    required this.onClick,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,6 @@ class Events extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-
                       Container(
                         child: Center(
                           child: Text(
@@ -55,7 +59,6 @@ class Events extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       Container(
                         width: kwidth(context) * 0.7,
                         child: Text(
@@ -69,10 +72,10 @@ class Events extends StatelessWidget {
                           ),
                         ),
                       ),
-                      RaisedButton(
-                        onPressed: onClick,
-                        color: blueColor,
-                        textColor: Colors.white,
+                      ElevatedButton(
+                        onPressed: () {
+                          onClick();
+                        },
                         child: Text(
                           'Learn More',
                           textAlign: TextAlign.center,
@@ -84,7 +87,6 @@ class Events extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),

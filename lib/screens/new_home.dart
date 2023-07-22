@@ -11,16 +11,16 @@ class NewHome extends StatefulWidget {
 }
 
 class _NewHomeState extends State<NewHome> {
-  Future<bool> _backPressed() {
+  _backPressed() {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
               title: Text('Do you really want to exit?'),
               actions: <Widget>[
-                FlatButton(
+                ElevatedButton(
                     onPressed: () => Navigator.pop(context, false),
                     child: Text('No')),
-                FlatButton(
+                ElevatedButton(
                     onPressed: () => Navigator.pop(context, true),
                     child: Text('Yes'))
               ],
@@ -30,7 +30,10 @@ class _NewHomeState extends State<NewHome> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _backPressed,
+      onWillPop: () async {
+        _backPressed();
+        return false;
+      },
       child: Scaffold(
           appBar: CustomAppBar(title: 'DSC TIET', menu: SelectedMenu.Home),
           body: SingleChildScrollView(
@@ -91,10 +94,14 @@ class _NewHomeState extends State<NewHome> {
 
 class HomeCard extends StatelessWidget {
   final IconData icon;
-  final Function onClick;
+  final VoidCallback? onClick;
   final String title;
   final Color iconColor;
-  HomeCard({this.icon, this.onClick, this.title, this.iconColor});
+  HomeCard(
+      {required this.icon,
+      this.onClick,
+      required this.title,
+      required this.iconColor});
 
   @override
   Widget build(BuildContext context) {

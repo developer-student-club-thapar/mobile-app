@@ -1,8 +1,8 @@
 class Project {
   List<ProjectDetail> detailedProject;
-  Project({this.detailedProject});
+  Project({required this.detailedProject});
   factory Project.fromJson(List<dynamic> parsedJson) {
-    List<ProjectDetail> detailedProject = List<ProjectDetail>();
+    List<ProjectDetail> detailedProject = <ProjectDetail>[];
     detailedProject = parsedJson.map((i) => ProjectDetail.fromJson(i)).toList();
 
     return Project(
@@ -12,28 +12,28 @@ class Project {
 }
 
 class ProjectDetail {
-  int id;
-  String name;
-  ProjectLead projectLead;
-  String image;
-  String description;
-  List<Members> members;
-  String githubLink;
-  String funding;
-  String faculty;
-  String extra;
+  int? id;
+  String? name;
+  ProjectLead? projectLead;
+  String? image;
+  String? description;
+  List<Members> members = [];
+  String? githubLink;
+  String? funding;
+  String? faculty;
+  String? extra;
 
   ProjectDetail(
-      {this.id,
-      this.name,
-      this.projectLead,
-      this.image,
-      this.description,
-      this.members,
-      this.githubLink,
-      this.funding,
-      this.faculty,
-      this.extra});
+      {required this.id,
+      required this.name,
+      required this.projectLead,
+      required this.image,
+      required this.description,
+      required this.members,
+      required this.githubLink,
+      required this.funding,
+      required this.faculty,
+      required this.extra});
 
   ProjectDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -44,7 +44,7 @@ class ProjectDetail {
     image = json['image'];
     description = json['description'];
     if (json['members'] != null) {
-      members = new List<Members>();
+      members = <Members>[];
       json['members'].forEach((v) {
         members.add(new Members.fromJson(v));
       });
@@ -60,11 +60,11 @@ class ProjectDetail {
     data['id'] = this.id;
     data['name'] = this.name;
     if (this.projectLead != null) {
-      data['project_lead'] = this.projectLead.toJson();
+      data['project_lead'] = this.projectLead!.toJson();
     }
     data['image'] = this.image;
     data['description'] = this.description;
-    if (this.members != null) {
+    if (this.members.isNotEmpty) {
       data['members'] = this.members.map((v) => v.toJson()).toList();
     }
     data['github_link'] = this.githubLink;
@@ -76,28 +76,28 @@ class ProjectDetail {
 }
 
 class ProjectLead {
-  int id;
-  String name;
-  String role;
-  String email;
-  String githubUrl;
-  String linkedinUrl;
-  String twitterUrl;
-  String mediumUrl;
-  String devUrl;
-  String image;
+  int? id;
+  String? name;
+  String? role;
+  String? email;
+  String? githubUrl;
+  String? linkedinUrl;
+  String? twitterUrl;
+  String? mediumUrl;
+  String? devUrl;
+  String? image;
 
   ProjectLead(
-      {this.id,
-      this.name,
-      this.role,
-      this.email,
-      this.githubUrl,
-      this.linkedinUrl,
-      this.twitterUrl,
-      this.mediumUrl,
-      this.devUrl,
-      this.image});
+      {required this.id,
+      required this.name,
+      required this.role,
+      required this.email,
+      required this.githubUrl,
+      required this.linkedinUrl,
+      required this.twitterUrl,
+      required this.mediumUrl,
+      required this.devUrl,
+      required this.image});
 
   ProjectLead.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -129,28 +129,28 @@ class ProjectLead {
 }
 
 class Members {
-  int id;
-  String name;
-  String role;
-  String email;
-  String githubUrl;
-  String linkedinUrl;
-  String twitterUrl;
-  String mediumUrl;
-  String devUrl;
-  String image;
+  int? id;
+  String? name;
+  String? role;
+  String? email;
+  String? githubUrl;
+  String? linkedinUrl;
+  String? twitterUrl;
+  String? mediumUrl;
+  String? devUrl;
+  String? image;
 
   Members(
-      {this.id,
-      this.name,
-      this.role,
-      this.email,
-      this.githubUrl,
-      this.linkedinUrl,
-      this.twitterUrl,
-      this.mediumUrl,
-      this.devUrl,
-      this.image});
+      {required this.id,
+      required this.name,
+      required this.role,
+      required this.email,
+      required this.githubUrl,
+      required this.linkedinUrl,
+      required this.twitterUrl,
+      required this.mediumUrl,
+      required this.devUrl,
+      required this.image});
 
   Members.fromJson(Map<String, dynamic> json) {
     id = json['id'];

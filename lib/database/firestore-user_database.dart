@@ -3,15 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
   final String uid;
-  DatabaseService({this.uid});
+  DatabaseService({required this.uid});
 //collection refernce
   final CollectionReference userCollection =
-      Firestore.instance.collection('Users');
+      FirebaseFirestore.instance.collection('Users');
 
 //update Database
   Future updateUserData(String name, String email, String gender, String year,
       bool isThaparStudent) async {
-    return await userCollection.document(uid).setData({
+    return await userCollection.doc(uid).set({
       'name': name,
       'email': email,
       'gender': gender,
@@ -24,13 +24,13 @@ class DatabaseService {
   }
 
   Stream<UserData> get userDataStream {
-    return userCollection.document(uid).snapshots().map((snap) {
+    return userCollection.doc(uid).snapshots().map((snap) {
       return UserData.fromFirestore(snap);
     });
   }
 
   Future<UserData> userData() async {
-    DocumentSnapshot doc = await userCollection.document(uid).get();
+    DocumentSnapshot doc = await userCollection.doc(uid).get();
     return UserData.fromFirestore(doc);
   }
 }

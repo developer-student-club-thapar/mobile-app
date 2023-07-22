@@ -1,18 +1,14 @@
-
 class Story {
-  
-  final String title; 
-  final String url; 
-  List<int> commentIds = List<int>(); 
+  final String title;
+  final String url;
+  List<int> commentIds = <int>[];
 
-  Story({this.title,this.url,this.commentIds});
+  Story({required this.title, required this.url, required this.commentIds});
 
-  factory Story.fromJSON(Map<String,dynamic> json) {
+  factory Story.fromJSON(Map<String, dynamic> json) {
     return Story(
-      title: json["title"], 
-      url: json["url"], 
-      commentIds: json["kids"] == null ? List<int>() : json["kids"].cast<int>()
-    );
+        title: json["title"],
+        url: json["url"],
+        commentIds: json["kids"] == null ? <int>[] : json["kids"].cast<int>());
   }
-
 }

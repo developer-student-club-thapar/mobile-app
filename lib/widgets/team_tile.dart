@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class TeamTile extends StatelessWidget {
-  final Members teamMemberDetail;
+  final Members? teamMemberDetail;
 
-  TeamTile({this.teamMemberDetail});
+  TeamTile({required this.teamMemberDetail});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,25 +25,28 @@ class TeamTile extends StatelessWidget {
           child: ListTile(
             isThreeLine: true,
             title: Text(
-              teamMemberDetail.name,
+              teamMemberDetail?.name ?? '',
               style: Theme.of(context).textTheme.bodyText1,
             ),
             subtitle: Text(
-              teamMemberDetail.role,
+              teamMemberDetail?.role ?? '',
               style: Theme.of(context).textTheme.subtitle1,
             ),
             contentPadding: EdgeInsets.all(8),
             leading: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 return CachedNetworkImage(
-                  imageUrl: teamMemberDetail.image,
+                  imageUrl: teamMemberDetail?.image ?? "",
                   imageBuilder: (context, imageProvider) => CircleAvatar(
                     backgroundImage: imageProvider,
                     maxRadius: constraints.maxHeight / 2,
                     backgroundColor: Colors.white,
                     minRadius: 20.0,
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.person , color: Colors.white,),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
                 );
               },
             ),

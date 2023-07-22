@@ -14,12 +14,12 @@ class ErrorPage extends StatelessWidget {
             'lib/assets/undraw_page_not_found_su7k.png',
           ),
         ),
-        RaisedButton(
+        ElevatedButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/contactus');
             },
-            color: redColor,
-            textColor: Colors.white,
+            // color: redColor,
+            // textColor: Colors.white,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),

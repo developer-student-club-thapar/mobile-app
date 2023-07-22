@@ -6,7 +6,7 @@ import 'dart:math';
 import 'package:dsc_app/models/projects.dart';
 
 class ProjectDetailsPage extends StatefulWidget {
-  final ProjectDetail project;
+  final ProjectDetail? project;
   ProjectDetailsPage(this.project);
 
   @override
@@ -18,14 +18,14 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
   List<String> names = [];
   bool loaded = false;
   void extractImageLinks(List<String> imagelist, List<String> namelist) {
-    imagelist.add(widget.project.projectLead.image);
-    namelist.add(widget.project.projectLead.name);
+    imagelist.add(widget.project?.projectLead?.image ?? '');
+    namelist.add(widget.project?.projectLead?.name ?? 'Ayush');
 
-    for (int i = 0; i < widget.project.members.length; i++) {
-      imagelist.add(widget.project.members[i].image);
+    for (int i = 0; i < (widget.project?.members.length ?? 0); i++) {
+      imagelist.add(widget.project?.members[i].image ?? '');
     }
-    for (int j = 0; j < widget.project.members.length; j++) {
-      namelist.add(widget.project.members[j].name);
+    for (int j = 0; j < (widget.project?.members.length ?? 0); j++) {
+      namelist.add(widget.project?.members[j].name ?? 'Ayush');
     }
   }
 
@@ -61,10 +61,10 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                       leading: Container(),
                       flexibleSpace: FlexibleSpaceBar(
                         centerTitle: true,
-                        background: Image.network(
-                          widget.project.image,
-                          fit: BoxFit.cover,
-                        ),
+                        // background: Image.network(
+                        //   widget.project.image,
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
                     ),
                     SliverList(
@@ -73,7 +73,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 12.0),
                             child: Center(
-                              child: Text(widget.project.name,
+                              child: Text(widget.project?.name ?? 'Ayush',
                                   style: Theme.of(context).textTheme.headline2),
                             ),
                           ),
@@ -87,7 +87,8 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                                   runSpacing: 15.0,
                                   children: <Widget>[
                                     Text(
-                                      widget.project.description,
+                                      widget.project?.description ??
+                                          'Hi i am ayush',
                                       textAlign: TextAlign.justify,
                                       style:
                                           Theme.of(context).textTheme.bodyText1,
@@ -124,15 +125,15 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                           Container(
                             width: kwidth(context),
                             height: kheight(context) * 0.06,
-                            child: RaisedButton(
+                            child: ElevatedButton(
                               onPressed: () async {
                                 try {
-                                  launch(widget.project.githubLink);
+                                  launch('');
                                 } catch (e) {
                                   print(e);
                                 }
                               },
-                              color: blueColor,
+
                               //   textColor: Colors.white,
                               child: Text(
                                 'Github Link',

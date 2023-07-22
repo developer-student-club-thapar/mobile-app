@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class NewsView extends StatefulWidget {
-  final String url;
+  final String? url;
   NewsView({this.url});
 
   @override
@@ -14,14 +14,14 @@ class _NewsViewState extends State<NewsView>
     with SingleTickerProviderStateMixin {
   TextEditingController controller = TextEditingController();
   FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
-  AnimationController animationController;
-  Animation animation;
+  late AnimationController animationController;
+  late Animation animation;
   double opacity = 0;
 
   @override
   void initState() {
     super.initState();
-    flutterWebviewPlugin.launch(widget.url);
+    flutterWebviewPlugin.launch(widget.url ?? '');
     animationController = AnimationController(
       duration: Duration(seconds: 1),
       vsync: this,
@@ -62,7 +62,9 @@ class _NewsViewState extends State<NewsView>
     }
 
     return WillPopScope(
-      onWillPop: _onBack,
+      onWillPop: () async {
+        return true;
+      },
       child: Scaffold(
         body: SafeArea(
           child: Container(
@@ -81,7 +83,7 @@ class _NewsViewState extends State<NewsView>
             height: kheight(context),
             width: kwidth(context),
             child: WebviewScaffold(
-              url: widget.url,
+              url: widget.url ?? 'https://www.google.com/',
               withJavascript: true,
               withZoom: true,
             ),

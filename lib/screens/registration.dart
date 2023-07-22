@@ -7,7 +7,7 @@ import 'package:dsc_app/database/firestore-user_database.dart';
 import 'package:dsc_app/networking/auth.dart';
 
 class Registration extends StatefulWidget {
-  final Function toggleView;
+  final VoidCallback? toggleView;
   Registration({this.toggleView});
   @override
   _RegistrationState createState() => _RegistrationState();
@@ -37,7 +37,7 @@ class _RegistrationState extends State<Registration> {
                 decoration: InputDecoration(hintText: 'Enter name'),
                 onSaved: (value) {
                   setState(() {
-                    name = value;
+                    name = value ?? '';
                   });
                 },
                 onChanged: (value) {
@@ -48,7 +48,7 @@ class _RegistrationState extends State<Registration> {
                   decoration: InputDecoration(hintText: 'Enter email'),
                   onSaved: (value) {
                     setState(() {
-                      email = value;
+                      email = value ?? "";
                     });
                   },
                   onChanged: (value) {
@@ -58,7 +58,7 @@ class _RegistrationState extends State<Registration> {
                 decoration: InputDecoration(hintText: 'Enter gender'),
                 onSaved: (value) {
                   setState(() {
-                    gender = value;
+                    gender = value ?? '';
                   });
                 },
               ),
@@ -66,7 +66,7 @@ class _RegistrationState extends State<Registration> {
                   decoration: InputDecoration(hintText: 'Enter year'),
                   onSaved: (value) {
                     setState(() {
-                      year = value;
+                      year = value ?? '';
                     });
                   },
                   onChanged: (value) {
@@ -88,7 +88,7 @@ class _RegistrationState extends State<Registration> {
                     } else
                       isThaparStudent = false;
                   }),
-              RaisedButton(
+              ElevatedButton(
                   child: Text('complete registeration'),
                   onPressed: () async {
                     dynamic result = await _auth.signInWithGoogle();

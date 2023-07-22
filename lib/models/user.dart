@@ -4,11 +4,11 @@ class User {
   final String name;
   final String uid;
   final String image;
-  User({this.uid, this.name, this.image});
+  User({required this.uid, required this.name, required this.image});
 }
 
 class UserData {
-final  String name;
+  final String name;
   final bool isThaparStudent;
   final String image;
   final String uid;
@@ -18,20 +18,20 @@ final  String name;
   final String email;
   //social media links....
   UserData(
-      {this.uid,
-      this.name,
-      this.email,
-      this.gender,
-      this.year,
-      this.isThaparStudent,
-      this.eventsAttended,
-      this.image});
+      {required this.uid,
+      required this.name,
+      required this.email,
+      required this.gender,
+      required this.year,
+      required this.isThaparStudent,
+      required this.eventsAttended,
+      required this.image});
 
   factory UserData.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data;
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
     return UserData(
-        uid: doc.documentID,
+        uid: doc.id,
         email: data['email'] ?? '',
         gender: data['gender'] ?? '',
         isThaparStudent: data['isThaparStudent'] ?? '',
