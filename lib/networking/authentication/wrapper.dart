@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:data_connection_checker/data_connection_checker.dart';
+
+import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/models/user.dart';
 import 'package:dsc_app/networking/auth.dart';
@@ -42,7 +43,7 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
             child: internet == DataConnectionStatus.connected
                 ? user == null
                     ? TextTransition(
-                        name: null,
+                        name: 'Ayush Kumar Singh',
                         auth: _auth,
                       )
                     : TextTransition(
@@ -72,19 +73,21 @@ class _WrapperState extends State<Wrapper> with SingleTickerProviderStateMixin {
 class TextTransition extends StatefulWidget {
   final String name;
   final AuthService auth;
-  TextTransition({this.name, this.auth});
+  TextTransition({required this.name, required this.auth});
 
   @override
   _TextTransitionState createState() => _TextTransitionState();
 }
 
-class _TextTransitionState extends State<TextTransition> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation _animation;
+class _TextTransitionState extends State<TextTransition>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
     super.initState();
   }
@@ -100,21 +103,26 @@ class _TextTransitionState extends State<TextTransition> with SingleTickerProvid
     _animationController.forward();
     Future.delayed(Duration(seconds: 3), () async {
       if (widget.name == null) {
-        if (Provider.of<DataConnectionStatus>(context, listen: false) != DataConnectionStatus.connected) return;
+        if (Provider.of<DataConnectionStatus>(context, listen: false) !=
+            DataConnectionStatus.connected) return;
         var result = await signIn(widget.auth);
         if (result) {
           if (Navigator.canPop(context)) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => NewHome()));
             Navigator.pop(context);
           } else
-            Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => NewHome()));
         }
       } else {
         if (Navigator.canPop(context)) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewHome()));
           Navigator.pop(context);
         } else
-          Navigator.push(context, MaterialPageRoute(builder: (context) => NewHome()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewHome()));
       }
     });
     return FutureBuilder(
@@ -127,11 +135,13 @@ class _TextTransitionState extends State<TextTransition> with SingleTickerProvid
                   child: widget.name != null
                       ? Text(
                           'Welcome ' + widget.name ?? '',
-                          style: GoogleFonts.poppins(fontSize: 23, color: Colors.white),
+                          style: GoogleFonts.poppins(
+                              fontSize: 23, color: Colors.white),
                         )
                       : Text(
                           'Welcome',
-                          style: GoogleFonts.poppins(fontSize: 23, color: Colors.white),
+                          style: GoogleFonts.poppins(
+                              fontSize: 23, color: Colors.white),
                         )),
             );
           } else

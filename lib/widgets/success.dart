@@ -15,12 +15,12 @@ class SuccessPage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-          RaisedButton(
+          ElevatedButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/contactus');
             },
-            color: blueColor,
-            textColor: Colors.white,
+            // color: blueColor,
+            // textColor: Colors.white,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
@@ -39,12 +39,12 @@ class SuccessPage extends StatelessWidget {
               child: Text('or'),
             ),
           ),
-          RaisedButton(
+          ElevatedButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/nhome');
             },
-            color: blueColor,
-            textColor: Colors.white,
+            // color: blueColor,
+            // textColor: Colors.white,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),

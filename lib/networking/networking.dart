@@ -1,11 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Networking{
-
-  Future getData(String url ) async {
+class Networking {
+  Future getData(String url) async {
     try {
-      var response = await http.get(url);
+      var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         var decodedJson = jsonDecode(response.body);
         return decodedJson;

@@ -6,7 +6,8 @@ class CustomClickableIcon extends StatelessWidget {
   final String url;
   final IconData icon;
   final bool visibility;
-  CustomClickableIcon({this.icon, this.url, this.visibility});
+  CustomClickableIcon(
+      {required this.icon, required this.url, required this.visibility});
   @override
   Widget build(BuildContext context) {
     return Padding(

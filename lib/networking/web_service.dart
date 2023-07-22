@@ -5,11 +5,11 @@ import 'package:http/http.dart';
 
 class Webservice {
   Future<Response> _getStory(int storyId) {
-    return http.get(UrlHelper.urlForStory(storyId));
+    return http.get(Uri.parse(UrlHelper.urlForStory(storyId)));
   }
 
   Future<List<Response>> getTopStories() async {
-    final response = await http.get(UrlHelper.urlForTopStories());
+    final response = await http.get(Uri.parse(UrlHelper.urlForTopStories()));
     if (response.statusCode == 200) {
       Iterable storyIds = jsonDecode(response.body);
       return Future.wait(storyIds.take(10).map((storyId) {

@@ -1,4 +1,3 @@
-
 import 'package:dsc_app/screens/new_home.dart';
 import 'package:dsc_app/widgets/welcome_screen_button.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,7 @@ import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/networking/auth.dart';
 
 class Login extends StatefulWidget {
-  final Function toggleView;
+  final VoidCallback? toggleView;
   Login({this.toggleView});
   @override
   _LoginState createState() => _LoginState();
@@ -22,7 +21,7 @@ class _LoginState extends State<Login> {
 }
 
 class LoginForm extends StatefulWidget {
-  LoginForm({Key key}) : super(key: key);
+  LoginForm();
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -86,11 +85,13 @@ class _LoginFormState extends State<LoginForm> {
                       hintText: 'Email',
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    validator: validateEmail,
+                    validator: (value) {
+                      validateEmail(value ?? '');
+                    },
                     onSaved: (value) {
                       setState(
                         () {
-                          _email = value;
+                          _email = value ?? '';
                         },
                       );
                     },
@@ -110,11 +111,13 @@ class _LoginFormState extends State<LoginForm> {
                       hintText: 'Password',
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    validator: validateEmail,
+                    validator: (value) {
+                      validateEmail(value ?? '');
+                    },
                     onSaved: (value) {
                       setState(
                         () {
-                          _email = value;
+                          _email = value ?? '';
                         },
                       );
                     },
@@ -151,12 +154,12 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-String validateEmail(String value) {
+String? validateEmail(String value) {
   if (value.isEmpty) {
     return 'Please Enter Your Email';
   }
 
-  Pattern pattern =
+  String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = new RegExp(pattern);
   if (!regex.hasMatch(value))

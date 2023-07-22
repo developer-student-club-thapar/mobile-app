@@ -3,11 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MenuScreenItem extends StatefulWidget {
   final String title;
-  final Function function;
+  final VoidCallback function;
   final Color color;
 
   MenuScreenItem(
-      {this.title , this.function, this.color});
+      {required this.title, required this.function, required this.color});
 
   @override
   _MenuScreenItemState createState() => _MenuScreenItemState();
@@ -31,5 +31,3 @@ class _MenuScreenItemState extends State<MenuScreenItem> {
     );
   }
 }
-
-

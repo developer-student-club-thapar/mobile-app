@@ -6,7 +6,7 @@ import 'package:dsc_app/networking/auth.dart';
 import 'package:flutter/services.dart';
 
 class MenuScreen extends StatefulWidget {
-  SelectedMenu selectedMenu;
+  SelectedMenu? selectedMenu;
   MenuScreen({this.selectedMenu});
   @override
   _MenuScreenState createState() => _MenuScreenState();

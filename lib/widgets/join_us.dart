@@ -44,18 +44,18 @@ class JoinUsState extends State<JoinUs> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FlatButton(
+            ElevatedButton(
               onPressed: _launchCoDURL,
-              color: redColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-                side: BorderSide(color: redColor),
-              ),
-              splashColor: Colors.redAccent[400],
-              textColor: Colors.white,
-              disabledColor: Colors.grey,
-              disabledTextColor: Colors.black,
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+              // color: redColor,
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: new BorderRadius.circular(30.0),
+              //   side: BorderSide(color: redColor),
+              // ),
+              // splashColor: Colors.redAccent[400],
+              // textColor: Colors.white,
+              // disabledColor: Colors.grey,
+              // disabledTextColor: Colors.black,
+              // padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
               child: Text(
                 "Code of Conduct",
                 style: GoogleFonts.poppins(
@@ -66,15 +66,15 @@ class JoinUsState extends State<JoinUs> {
             SizedBox(
               width: 10,
             ),
-            OutlineButton(
+            ElevatedButton(
               onPressed: _launchSlackURL,
-              borderSide: BorderSide(color: redColor, width: 2),
-              shape: StadiumBorder(),
-              splashColor: Colors.redAccent[400],
-              highlightedBorderColor: redColor,
-              textColor: redColor,
-              disabledTextColor: Colors.black,
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+              // borderSide: BorderSide(color: redColor, width: 2),
+              // shape: StadiumBorder(),
+              // splashColor: Colors.redAccent[400],
+              // highlightedBorderColor: redColor,
+              // textColor: redColor,
+              // disabledTextColor: Colors.black,
+              // padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
               child: Text(
                 "Join our Slack!",
                 style: GoogleFonts.poppins(

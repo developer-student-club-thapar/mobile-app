@@ -1,26 +1,29 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dsc_app/models/events.dart';
-import 'package:flutter/material.dart';
-import 'package:dsc_app/widgets/app_bar.dart';
-import 'package:dsc_app/constants/constants.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:dsc_app/constants/constants.dart';
+import 'package:dsc_app/models/events.dart';
+import 'package:dsc_app/widgets/app_bar.dart';
+
 class EventDetailsPage extends StatelessWidget {
-  final EventDetail _eventDetail;
-  EventDetailsPage(this._eventDetail);
-  List<Chip> _topics;
+  final EventDetail eventDetail;
+  EventDetailsPage({required this.eventDetail});
+  List<Chip> _topics = [];
   @override
   Widget build(BuildContext context) {
     int i = 0;
-    _topics = _eventDetail.topics.map((e) {
+    _topics = eventDetail.topics.map((e) {
       i++;
       return Chip(
         backgroundColor: getColorButton(i % 4),
         shadowColor: redColor,
         label: Text(
-          e.name,
+          e.name ?? '',
           style: TextStyle(fontSize: 20.0, color: Colors.white),
         ),
       );
@@ -37,7 +40,7 @@ class EventDetailsPage extends StatelessWidget {
                       child: Container(
                         height: kheight(context) / 3,
                         child: CachedNetworkImage(
-                          imageUrl: _eventDetail.image,
+                          imageUrl: eventDetail.image ?? '',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -80,7 +83,7 @@ class EventDetailsPage extends StatelessWidget {
                                       ),
                                     ),
                                     child: Text(
-                                      _eventDetail.title,
+                                      eventDetail.title ?? '',
                                       style: kEventTitle.copyWith(
                                           color: Colors.white),
                                     ),
@@ -104,9 +107,9 @@ class EventDetailsPage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Text('Date: ${_eventDetail.date}',
+                                          Text('Date: ${eventDetail.date}',
                                               style: TextStyle(fontSize: 20.0)),
-                                          Text('Time: ${_eventDetail.time}',
+                                          Text('Time: ${eventDetail.time}',
                                               style: TextStyle(fontSize: 20.0)),
                                         ],
                                       )
@@ -134,7 +137,7 @@ class EventDetailsPage extends StatelessWidget {
                                           Text('Venue:',
                                               style: TextStyle(fontSize: 20.0)),
                                           Text(
-                                            _eventDetail.venue,
+                                            eventDetail.venue ?? '',
                                             style: TextStyle(fontSize: 20.0),
                                             textAlign: TextAlign.justify,
                                           ),
@@ -177,7 +180,7 @@ class EventDetailsPage extends StatelessWidget {
                                                   runSpacing: 15.0,
                                                   children: <Widget>[
                                                     Text(
-                                                      _eventDetail.info,
+                                                      eventDetail.info ?? '',
                                                       style: TextStyle(
                                                           fontSize: 20.0),
                                                     ),
@@ -232,16 +235,14 @@ class EventDetailsPage extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10.0),
                                   child: Center(
-                                    child: RaisedButton(
+                                    child: ElevatedButton(
                                       onPressed: () {
                                         try {
-                                          launch(_eventDetail.docs);
+                                          launch(eventDetail.docs ?? '');
                                         } catch (e) {
                                           print(e);
                                         }
                                       },
-                                      color: getColorButton(r),
-                                      textColor: Colors.white,
                                       child: Text(
                                         'Learn More!',
                                         textAlign: TextAlign.center,
@@ -267,7 +268,7 @@ class EventDetailsPage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   try {
-                    launch(_eventDetail.link);
+                    launch(eventDetail.link ?? '');
                   } catch (e) {
                     print(e);
                   }

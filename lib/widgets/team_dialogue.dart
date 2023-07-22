@@ -16,16 +16,16 @@ class TeamDialogue extends StatelessWidget {
   final int id;
 
   TeamDialogue(
-      {this.name,
-      this.devUrl,
-      this.email,
-      this.githubUrl,
-      this.image,
-      this.linkedinUrl,
-      this.mediumUrl,
-      this.role,
-      this.id,
-      this.twitterUrl});
+      {required this.name,
+      required this.devUrl,
+      required this.email,
+      required this.githubUrl,
+      required this.image,
+      required this.linkedinUrl,
+      required this.mediumUrl,
+      required this.role,
+      required this.id,
+      required this.twitterUrl});
 
   @override
   Widget build(BuildContext context) {

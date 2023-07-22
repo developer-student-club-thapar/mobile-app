@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize;
   final SelectedMenu menu;
 
-  CustomAppBar({@required this.title, this.menu})
+  CustomAppBar({required this.title, required this.menu})
       : preferredSize = Size.fromHeight(60.0);
 
   @override

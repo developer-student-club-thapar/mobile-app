@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
-Future<ContactDetails> createContactDetails(String name, String email, String message) async {
+Future<ContactDetails> createContactDetails(
+    String name, String email, String message) async {
   final http.Response response = await http.post(
-    'https://dsctiet.pythonanywhere.com/api/contactus/?format=json',
+    Uri.parse('https://dsctiet.pythonanywhere.com/api/contactus/?format=json'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -29,14 +29,17 @@ class ContactDetails {
   final String email;
   final String message;
 
-  ContactDetails({this.id, this.name, this.email, this.message});
+  ContactDetails(
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.message});
 
   factory ContactDetails.fromJson(Map<String, dynamic> json) {
     return ContactDetails(
-      id: json['id'],
-      name: json['title'],
-      email: json['email'],
-      message: json['message']
-    );
+        id: json['id'],
+        name: json['title'],
+        email: json['email'],
+        message: json['message']);
   }
 }

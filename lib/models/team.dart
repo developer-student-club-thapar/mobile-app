@@ -1,71 +1,71 @@
 class MembersList {
   List<Members> members;
 
-  MembersList({this.members});
+  MembersList({required this.members});
 
   factory MembersList.fromJson(List<dynamic> parsedJson) {
+    List<Members> members = <Members>[];
+    members = parsedJson.map((i) => Members.fromJson(i)).toList();
 
-    List<Members> members =  List<Members>();
-    members = parsedJson.map((i)=>Members.fromJson(i)).toList();
-
-    return  MembersList(
+    return MembersList(
       members: members,
     );
   }
 }
+
 class LeadList {
   List<Members> members;
 
-  LeadList({this.members});
+  LeadList({required this.members});
 
   factory LeadList.fromJson(List<dynamic> parsedJson) {
+    List<Members> members = <Members>[];
+    members = parsedJson.map((i) => Members.fromJson(i)).toList();
 
-    List<Members> members =  List<Members>();
-    members = parsedJson.map((i)=>Members.fromJson(i)).toList();
-
-    return  LeadList(
+    return LeadList(
       members: members,
     );
   }
-}class CoLeadList {
+}
+
+class CoLeadList {
   List<Members> members;
 
-  CoLeadList({this.members});
+  CoLeadList({required this.members});
 
   factory CoLeadList.fromJson(List<dynamic> parsedJson) {
+    List<Members> members = <Members>[];
+    members = parsedJson.map((i) => Members.fromJson(i)).toList();
 
-    List<Members> members =  List<Members>();
-    members = parsedJson.map((i)=>Members.fromJson(i)).toList();
-
-    return  CoLeadList(
+    return CoLeadList(
       members: members,
     );
   }
 }
 
 class Members {
-  int id;
-  String name;
-  String role;
-  String email;
-  String githubUrl;
-  String linkedinUrl;
-  String twitterUrl;
-  String mediumUrl;
-  String devUrl;
-  String image;
+  int? id;
+  String? name;
+  String? role;
+  String? email;
+  String? githubUrl;
+  String? linkedinUrl;
+  String? twitterUrl;
+  String? mediumUrl;
+  String? devUrl;
+  String? image;
 
   Members(
-      {this.id,
-        this.name,
-        this.role,
-        this.email,
-        this.githubUrl,
-        this.linkedinUrl,
-        this.twitterUrl,
-        this.mediumUrl,
-        this.devUrl,
-        this.image});
+      {required this.id,
+      required this.name,
+      required this.role,
+      required this.email,
+      required this.githubUrl,
+      required this.linkedinUrl,
+      required this.twitterUrl,
+      required this.mediumUrl,
+      required this.devUrl,
+      required this.image});
 
   Members.fromJson(Map<String, dynamic> json) {
     id = json['id'];

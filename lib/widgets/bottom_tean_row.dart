@@ -6,7 +6,8 @@ class BottomRow extends StatelessWidget {
   final List<String> imageUrl;
   final int totalPeople;
   final List<String> name;
-  BottomRow({this.imageUrl, this.totalPeople, this.name});
+  BottomRow(
+      {required this.imageUrl, required this.totalPeople, required this.name});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class BottomRow extends StatelessWidget {
 class ImageCircle extends StatelessWidget {
   final String image;
   final String name;
-  ImageCircle({this.name, this.image});
+  ImageCircle({required this.name, required this.image});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,10 +45,9 @@ class ImageCircle extends StatelessWidget {
             width: 70.0,
             height: 70.0,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              color: Colors.white,
-              shape: BoxShape.circle
-            ),
+                border: Border.all(color: Colors.white, width: 2),
+                color: Colors.white,
+                shape: BoxShape.circle),
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 return CachedNetworkImage(
@@ -55,10 +55,9 @@ class ImageCircle extends StatelessWidget {
                   imageBuilder: (context, imageProvider) => CircleAvatar(
                     backgroundImage: imageProvider,
                     maxRadius: constraints.maxHeight / 2,
-
                     minRadius: 20.0,
                   ),
-                  placeholder: (context , url )=>Icon(Icons.person),
+                  placeholder: (context, url) => Icon(Icons.person),
                   errorWidget: (context, url, error) => Icon(Icons.person),
                 );
               },

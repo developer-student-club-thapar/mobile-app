@@ -1,4 +1,4 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:dsc_app/constants/constants.dart';
 import 'package:dsc_app/widgets/app_bar.dart';
 import 'package:dsc_app/widgets/no_internet.dart';
@@ -20,7 +20,7 @@ class _TeamState extends State<Team> {
   Api apiLeads = Api(path: '/leads/?format=json');
   Api apiCoLeads = Api(path: '/co-leads/?format=json');
 
-  Future<LeadList> getLeads() async {
+  Future<LeadList?> getLeads() async {
     var result = await apiLeads.fetchData();
     if (result != null) {
       LeadList _leadList = LeadList.fromJson(result);
@@ -29,7 +29,7 @@ class _TeamState extends State<Team> {
     return null;
   }
 
-  Future<CoLeadList> getCoLeads() async {
+  Future<CoLeadList?> getCoLeads() async {
     var result = await apiCoLeads.fetchData();
     if (result != null) {
       CoLeadList _coLeadList = CoLeadList.fromJson(result);
@@ -38,7 +38,7 @@ class _TeamState extends State<Team> {
     return null;
   }
 
-  Future<MembersList> getCore() async {
+  Future<MembersList?> getCore() async {
     var result = await apiMembers.fetchData();
     if (result != null) {
       MembersList _membersList = MembersList.fromJson(result);
@@ -60,92 +60,101 @@ class _TeamState extends State<Team> {
           title: 'Meet The Team',
           menu: SelectedMenu.Team,
         ),
-        body: internet == DataConnectionStatus.connected ? ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          children: [
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16),
-                child: Text(
-                  "Leads",
-                  style: GoogleFonts.poppins(
-                      color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 23),
-                ),
-              ),
-            ),
-            FutureBuilder(
-                future: getLeads(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasError == false &&
-                      snapshot.data != null &&
-                      snapshot.hasData) {
-                    return createLeads(context, snapshot);
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center(
-                        child: Container(child: CircularProgressIndicator()));
-                  }
-                  return NoInternet();
-                }),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16),
-                child: Text(
-                  "Co-Leads",
-                  style: GoogleFonts.poppins(
-                      color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 23),
-                ),
-              ),
-            ),
-            FutureBuilder(
-                future: getCoLeads(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasError == false &&
-                      snapshot.data != null &&
-                      snapshot.hasData) {
-                    return createCoLeads(context, snapshot);
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center(
-                        child: Container(child: CircularProgressIndicator()));
-                  }
-                  return NoInternet();
-                }),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16),
-                child: Text(
-                  "Core",
-                  style: GoogleFonts.poppins(
-                      color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 23),
-                ),
-              ),
-            ),
-            FutureBuilder(
-                future: getCore(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasError == false &&
-                      snapshot.data != null &&
-                      snapshot.hasData) {
-                    return createMembers(context, snapshot);
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center(
-                        child: Container(child: CircularProgressIndicator()));
-                  }
-                  return NoInternet();
-                }),
-          ],
-        ) :
-    NoInternet()
-    );
+        body: internet == DataConnectionStatus.connected
+            ? ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                children: [
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8.0, bottom: 8.0, left: 16),
+                      child: Text(
+                        "Leads",
+                        style: GoogleFonts.poppins(
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                            fontSize: 23),
+                      ),
+                    ),
+                  ),
+                  FutureBuilder(
+                      future: getLeads(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done &&
+                            snapshot.hasError == false &&
+                            snapshot.data != null &&
+                            snapshot.hasData) {
+                          return createLeads(context, snapshot);
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                              child: Container(
+                                  child: CircularProgressIndicator()));
+                        }
+                        return NoInternet();
+                      }),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8.0, bottom: 8.0, left: 16),
+                      child: Text(
+                        "Co-Leads",
+                        style: GoogleFonts.poppins(
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                            fontSize: 23),
+                      ),
+                    ),
+                  ),
+                  FutureBuilder(
+                      future: getCoLeads(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done &&
+                            snapshot.hasError == false &&
+                            snapshot.data != null &&
+                            snapshot.hasData) {
+                          return createCoLeads(context, snapshot);
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                              child: Container(
+                                  child: CircularProgressIndicator()));
+                        }
+                        return NoInternet();
+                      }),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8.0, bottom: 8.0, left: 16),
+                      child: Text(
+                        "Core",
+                        style: GoogleFonts.poppins(
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                            fontSize: 23),
+                      ),
+                    ),
+                  ),
+                  FutureBuilder(
+                      future: getCore(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done &&
+                            snapshot.hasError == false &&
+                            snapshot.data != null &&
+                            snapshot.hasData) {
+                          return createMembers(context, snapshot);
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                              child: Container(
+                                  child: CircularProgressIndicator()));
+                        }
+                        return NoInternet();
+                      }),
+                ],
+              )
+            : NoInternet());
   }
 }
 
